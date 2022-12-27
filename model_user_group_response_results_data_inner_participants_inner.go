@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserGroupResponseResultsDataInnerParticipantsInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserGroupResponseResultsDataInnerParticipantsInner{}
+
 // UserGroupResponseResultsDataInnerParticipantsInner struct for UserGroupResponseResultsDataInnerParticipantsInner
 type UserGroupResponseResultsDataInnerParticipantsInner struct {
 	JID *string `json:"JID,omitempty"`
@@ -52,7 +55,7 @@ func (o *UserGroupResponseResultsDataInnerParticipantsInner) GetJID() string {
 // and a boolean to check if the value has been set.
 func (o *UserGroupResponseResultsDataInnerParticipantsInner) GetJIDOk() (*string, bool) {
 	if o == nil || isNil(o.JID) {
-    return nil, false
+		return nil, false
 	}
 	return o.JID, true
 }
@@ -84,7 +87,7 @@ func (o *UserGroupResponseResultsDataInnerParticipantsInner) GetIsAdmin() bool {
 // and a boolean to check if the value has been set.
 func (o *UserGroupResponseResultsDataInnerParticipantsInner) GetIsAdminOk() (*bool, bool) {
 	if o == nil || isNil(o.IsAdmin) {
-    return nil, false
+		return nil, false
 	}
 	return o.IsAdmin, true
 }
@@ -116,7 +119,7 @@ func (o *UserGroupResponseResultsDataInnerParticipantsInner) GetIsSuperAdmin() b
 // and a boolean to check if the value has been set.
 func (o *UserGroupResponseResultsDataInnerParticipantsInner) GetIsSuperAdminOk() (*bool, bool) {
 	if o == nil || isNil(o.IsSuperAdmin) {
-    return nil, false
+		return nil, false
 	}
 	return o.IsSuperAdmin, true
 }
@@ -148,7 +151,7 @@ func (o *UserGroupResponseResultsDataInnerParticipantsInner) GetError() float32 
 // and a boolean to check if the value has been set.
 func (o *UserGroupResponseResultsDataInnerParticipantsInner) GetErrorOk() (*float32, bool) {
 	if o == nil || isNil(o.Error) {
-    return nil, false
+		return nil, false
 	}
 	return o.Error, true
 }
@@ -168,6 +171,14 @@ func (o *UserGroupResponseResultsDataInnerParticipantsInner) SetError(v float32)
 }
 
 func (o UserGroupResponseResultsDataInnerParticipantsInner) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserGroupResponseResultsDataInnerParticipantsInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !isNil(o.JID) {
 		toSerialize["JID"] = o.JID
@@ -181,7 +192,7 @@ func (o UserGroupResponseResultsDataInnerParticipantsInner) MarshalJSON() ([]byt
 	if !isNil(o.Error) {
 		toSerialize["Error"] = o.Error
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableUserGroupResponseResultsDataInnerParticipantsInner struct {

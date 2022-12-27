@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserGroupResponseResults type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserGroupResponseResults{}
+
 // UserGroupResponseResults struct for UserGroupResponseResults
 type UserGroupResponseResults struct {
 	Data []UserGroupResponseResultsDataInner `json:"data,omitempty"`
@@ -49,7 +52,7 @@ func (o *UserGroupResponseResults) GetData() []UserGroupResponseResultsDataInner
 // and a boolean to check if the value has been set.
 func (o *UserGroupResponseResults) GetDataOk() ([]UserGroupResponseResultsDataInner, bool) {
 	if o == nil || isNil(o.Data) {
-    return nil, false
+		return nil, false
 	}
 	return o.Data, true
 }
@@ -69,11 +72,19 @@ func (o *UserGroupResponseResults) SetData(v []UserGroupResponseResultsDataInner
 }
 
 func (o UserGroupResponseResults) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserGroupResponseResults) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !isNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableUserGroupResponseResults struct {

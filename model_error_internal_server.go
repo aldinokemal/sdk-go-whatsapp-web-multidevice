@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ErrorInternalServer type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ErrorInternalServer{}
+
 // ErrorInternalServer struct for ErrorInternalServer
 type ErrorInternalServer struct {
 	// HTTP Status Code
@@ -54,7 +57,7 @@ func (o *ErrorInternalServer) GetCode() int32 {
 // and a boolean to check if the value has been set.
 func (o *ErrorInternalServer) GetCodeOk() (*int32, bool) {
 	if o == nil || isNil(o.Code) {
-    return nil, false
+		return nil, false
 	}
 	return o.Code, true
 }
@@ -86,7 +89,7 @@ func (o *ErrorInternalServer) GetMessage() string {
 // and a boolean to check if the value has been set.
 func (o *ErrorInternalServer) GetMessageOk() (*string, bool) {
 	if o == nil || isNil(o.Message) {
-    return nil, false
+		return nil, false
 	}
 	return o.Message, true
 }
@@ -118,7 +121,7 @@ func (o *ErrorInternalServer) GetResults() map[string]interface{} {
 // and a boolean to check if the value has been set.
 func (o *ErrorInternalServer) GetResultsOk() (map[string]interface{}, bool) {
 	if o == nil || isNil(o.Results) {
-    return map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Results, true
 }
@@ -138,6 +141,14 @@ func (o *ErrorInternalServer) SetResults(v map[string]interface{}) {
 }
 
 func (o ErrorInternalServer) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ErrorInternalServer) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !isNil(o.Code) {
 		toSerialize["code"] = o.Code
@@ -148,7 +159,7 @@ func (o ErrorInternalServer) MarshalJSON() ([]byte, error) {
 	if !isNil(o.Results) {
 		toSerialize["results"] = o.Results
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableErrorInternalServer struct {

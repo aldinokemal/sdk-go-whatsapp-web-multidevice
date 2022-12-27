@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserAvatarResponseResults type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserAvatarResponseResults{}
+
 // UserAvatarResponseResults struct for UserAvatarResponseResults
 type UserAvatarResponseResults struct {
 	Url *string `json:"url,omitempty"`
@@ -51,7 +54,7 @@ func (o *UserAvatarResponseResults) GetUrl() string {
 // and a boolean to check if the value has been set.
 func (o *UserAvatarResponseResults) GetUrlOk() (*string, bool) {
 	if o == nil || isNil(o.Url) {
-    return nil, false
+		return nil, false
 	}
 	return o.Url, true
 }
@@ -83,7 +86,7 @@ func (o *UserAvatarResponseResults) GetId() string {
 // and a boolean to check if the value has been set.
 func (o *UserAvatarResponseResults) GetIdOk() (*string, bool) {
 	if o == nil || isNil(o.Id) {
-    return nil, false
+		return nil, false
 	}
 	return o.Id, true
 }
@@ -115,7 +118,7 @@ func (o *UserAvatarResponseResults) GetType() string {
 // and a boolean to check if the value has been set.
 func (o *UserAvatarResponseResults) GetTypeOk() (*string, bool) {
 	if o == nil || isNil(o.Type) {
-    return nil, false
+		return nil, false
 	}
 	return o.Type, true
 }
@@ -135,6 +138,14 @@ func (o *UserAvatarResponseResults) SetType(v string) {
 }
 
 func (o UserAvatarResponseResults) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserAvatarResponseResults) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !isNil(o.Url) {
 		toSerialize["url"] = o.Url
@@ -145,7 +156,7 @@ func (o UserAvatarResponseResults) MarshalJSON() ([]byte, error) {
 	if !isNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableUserAvatarResponseResults struct {
