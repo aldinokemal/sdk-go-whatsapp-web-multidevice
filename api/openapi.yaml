@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   description: This API is used for sending whatsapp via API
   title: WhatsApp API MultiDevice
-  version: 3.2.1
+  version: 3.2.2
 servers:
 - url: http://localhost:3000
 tags:
@@ -629,7 +629,8 @@ components:
       properties:
         phone:
           description: Phone number with country code
-          type: integer
+          example: 6289685028129@s.whatsapp.net
+          type: string
         message:
           description: Message to send
           example: selamat malam
@@ -639,7 +640,8 @@ components:
       properties:
         phone:
           description: Phone number with country code
-          type: integer
+          example: 6289685028129@s.whatsapp.net
+          type: string
         caption:
           description: Caption to send
           example: selamat malam
@@ -661,7 +663,8 @@ components:
       properties:
         phone:
           description: Phone number with country code
-          type: integer
+          example: 6289685028129@s.whatsapp.net
+          type: string
         caption:
           description: Caption to send
           example: selamat malam
@@ -675,7 +678,8 @@ components:
       properties:
         phone:
           description: Phone number with country code
-          type: integer
+          example: 6289685028129@s.whatsapp.net
+          type: string
         caption:
           description: Caption to send
           example: ini contoh caption video
@@ -697,7 +701,8 @@ components:
       properties:
         phone:
           description: Phone number with country code
-          type: integer
+          example: 6289685024051@s.whatsapp.net
+          type: string
         contact_name:
           description: Contact name
           example: Aldino Kemal
@@ -711,7 +716,8 @@ components:
       properties:
         phone:
           description: Phone number with country code
-          type: integer
+          example: 6289685024051@s.whatsapp.net
+          type: string
         link:
           description: Link to send
           example: https://google.com
@@ -725,7 +731,8 @@ components:
       properties:
         phone:
           description: Phone number with country code
-          type: integer
+          example: 6289685024051@s.whatsapp.net
+          type: string
         latitude:
           description: Latitude coordinate
           example: "-7.797068"
@@ -739,7 +746,8 @@ components:
       properties:
         phone:
           description: Phone number with country code
-          type: integer
+          example: 6289685024051@s.whatsapp.net
+          type: string
         message_id:
           description: Message ID
           example: 3EB007D87686670344D7

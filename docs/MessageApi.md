@@ -34,7 +34,7 @@ import (
 )
 
 func main() {
-    phone := int32(56) // int32 | Phone number with country code (optional)
+    phone := "phone_example" // string | Phone number with country code (optional)
     messageId := "messageId_example" // string | Message ID (optional)
 
     configuration := openapiclient.NewConfiguration()
@@ -60,7 +60,7 @@ Other parameters are passed through a pointer to a apiRevokeMessageRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **phone** | **int32** | Phone number with country code | 
+ **phone** | **string** | Phone number with country code | 
  **messageId** | **string** | Message ID | 
 
 ### Return type
@@ -100,7 +100,7 @@ import (
 )
 
 func main() {
-    phone := int32(56) // int32 | Phone number with country code (optional)
+    phone := "phone_example" // string | Phone number with country code (optional)
     contactName := "contactName_example" // string | Contact name (optional)
     contactPhone := "contactPhone_example" // string | Contact phone number (optional)
 
@@ -127,7 +127,7 @@ Other parameters are passed through a pointer to a apiSendContactRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **phone** | **int32** | Phone number with country code | 
+ **phone** | **string** | Phone number with country code | 
  **contactName** | **string** | Contact name | 
  **contactPhone** | **string** | Contact phone number | 
 
@@ -168,7 +168,7 @@ import (
 )
 
 func main() {
-    phone := int32(56) // int32 | Phone number with country code (optional)
+    phone := "phone_example" // string | Phone number with country code (optional)
     caption := "caption_example" // string | Caption to send (optional)
     file := os.NewFile(1234, "some_file") // os.File | File to send (optional)
 
@@ -195,7 +195,7 @@ Other parameters are passed through a pointer to a apiSendFileRequest struct via
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **phone** | **int32** | Phone number with country code | 
+ **phone** | **string** | Phone number with country code | 
  **caption** | **string** | Caption to send | 
  **file** | **os.File** | File to send | 
 
@@ -236,7 +236,7 @@ import (
 )
 
 func main() {
-    phone := int32(56) // int32 | Phone number with country code (optional)
+    phone := "phone_example" // string | Phone number with country code (optional)
     caption := "caption_example" // string | Caption to send (optional)
     viewOnce := true // bool | View once (optional)
     image := os.NewFile(1234, "some_file") // os.File | Image to send (optional)
@@ -265,7 +265,7 @@ Other parameters are passed through a pointer to a apiSendImageRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **phone** | **int32** | Phone number with country code | 
+ **phone** | **string** | Phone number with country code | 
  **caption** | **string** | Caption to send | 
  **viewOnce** | **bool** | View once | 
  **image** | **os.File** | Image to send | 
@@ -308,7 +308,7 @@ import (
 )
 
 func main() {
-    phone := int32(56) // int32 | Phone number with country code (optional)
+    phone := "phone_example" // string | Phone number with country code (optional)
     link := "link_example" // string | Link to send (optional)
     caption := "caption_example" // string | Caption to send (optional)
 
@@ -335,7 +335,7 @@ Other parameters are passed through a pointer to a apiSendLinkRequest struct via
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **phone** | **int32** | Phone number with country code | 
+ **phone** | **string** | Phone number with country code | 
  **link** | **string** | Link to send | 
  **caption** | **string** | Caption to send | 
 
@@ -376,7 +376,7 @@ import (
 )
 
 func main() {
-    phone := int32(56) // int32 | Phone number with country code (optional)
+    phone := "phone_example" // string | Phone number with country code (optional)
     latitude := "latitude_example" // string | Latitude coordinate (optional)
     longitude := "longitude_example" // string | Longitude coordinate (optional)
 
@@ -403,7 +403,7 @@ Other parameters are passed through a pointer to a apiSendLocationRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **phone** | **int32** | Phone number with country code | 
+ **phone** | **string** | Phone number with country code | 
  **latitude** | **string** | Latitude coordinate | 
  **longitude** | **string** | Longitude coordinate | 
 
@@ -444,7 +444,7 @@ import (
 )
 
 func main() {
-    phone := int32(56) // int32 | Phone number with country code (optional)
+    phone := "phone_example" // string | Phone number with country code (optional)
     message := "message_example" // string | Message to send (optional)
 
     configuration := openapiclient.NewConfiguration()
@@ -470,7 +470,7 @@ Other parameters are passed through a pointer to a apiSendMessageRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **phone** | **int32** | Phone number with country code | 
+ **phone** | **string** | Phone number with country code | 
  **message** | **string** | Message to send | 
 
 ### Return type
@@ -510,7 +510,7 @@ import (
 )
 
 func main() {
-    phone := int32(56) // int32 | Phone number with country code (optional)
+    phone := "phone_example" // string | Phone number with country code (optional)
     caption := "caption_example" // string | Caption to send (optional)
     viewOnce := true // bool | View once (optional)
     video := os.NewFile(1234, "some_file") // os.File | Video to send (optional)
@@ -539,7 +539,7 @@ Other parameters are passed through a pointer to a apiSendVideoRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **phone** | **int32** | Phone number with country code | 
+ **phone** | **string** | Phone number with country code | 
  **caption** | **string** | Caption to send | 
  **viewOnce** | **bool** | View once | 
  **video** | **os.File** | Video to send | 
