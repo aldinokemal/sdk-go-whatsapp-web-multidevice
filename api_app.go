@@ -27,7 +27,7 @@ type ApiAppLoginRequest struct {
 	ApiService *AppApiService
 }
 
-func (r ApiAppLoginRequest) Execute() (map[string]interface{}, *http.Response, error) {
+func (r ApiAppLoginRequest) Execute() (*LoginResponse, *http.Response, error) {
 	return r.ApiService.AppLoginExecute(r)
 }
 
@@ -45,13 +45,13 @@ func (a *AppApiService) AppLogin(ctx context.Context) ApiAppLoginRequest {
 }
 
 // Execute executes the request
-//  @return map[string]interface{}
-func (a *AppApiService) AppLoginExecute(r ApiAppLoginRequest) (map[string]interface{}, *http.Response, error) {
+//  @return LoginResponse
+func (a *AppApiService) AppLoginExecute(r ApiAppLoginRequest) (*LoginResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  map[string]interface{}
+		localVarReturnValue  *LoginResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AppApiService.AppLogin")
@@ -134,7 +134,7 @@ type ApiAppLogoutRequest struct {
 	ApiService *AppApiService
 }
 
-func (r ApiAppLogoutRequest) Execute() (map[string]interface{}, *http.Response, error) {
+func (r ApiAppLogoutRequest) Execute() (*GenericResponse, *http.Response, error) {
 	return r.ApiService.AppLogoutExecute(r)
 }
 
@@ -152,13 +152,13 @@ func (a *AppApiService) AppLogout(ctx context.Context) ApiAppLogoutRequest {
 }
 
 // Execute executes the request
-//  @return map[string]interface{}
-func (a *AppApiService) AppLogoutExecute(r ApiAppLogoutRequest) (map[string]interface{}, *http.Response, error) {
+//  @return GenericResponse
+func (a *AppApiService) AppLogoutExecute(r ApiAppLogoutRequest) (*GenericResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  map[string]interface{}
+		localVarReturnValue  *GenericResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AppApiService.AppLogout")
@@ -241,7 +241,7 @@ type ApiAppReconnectRequest struct {
 	ApiService *AppApiService
 }
 
-func (r ApiAppReconnectRequest) Execute() (*SendResponse, *http.Response, error) {
+func (r ApiAppReconnectRequest) Execute() (*GenericResponse, *http.Response, error) {
 	return r.ApiService.AppReconnectExecute(r)
 }
 
@@ -259,13 +259,13 @@ func (a *AppApiService) AppReconnect(ctx context.Context) ApiAppReconnectRequest
 }
 
 // Execute executes the request
-//  @return SendResponse
-func (a *AppApiService) AppReconnectExecute(r ApiAppReconnectRequest) (*SendResponse, *http.Response, error) {
+//  @return GenericResponse
+func (a *AppApiService) AppReconnectExecute(r ApiAppReconnectRequest) (*GenericResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *SendResponse
+		localVarReturnValue  *GenericResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AppApiService.AppReconnect")

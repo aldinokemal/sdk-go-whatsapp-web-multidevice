@@ -98,6 +98,9 @@ Class | Method | HTTP request | Description
 
  - [ErrorBadRequest](docs/ErrorBadRequest.md)
  - [ErrorInternalServer](docs/ErrorInternalServer.md)
+ - [GenericResponse](docs/GenericResponse.md)
+ - [LoginResponse](docs/LoginResponse.md)
+ - [LoginResponseResults](docs/LoginResponseResults.md)
  - [SendResponse](docs/SendResponse.md)
  - [SendResponseResults](docs/SendResponseResults.md)
  - [UserAvatarResponse](docs/UserAvatarResponse.md)

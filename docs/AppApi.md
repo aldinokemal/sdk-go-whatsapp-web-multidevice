@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## AppLogin
 
-> map[string]interface{} AppLogin(ctx).Execute()
+> LoginResponse AppLogin(ctx).Execute()
 
 Login to whatsapp server
 
@@ -37,7 +37,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `AppApi.AppLogin``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppLogin`: map[string]interface{}
+    // response from `AppLogin`: LoginResponse
     fmt.Fprintf(os.Stdout, "Response from `AppApi.AppLogin`: %v\n", resp)
 }
 ```
@@ -53,7 +53,7 @@ Other parameters are passed through a pointer to a apiAppLoginRequest struct via
 
 ### Return type
 
-**map[string]interface{}**
+[**LoginResponse**](LoginResponse.md)
 
 ### Authorization
 
@@ -71,7 +71,7 @@ No authorization required
 
 ## AppLogout
 
-> map[string]interface{} AppLogout(ctx).Execute()
+> GenericResponse AppLogout(ctx).Execute()
 
 Remove database and logout
 
@@ -96,7 +96,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `AppApi.AppLogout``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppLogout`: map[string]interface{}
+    // response from `AppLogout`: GenericResponse
     fmt.Fprintf(os.Stdout, "Response from `AppApi.AppLogout`: %v\n", resp)
 }
 ```
@@ -112,7 +112,7 @@ Other parameters are passed through a pointer to a apiAppLogoutRequest struct vi
 
 ### Return type
 
-**map[string]interface{}**
+[**GenericResponse**](GenericResponse.md)
 
 ### Authorization
 
@@ -130,7 +130,7 @@ No authorization required
 
 ## AppReconnect
 
-> SendResponse AppReconnect(ctx).Execute()
+> GenericResponse AppReconnect(ctx).Execute()
 
 Reconnecting to whatsapp server
 
@@ -155,7 +155,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `AppApi.AppReconnect``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppReconnect`: SendResponse
+    // response from `AppReconnect`: GenericResponse
     fmt.Fprintf(os.Stdout, "Response from `AppApi.AppReconnect`: %v\n", resp)
 }
 ```
@@ -171,7 +171,7 @@ Other parameters are passed through a pointer to a apiAppReconnectRequest struct
 
 ### Return type
 
-[**SendResponse**](SendResponse.md)
+[**GenericResponse**](GenericResponse.md)
 
 ### Authorization
 

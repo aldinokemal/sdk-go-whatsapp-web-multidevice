@@ -20,14 +20,8 @@ paths:
         "200":
           content:
             application/json:
-              example:
-                code: 200
-                message: Success
-                results:
-                  qr_duration: 30
-                  qr_link: http://localhost:3000/statics/images/qrcode/scan-qr-b0b7bb43-9a22-455a-814f-5a225c743310.png
               schema:
-                type: object
+                $ref: '#/components/schemas/LoginResponse'
           description: OK
           headers:
             Date:
@@ -64,32 +58,9 @@ paths:
         "200":
           content:
             application/json:
-              example:
-                code: 200
-                message: Success logout
-                results: null
               schema:
-                type: object
+                $ref: '#/components/schemas/GenericResponse'
           description: OK
-          headers:
-            Date:
-              explode: false
-              schema:
-                example: "Fri, 11 Feb 2022 03:44:15 GMT"
-                type: string
-              style: simple
-            Content-Type:
-              explode: false
-              schema:
-                example: application/json
-                type: string
-              style: simple
-            Content-Length:
-              explode: false
-              schema:
-                example: 54
-                type: integer
-              style: simple
         "500":
           content:
             application/json:
@@ -107,7 +78,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SendResponse'
+                $ref: '#/components/schemas/GenericResponse'
           description: OK
         "500":
           content:
@@ -597,6 +568,37 @@ components:
         results:
           $ref: '#/components/schemas/SendResponse_results'
       type: object
+    GenericResponse:
+      example:
+        code: 200
+        message: Success
+        results: results
+      properties:
+        code:
+          example: 200
+          type: integer
+        message:
+          example: Success
+          type: string
+        results:
+          type: string
+          example: null
+    LoginResponse:
+      example:
+        code: "200"
+        message: Success
+        results:
+          qr_duration: 30
+          qr_link: http://localhost:3000/statics/images/qrcode/scan-qr-b0b7bb43-9a22-455a-814f-5a225c743310.png
+      properties:
+        code:
+          example: "200"
+          type: string
+        message:
+          example: Success
+          type: string
+        results:
+          $ref: '#/components/schemas/LoginResponse_results'
     ErrorInternalServer:
       properties:
         code:
@@ -817,5 +819,17 @@ components:
           type: string
         status:
           example: <feature> success ....
+          type: string
+      type: object
+    LoginResponse_results:
+      example:
+        qr_duration: 30
+        qr_link: http://localhost:3000/statics/images/qrcode/scan-qr-b0b7bb43-9a22-455a-814f-5a225c743310.png
+      properties:
+        qr_duration:
+          example: 30
+          type: integer
+        qr_link:
+          example: http://localhost:3000/statics/images/qrcode/scan-qr-b0b7bb43-9a22-455a-814f-5a225c743310.png
           type: string
       type: object
