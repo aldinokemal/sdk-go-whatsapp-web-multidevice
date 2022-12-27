@@ -1,18 +1,18 @@
-# \AuthApi
+# \AppApi
 
 All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AuthLogin**](AuthApi.md#AuthLogin) | **Get** /app/login | Login to whatsapp server
-[**AuthLogout**](AuthApi.md#AuthLogout) | **Get** /app/logout | Remove database and logout
-[**AuthReconnect**](AuthApi.md#AuthReconnect) | **Get** /app/reconnect | Reconnecting to whatsapp server
+[**AppLogin**](AppApi.md#AppLogin) | **Get** /app/login | Login to whatsapp server
+[**AppLogout**](AppApi.md#AppLogout) | **Get** /app/logout | Remove database and logout
+[**AppReconnect**](AppApi.md#AppReconnect) | **Get** /app/reconnect | Reconnecting to whatsapp server
 
 
 
-## AuthLogin
+## AppLogin
 
-> map[string]interface{} AuthLogin(ctx).Execute()
+> map[string]interface{} AppLogin(ctx).Execute()
 
 Login to whatsapp server
 
@@ -32,13 +32,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthApi.AuthLogin(context.Background()).Execute()
+    resp, r, err := apiClient.AppApi.AppLogin(context.Background()).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthApi.AuthLogin``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `AppApi.AppLogin``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AuthLogin`: map[string]interface{}
-    fmt.Fprintf(os.Stdout, "Response from `AuthApi.AuthLogin`: %v\n", resp)
+    // response from `AppLogin`: map[string]interface{}
+    fmt.Fprintf(os.Stdout, "Response from `AppApi.AppLogin`: %v\n", resp)
 }
 ```
 
@@ -48,7 +48,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAuthLoginRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiAppLoginRequest struct via the builder pattern
 
 
 ### Return type
@@ -69,9 +69,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AuthLogout
+## AppLogout
 
-> map[string]interface{} AuthLogout(ctx).Execute()
+> map[string]interface{} AppLogout(ctx).Execute()
 
 Remove database and logout
 
@@ -91,13 +91,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthApi.AuthLogout(context.Background()).Execute()
+    resp, r, err := apiClient.AppApi.AppLogout(context.Background()).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthApi.AuthLogout``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `AppApi.AppLogout``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AuthLogout`: map[string]interface{}
-    fmt.Fprintf(os.Stdout, "Response from `AuthApi.AuthLogout`: %v\n", resp)
+    // response from `AppLogout`: map[string]interface{}
+    fmt.Fprintf(os.Stdout, "Response from `AppApi.AppLogout`: %v\n", resp)
 }
 ```
 
@@ -107,7 +107,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAuthLogoutRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiAppLogoutRequest struct via the builder pattern
 
 
 ### Return type
@@ -128,9 +128,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AuthReconnect
+## AppReconnect
 
-> SendResponse AuthReconnect(ctx).Execute()
+> SendResponse AppReconnect(ctx).Execute()
 
 Reconnecting to whatsapp server
 
@@ -150,13 +150,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthApi.AuthReconnect(context.Background()).Execute()
+    resp, r, err := apiClient.AppApi.AppReconnect(context.Background()).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthApi.AuthReconnect``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `AppApi.AppReconnect``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AuthReconnect`: SendResponse
-    fmt.Fprintf(os.Stdout, "Response from `AuthApi.AuthReconnect`: %v\n", resp)
+    // response from `AppReconnect`: SendResponse
+    fmt.Fprintf(os.Stdout, "Response from `AppApi.AppReconnect`: %v\n", resp)
 }
 ```
 
@@ -166,7 +166,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAuthReconnectRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiAppReconnectRequest struct via the builder pattern
 
 
 ### Return type

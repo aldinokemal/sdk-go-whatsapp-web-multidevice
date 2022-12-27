@@ -1,7 +1,7 @@
 /*
 WhatsApp API MultiDevice
 
-Testing AuthApiService
+Testing AppApiService
 
 */
 
@@ -17,16 +17,16 @@ import (
 	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
 )
 
-func Test_openapi_AuthApiService(t *testing.T) {
+func Test_openapi_AppApiService(t *testing.T) {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test AuthApiService AuthLogin", func(t *testing.T) {
+	t.Run("Test AppApiService AppLogin", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.AuthApi.AuthLogin(context.Background()).Execute()
+		resp, httpRes, err := apiClient.AppApi.AppLogin(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -34,11 +34,11 @@ func Test_openapi_AuthApiService(t *testing.T) {
 
 	})
 
-	t.Run("Test AuthApiService AuthLogout", func(t *testing.T) {
+	t.Run("Test AppApiService AppLogout", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.AuthApi.AuthLogout(context.Background()).Execute()
+		resp, httpRes, err := apiClient.AppApi.AppLogout(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -46,11 +46,11 @@ func Test_openapi_AuthApiService(t *testing.T) {
 
 	})
 
-	t.Run("Test AuthApiService AuthReconnect", func(t *testing.T) {
+	t.Run("Test AppApiService AppReconnect", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.AuthApi.AuthReconnect(context.Background()).Execute()
+		resp, httpRes, err := apiClient.AppApi.AppReconnect(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

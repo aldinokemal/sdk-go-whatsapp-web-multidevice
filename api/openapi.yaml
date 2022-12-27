@@ -2,12 +2,12 @@ openapi: 3.0.0
 info:
   description: This API is used for sending whatsapp via API
   title: WhatsApp API MultiDevice
-  version: 3.2.2
+  version: 3.3.0
 servers:
 - url: http://localhost:3000
 tags:
 - description: Initial Connection to Whatsapp server
-  name: auth
+  name: app
 - description: Getting information
   name: user
 - description: Send or Manipulate Message (Text/Image/File/Video).
@@ -15,7 +15,7 @@ tags:
 paths:
   /app/login:
     get:
-      operationId: authLogin
+      operationId: appLogin
       responses:
         "200":
           content:
@@ -56,10 +56,10 @@ paths:
           description: Internal Server Error
       summary: Login to whatsapp server
       tags:
-      - auth
+      - app
   /app/logout:
     get:
-      operationId: authLogout
+      operationId: appLogout
       responses:
         "200":
           content:
@@ -98,10 +98,10 @@ paths:
           description: Internal Server Error
       summary: Remove database and logout
       tags:
-      - auth
+      - app
   /app/reconnect:
     get:
-      operationId: authReconnect
+      operationId: appReconnect
       responses:
         "200":
           content:
@@ -117,7 +117,7 @@ paths:
           description: Internal Server Error
       summary: Reconnecting to whatsapp server
       tags:
-      - auth
+      - app
   /user/info:
     get:
       operationId: userInfo
