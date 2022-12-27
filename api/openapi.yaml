@@ -23,25 +23,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/LoginResponse'
           description: OK
-          headers:
-            Date:
-              explode: false
-              schema:
-                example: "Fri, 11 Feb 2022 02:38:34 GMT"
-                type: string
-              style: simple
-            Content-Type:
-              explode: false
-              schema:
-                example: application/json
-                type: string
-              style: simple
-            Content-Length:
-              explode: false
-              schema:
-                example: 166
-                type: integer
-              style: simple
         "500":
           content:
             application/json:
@@ -583,6 +564,7 @@ components:
         results:
           type: string
           example: null
+      type: object
     LoginResponse:
       example:
         code: "200"
@@ -599,6 +581,7 @@ components:
           type: string
         results:
           $ref: '#/components/schemas/LoginResponse_results'
+      type: object
     ErrorInternalServer:
       properties:
         code:
@@ -613,6 +596,7 @@ components:
           description: additional data
           type: object
           example: null
+      type: object
     ErrorBadRequest:
       properties:
         code:
@@ -627,6 +611,7 @@ components:
           description: additional data
           type: object
           example: null
+      type: object
     sendMessage_request:
       properties:
         phone:
