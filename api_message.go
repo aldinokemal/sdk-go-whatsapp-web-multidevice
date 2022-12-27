@@ -26,12 +26,12 @@ type MessageApiService service
 type ApiRevokeMessageRequest struct {
 	ctx context.Context
 	ApiService *MessageApiService
-	phone *int32
+	phone *string
 	messageId *string
 }
 
 // Phone number with country code
-func (r ApiRevokeMessageRequest) Phone(phone int32) ApiRevokeMessageRequest {
+func (r ApiRevokeMessageRequest) Phone(phone string) ApiRevokeMessageRequest {
 	r.phone = &phone
 	return r
 }
@@ -164,13 +164,13 @@ func (a *MessageApiService) RevokeMessageExecute(r ApiRevokeMessageRequest) (*Se
 type ApiSendContactRequest struct {
 	ctx context.Context
 	ApiService *MessageApiService
-	phone *int32
+	phone *string
 	contactName *string
 	contactPhone *string
 }
 
 // Phone number with country code
-func (r ApiSendContactRequest) Phone(phone int32) ApiSendContactRequest {
+func (r ApiSendContactRequest) Phone(phone string) ApiSendContactRequest {
 	r.phone = &phone
 	return r
 }
@@ -312,13 +312,13 @@ func (a *MessageApiService) SendContactExecute(r ApiSendContactRequest) (*SendRe
 type ApiSendFileRequest struct {
 	ctx context.Context
 	ApiService *MessageApiService
-	phone *int32
+	phone *string
 	caption *string
 	file **os.File
 }
 
 // Phone number with country code
-func (r ApiSendFileRequest) Phone(phone int32) ApiSendFileRequest {
+func (r ApiSendFileRequest) Phone(phone string) ApiSendFileRequest {
 	r.phone = &phone
 	return r
 }
@@ -474,7 +474,7 @@ func (a *MessageApiService) SendFileExecute(r ApiSendFileRequest) (*SendResponse
 type ApiSendImageRequest struct {
 	ctx context.Context
 	ApiService *MessageApiService
-	phone *int32
+	phone *string
 	caption *string
 	viewOnce *bool
 	image **os.File
@@ -482,7 +482,7 @@ type ApiSendImageRequest struct {
 }
 
 // Phone number with country code
-func (r ApiSendImageRequest) Phone(phone int32) ApiSendImageRequest {
+func (r ApiSendImageRequest) Phone(phone string) ApiSendImageRequest {
 	r.phone = &phone
 	return r
 }
@@ -656,13 +656,13 @@ func (a *MessageApiService) SendImageExecute(r ApiSendImageRequest) (*SendRespon
 type ApiSendLinkRequest struct {
 	ctx context.Context
 	ApiService *MessageApiService
-	phone *int32
+	phone *string
 	link *string
 	caption *string
 }
 
 // Phone number with country code
-func (r ApiSendLinkRequest) Phone(phone int32) ApiSendLinkRequest {
+func (r ApiSendLinkRequest) Phone(phone string) ApiSendLinkRequest {
 	r.phone = &phone
 	return r
 }
@@ -804,13 +804,13 @@ func (a *MessageApiService) SendLinkExecute(r ApiSendLinkRequest) (*SendResponse
 type ApiSendLocationRequest struct {
 	ctx context.Context
 	ApiService *MessageApiService
-	phone *int32
+	phone *string
 	latitude *string
 	longitude *string
 }
 
 // Phone number with country code
-func (r ApiSendLocationRequest) Phone(phone int32) ApiSendLocationRequest {
+func (r ApiSendLocationRequest) Phone(phone string) ApiSendLocationRequest {
 	r.phone = &phone
 	return r
 }
@@ -952,12 +952,12 @@ func (a *MessageApiService) SendLocationExecute(r ApiSendLocationRequest) (*Send
 type ApiSendMessageRequest struct {
 	ctx context.Context
 	ApiService *MessageApiService
-	phone *int32
+	phone *string
 	message *string
 }
 
 // Phone number with country code
-func (r ApiSendMessageRequest) Phone(phone int32) ApiSendMessageRequest {
+func (r ApiSendMessageRequest) Phone(phone string) ApiSendMessageRequest {
 	r.phone = &phone
 	return r
 }
@@ -1090,7 +1090,7 @@ func (a *MessageApiService) SendMessageExecute(r ApiSendMessageRequest) (*SendRe
 type ApiSendVideoRequest struct {
 	ctx context.Context
 	ApiService *MessageApiService
-	phone *int32
+	phone *string
 	caption *string
 	viewOnce *bool
 	video **os.File
@@ -1098,7 +1098,7 @@ type ApiSendVideoRequest struct {
 }
 
 // Phone number with country code
-func (r ApiSendVideoRequest) Phone(phone int32) ApiSendVideoRequest {
+func (r ApiSendVideoRequest) Phone(phone string) ApiSendVideoRequest {
 	r.phone = &phone
 	return r
 }
