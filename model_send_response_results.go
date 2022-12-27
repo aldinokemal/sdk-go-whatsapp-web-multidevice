@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SendResponseResults type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SendResponseResults{}
+
 // SendResponseResults struct for SendResponseResults
 type SendResponseResults struct {
 	MessageId *string `json:"message_id,omitempty"`
@@ -50,7 +53,7 @@ func (o *SendResponseResults) GetMessageId() string {
 // and a boolean to check if the value has been set.
 func (o *SendResponseResults) GetMessageIdOk() (*string, bool) {
 	if o == nil || isNil(o.MessageId) {
-    return nil, false
+		return nil, false
 	}
 	return o.MessageId, true
 }
@@ -82,7 +85,7 @@ func (o *SendResponseResults) GetStatus() string {
 // and a boolean to check if the value has been set.
 func (o *SendResponseResults) GetStatusOk() (*string, bool) {
 	if o == nil || isNil(o.Status) {
-    return nil, false
+		return nil, false
 	}
 	return o.Status, true
 }
@@ -102,6 +105,14 @@ func (o *SendResponseResults) SetStatus(v string) {
 }
 
 func (o SendResponseResults) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SendResponseResults) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !isNil(o.MessageId) {
 		toSerialize["message_id"] = o.MessageId
@@ -109,7 +120,7 @@ func (o SendResponseResults) MarshalJSON() ([]byte, error) {
 	if !isNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableSendResponseResults struct {

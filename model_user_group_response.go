@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserGroupResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserGroupResponse{}
+
 // UserGroupResponse struct for UserGroupResponse
 type UserGroupResponse struct {
 	Message *string `json:"message,omitempty"`
@@ -50,7 +53,7 @@ func (o *UserGroupResponse) GetMessage() string {
 // and a boolean to check if the value has been set.
 func (o *UserGroupResponse) GetMessageOk() (*string, bool) {
 	if o == nil || isNil(o.Message) {
-    return nil, false
+		return nil, false
 	}
 	return o.Message, true
 }
@@ -82,7 +85,7 @@ func (o *UserGroupResponse) GetResults() UserGroupResponseResults {
 // and a boolean to check if the value has been set.
 func (o *UserGroupResponse) GetResultsOk() (*UserGroupResponseResults, bool) {
 	if o == nil || isNil(o.Results) {
-    return nil, false
+		return nil, false
 	}
 	return o.Results, true
 }
@@ -102,6 +105,14 @@ func (o *UserGroupResponse) SetResults(v UserGroupResponseResults) {
 }
 
 func (o UserGroupResponse) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserGroupResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !isNil(o.Message) {
 		toSerialize["message"] = o.Message
@@ -109,7 +120,7 @@ func (o UserGroupResponse) MarshalJSON() ([]byte, error) {
 	if !isNil(o.Results) {
 		toSerialize["results"] = o.Results
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableUserGroupResponse struct {

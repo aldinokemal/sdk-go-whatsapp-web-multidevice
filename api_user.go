@@ -78,10 +78,10 @@ func (a *UserApiService) UserAvatarExecute(r ApiUserAvatarRequest) (*UserAvatarR
 	localVarFormParams := url.Values{}
 
 	if r.phone != nil {
-		localVarQueryParams.Add("phone", parameterToString(*r.phone, ""))
+		parameterAddToQuery(localVarQueryParams, "phone", r.phone, "")
 	}
 	if r.isPreview != nil {
-		localVarQueryParams.Add("is_preview", parameterToString(*r.isPreview, ""))
+		parameterAddToQuery(localVarQueryParams, "is_preview", r.isPreview, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -129,8 +129,8 @@ func (a *UserApiService) UserAvatarExecute(r ApiUserAvatarRequest) (*UserAvatarR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -140,8 +140,8 @@ func (a *UserApiService) UserAvatarExecute(r ApiUserAvatarRequest) (*UserAvatarR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -208,7 +208,7 @@ func (a *UserApiService) UserInfoExecute(r ApiUserInfoRequest) (map[string]inter
 	localVarFormParams := url.Values{}
 
 	if r.phone != nil {
-		localVarQueryParams.Add("phone", parameterToString(*r.phone, ""))
+		parameterAddToQuery(localVarQueryParams, "phone", r.phone, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -256,8 +256,8 @@ func (a *UserApiService) UserInfoExecute(r ApiUserInfoRequest) (map[string]inter
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -267,8 +267,8 @@ func (a *UserApiService) UserInfoExecute(r ApiUserInfoRequest) (map[string]inter
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -372,8 +372,8 @@ func (a *UserApiService) UserMyGroupsExecute(r ApiUserMyGroupsRequest) (*http.Re
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -470,8 +470,8 @@ func (a *UserApiService) UserMyPrivacyExecute(r ApiUserMyPrivacyRequest) (map[st
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

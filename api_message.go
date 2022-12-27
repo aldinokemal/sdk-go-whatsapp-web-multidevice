@@ -26,12 +26,12 @@ type MessageApiService service
 type ApiRevokeMessageRequest struct {
 	ctx context.Context
 	ApiService *MessageApiService
-	phone *string
+	phone *int32
 	messageId *string
 }
 
 // Phone number with country code
-func (r ApiRevokeMessageRequest) Phone(phone string) ApiRevokeMessageRequest {
+func (r ApiRevokeMessageRequest) Phone(phone int32) ApiRevokeMessageRequest {
 	r.phone = &phone
 	return r
 }
@@ -98,10 +98,10 @@ func (a *MessageApiService) RevokeMessageExecute(r ApiRevokeMessageRequest) (*Se
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.phone != nil {
-		localVarFormParams.Add("phone", parameterToString(*r.phone, ""))
+		parameterAddToQuery(localVarFormParams, "phone", r.phone, "")
 	}
 	if r.messageId != nil {
-		localVarFormParams.Add("message_id", parameterToString(*r.messageId, ""))
+		parameterAddToQuery(localVarFormParams, "message_id", r.messageId, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -132,8 +132,8 @@ func (a *MessageApiService) RevokeMessageExecute(r ApiRevokeMessageRequest) (*Se
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -143,8 +143,8 @@ func (a *MessageApiService) RevokeMessageExecute(r ApiRevokeMessageRequest) (*Se
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -164,13 +164,13 @@ func (a *MessageApiService) RevokeMessageExecute(r ApiRevokeMessageRequest) (*Se
 type ApiSendContactRequest struct {
 	ctx context.Context
 	ApiService *MessageApiService
-	phone *string
+	phone *int32
 	contactName *string
 	contactPhone *string
 }
 
 // Phone number with country code
-func (r ApiSendContactRequest) Phone(phone string) ApiSendContactRequest {
+func (r ApiSendContactRequest) Phone(phone int32) ApiSendContactRequest {
 	r.phone = &phone
 	return r
 }
@@ -243,13 +243,13 @@ func (a *MessageApiService) SendContactExecute(r ApiSendContactRequest) (*SendRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.phone != nil {
-		localVarFormParams.Add("phone", parameterToString(*r.phone, ""))
+		parameterAddToQuery(localVarFormParams, "phone", r.phone, "")
 	}
 	if r.contactName != nil {
-		localVarFormParams.Add("contact_name", parameterToString(*r.contactName, ""))
+		parameterAddToQuery(localVarFormParams, "contact_name", r.contactName, "")
 	}
 	if r.contactPhone != nil {
-		localVarFormParams.Add("contact_phone", parameterToString(*r.contactPhone, ""))
+		parameterAddToQuery(localVarFormParams, "contact_phone", r.contactPhone, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -280,8 +280,8 @@ func (a *MessageApiService) SendContactExecute(r ApiSendContactRequest) (*SendRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -291,8 +291,8 @@ func (a *MessageApiService) SendContactExecute(r ApiSendContactRequest) (*SendRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -312,13 +312,13 @@ func (a *MessageApiService) SendContactExecute(r ApiSendContactRequest) (*SendRe
 type ApiSendFileRequest struct {
 	ctx context.Context
 	ApiService *MessageApiService
-	phone *string
+	phone *int32
 	caption *string
-	file **os.File
+	file *os.File
 }
 
 // Phone number with country code
-func (r ApiSendFileRequest) Phone(phone string) ApiSendFileRequest {
+func (r ApiSendFileRequest) Phone(phone int32) ApiSendFileRequest {
 	r.phone = &phone
 	return r
 }
@@ -330,7 +330,7 @@ func (r ApiSendFileRequest) Caption(caption string) ApiSendFileRequest {
 }
 
 // File to send
-func (r ApiSendFileRequest) File(file *os.File) ApiSendFileRequest {
+func (r ApiSendFileRequest) File(file os.File) ApiSendFileRequest {
 	r.file = &file
 	return r
 }
@@ -391,10 +391,10 @@ func (a *MessageApiService) SendFileExecute(r ApiSendFileRequest) (*SendResponse
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.phone != nil {
-		localVarFormParams.Add("phone", parameterToString(*r.phone, ""))
+		parameterAddToQuery(localVarFormParams, "phone", r.phone, "")
 	}
 	if r.caption != nil {
-		localVarFormParams.Add("caption", parameterToString(*r.caption, ""))
+		parameterAddToQuery(localVarFormParams, "caption", r.caption, "")
 	}
 	var fileLocalVarFormFileName string
 	var fileLocalVarFileName     string
@@ -404,7 +404,7 @@ func (a *MessageApiService) SendFileExecute(r ApiSendFileRequest) (*SendResponse
 
 	var fileLocalVarFile *os.File
 	if r.file != nil {
-		fileLocalVarFile = *r.file
+		fileLocalVarFile = r.file
 	}
 	if fileLocalVarFile != nil {
 		fbs, _ := ioutil.ReadAll(fileLocalVarFile)
@@ -442,8 +442,8 @@ func (a *MessageApiService) SendFileExecute(r ApiSendFileRequest) (*SendResponse
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -453,8 +453,8 @@ func (a *MessageApiService) SendFileExecute(r ApiSendFileRequest) (*SendResponse
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -474,15 +474,15 @@ func (a *MessageApiService) SendFileExecute(r ApiSendFileRequest) (*SendResponse
 type ApiSendImageRequest struct {
 	ctx context.Context
 	ApiService *MessageApiService
-	phone *string
+	phone *int32
 	caption *string
 	viewOnce *bool
-	image **os.File
+	image *os.File
 	compress *bool
 }
 
 // Phone number with country code
-func (r ApiSendImageRequest) Phone(phone string) ApiSendImageRequest {
+func (r ApiSendImageRequest) Phone(phone int32) ApiSendImageRequest {
 	r.phone = &phone
 	return r
 }
@@ -500,7 +500,7 @@ func (r ApiSendImageRequest) ViewOnce(viewOnce bool) ApiSendImageRequest {
 }
 
 // Image to send
-func (r ApiSendImageRequest) Image(image *os.File) ApiSendImageRequest {
+func (r ApiSendImageRequest) Image(image os.File) ApiSendImageRequest {
 	r.image = &image
 	return r
 }
@@ -567,13 +567,13 @@ func (a *MessageApiService) SendImageExecute(r ApiSendImageRequest) (*SendRespon
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.phone != nil {
-		localVarFormParams.Add("phone", parameterToString(*r.phone, ""))
+		parameterAddToQuery(localVarFormParams, "phone", r.phone, "")
 	}
 	if r.caption != nil {
-		localVarFormParams.Add("caption", parameterToString(*r.caption, ""))
+		parameterAddToQuery(localVarFormParams, "caption", r.caption, "")
 	}
 	if r.viewOnce != nil {
-		localVarFormParams.Add("view_once", parameterToString(*r.viewOnce, ""))
+		parameterAddToQuery(localVarFormParams, "view_once", r.viewOnce, "")
 	}
 	var imageLocalVarFormFileName string
 	var imageLocalVarFileName     string
@@ -583,7 +583,7 @@ func (a *MessageApiService) SendImageExecute(r ApiSendImageRequest) (*SendRespon
 
 	var imageLocalVarFile *os.File
 	if r.image != nil {
-		imageLocalVarFile = *r.image
+		imageLocalVarFile = r.image
 	}
 	if imageLocalVarFile != nil {
 		fbs, _ := ioutil.ReadAll(imageLocalVarFile)
@@ -593,7 +593,7 @@ func (a *MessageApiService) SendImageExecute(r ApiSendImageRequest) (*SendRespon
 	}
 	formFiles = append(formFiles, formFile{fileBytes: imageLocalVarFileBytes, fileName: imageLocalVarFileName, formFileName: imageLocalVarFormFileName})
 	if r.compress != nil {
-		localVarFormParams.Add("compress", parameterToString(*r.compress, ""))
+		parameterAddToQuery(localVarFormParams, "compress", r.compress, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -624,8 +624,8 @@ func (a *MessageApiService) SendImageExecute(r ApiSendImageRequest) (*SendRespon
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -635,8 +635,8 @@ func (a *MessageApiService) SendImageExecute(r ApiSendImageRequest) (*SendRespon
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -656,13 +656,13 @@ func (a *MessageApiService) SendImageExecute(r ApiSendImageRequest) (*SendRespon
 type ApiSendLinkRequest struct {
 	ctx context.Context
 	ApiService *MessageApiService
-	phone *string
+	phone *int32
 	link *string
 	caption *string
 }
 
 // Phone number with country code
-func (r ApiSendLinkRequest) Phone(phone string) ApiSendLinkRequest {
+func (r ApiSendLinkRequest) Phone(phone int32) ApiSendLinkRequest {
 	r.phone = &phone
 	return r
 }
@@ -735,13 +735,13 @@ func (a *MessageApiService) SendLinkExecute(r ApiSendLinkRequest) (*SendResponse
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.phone != nil {
-		localVarFormParams.Add("phone", parameterToString(*r.phone, ""))
+		parameterAddToQuery(localVarFormParams, "phone", r.phone, "")
 	}
 	if r.link != nil {
-		localVarFormParams.Add("link", parameterToString(*r.link, ""))
+		parameterAddToQuery(localVarFormParams, "link", r.link, "")
 	}
 	if r.caption != nil {
-		localVarFormParams.Add("caption", parameterToString(*r.caption, ""))
+		parameterAddToQuery(localVarFormParams, "caption", r.caption, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -772,8 +772,8 @@ func (a *MessageApiService) SendLinkExecute(r ApiSendLinkRequest) (*SendResponse
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -783,8 +783,8 @@ func (a *MessageApiService) SendLinkExecute(r ApiSendLinkRequest) (*SendResponse
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -804,13 +804,13 @@ func (a *MessageApiService) SendLinkExecute(r ApiSendLinkRequest) (*SendResponse
 type ApiSendLocationRequest struct {
 	ctx context.Context
 	ApiService *MessageApiService
-	phone *string
+	phone *int32
 	latitude *string
 	longitude *string
 }
 
 // Phone number with country code
-func (r ApiSendLocationRequest) Phone(phone string) ApiSendLocationRequest {
+func (r ApiSendLocationRequest) Phone(phone int32) ApiSendLocationRequest {
 	r.phone = &phone
 	return r
 }
@@ -883,13 +883,13 @@ func (a *MessageApiService) SendLocationExecute(r ApiSendLocationRequest) (*Send
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.phone != nil {
-		localVarFormParams.Add("phone", parameterToString(*r.phone, ""))
+		parameterAddToQuery(localVarFormParams, "phone", r.phone, "")
 	}
 	if r.latitude != nil {
-		localVarFormParams.Add("latitude", parameterToString(*r.latitude, ""))
+		parameterAddToQuery(localVarFormParams, "latitude", r.latitude, "")
 	}
 	if r.longitude != nil {
-		localVarFormParams.Add("longitude", parameterToString(*r.longitude, ""))
+		parameterAddToQuery(localVarFormParams, "longitude", r.longitude, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -920,8 +920,8 @@ func (a *MessageApiService) SendLocationExecute(r ApiSendLocationRequest) (*Send
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -931,8 +931,8 @@ func (a *MessageApiService) SendLocationExecute(r ApiSendLocationRequest) (*Send
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -952,12 +952,12 @@ func (a *MessageApiService) SendLocationExecute(r ApiSendLocationRequest) (*Send
 type ApiSendMessageRequest struct {
 	ctx context.Context
 	ApiService *MessageApiService
-	phone *string
+	phone *int32
 	message *string
 }
 
 // Phone number with country code
-func (r ApiSendMessageRequest) Phone(phone string) ApiSendMessageRequest {
+func (r ApiSendMessageRequest) Phone(phone int32) ApiSendMessageRequest {
 	r.phone = &phone
 	return r
 }
@@ -1024,10 +1024,10 @@ func (a *MessageApiService) SendMessageExecute(r ApiSendMessageRequest) (*SendRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.phone != nil {
-		localVarFormParams.Add("phone", parameterToString(*r.phone, ""))
+		parameterAddToQuery(localVarFormParams, "phone", r.phone, "")
 	}
 	if r.message != nil {
-		localVarFormParams.Add("message", parameterToString(*r.message, ""))
+		parameterAddToQuery(localVarFormParams, "message", r.message, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -1058,8 +1058,8 @@ func (a *MessageApiService) SendMessageExecute(r ApiSendMessageRequest) (*SendRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -1069,8 +1069,8 @@ func (a *MessageApiService) SendMessageExecute(r ApiSendMessageRequest) (*SendRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1090,15 +1090,15 @@ func (a *MessageApiService) SendMessageExecute(r ApiSendMessageRequest) (*SendRe
 type ApiSendVideoRequest struct {
 	ctx context.Context
 	ApiService *MessageApiService
-	phone *string
+	phone *int32
 	caption *string
 	viewOnce *bool
-	video **os.File
+	video *os.File
 	compress *bool
 }
 
 // Phone number with country code
-func (r ApiSendVideoRequest) Phone(phone string) ApiSendVideoRequest {
+func (r ApiSendVideoRequest) Phone(phone int32) ApiSendVideoRequest {
 	r.phone = &phone
 	return r
 }
@@ -1116,7 +1116,7 @@ func (r ApiSendVideoRequest) ViewOnce(viewOnce bool) ApiSendVideoRequest {
 }
 
 // Video to send
-func (r ApiSendVideoRequest) Video(video *os.File) ApiSendVideoRequest {
+func (r ApiSendVideoRequest) Video(video os.File) ApiSendVideoRequest {
 	r.video = &video
 	return r
 }
@@ -1183,13 +1183,13 @@ func (a *MessageApiService) SendVideoExecute(r ApiSendVideoRequest) (*SendRespon
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.phone != nil {
-		localVarFormParams.Add("phone", parameterToString(*r.phone, ""))
+		parameterAddToQuery(localVarFormParams, "phone", r.phone, "")
 	}
 	if r.caption != nil {
-		localVarFormParams.Add("caption", parameterToString(*r.caption, ""))
+		parameterAddToQuery(localVarFormParams, "caption", r.caption, "")
 	}
 	if r.viewOnce != nil {
-		localVarFormParams.Add("view_once", parameterToString(*r.viewOnce, ""))
+		parameterAddToQuery(localVarFormParams, "view_once", r.viewOnce, "")
 	}
 	var videoLocalVarFormFileName string
 	var videoLocalVarFileName     string
@@ -1199,7 +1199,7 @@ func (a *MessageApiService) SendVideoExecute(r ApiSendVideoRequest) (*SendRespon
 
 	var videoLocalVarFile *os.File
 	if r.video != nil {
-		videoLocalVarFile = *r.video
+		videoLocalVarFile = r.video
 	}
 	if videoLocalVarFile != nil {
 		fbs, _ := ioutil.ReadAll(videoLocalVarFile)
@@ -1209,7 +1209,7 @@ func (a *MessageApiService) SendVideoExecute(r ApiSendVideoRequest) (*SendRespon
 	}
 	formFiles = append(formFiles, formFile{fileBytes: videoLocalVarFileBytes, fileName: videoLocalVarFileName, formFileName: videoLocalVarFormFileName})
 	if r.compress != nil {
-		localVarFormParams.Add("compress", parameterToString(*r.compress, ""))
+		parameterAddToQuery(localVarFormParams, "compress", r.compress, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -1240,8 +1240,8 @@ func (a *MessageApiService) SendVideoExecute(r ApiSendVideoRequest) (*SendRespon
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -1251,8 +1251,8 @@ func (a *MessageApiService) SendVideoExecute(r ApiSendVideoRequest) (*SendRespon
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

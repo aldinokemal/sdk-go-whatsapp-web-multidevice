@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserGroupResponseResultsDataInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserGroupResponseResultsDataInner{}
+
 // UserGroupResponseResultsDataInner struct for UserGroupResponseResultsDataInner
 type UserGroupResponseResultsDataInner struct {
 	JID *string `json:"JID,omitempty"`
@@ -56,7 +59,7 @@ func (o *UserGroupResponseResultsDataInner) GetJID() string {
 // and a boolean to check if the value has been set.
 func (o *UserGroupResponseResultsDataInner) GetJIDOk() (*string, bool) {
 	if o == nil || isNil(o.JID) {
-    return nil, false
+		return nil, false
 	}
 	return o.JID, true
 }
@@ -88,7 +91,7 @@ func (o *UserGroupResponseResultsDataInner) GetOwnerJID() string {
 // and a boolean to check if the value has been set.
 func (o *UserGroupResponseResultsDataInner) GetOwnerJIDOk() (*string, bool) {
 	if o == nil || isNil(o.OwnerJID) {
-    return nil, false
+		return nil, false
 	}
 	return o.OwnerJID, true
 }
@@ -120,7 +123,7 @@ func (o *UserGroupResponseResultsDataInner) GetName() string {
 // and a boolean to check if the value has been set.
 func (o *UserGroupResponseResultsDataInner) GetNameOk() (*string, bool) {
 	if o == nil || isNil(o.Name) {
-    return nil, false
+		return nil, false
 	}
 	return o.Name, true
 }
@@ -152,7 +155,7 @@ func (o *UserGroupResponseResultsDataInner) GetNameSetAt() string {
 // and a boolean to check if the value has been set.
 func (o *UserGroupResponseResultsDataInner) GetNameSetAtOk() (*string, bool) {
 	if o == nil || isNil(o.NameSetAt) {
-    return nil, false
+		return nil, false
 	}
 	return o.NameSetAt, true
 }
@@ -184,7 +187,7 @@ func (o *UserGroupResponseResultsDataInner) GetNameSetBy() string {
 // and a boolean to check if the value has been set.
 func (o *UserGroupResponseResultsDataInner) GetNameSetByOk() (*string, bool) {
 	if o == nil || isNil(o.NameSetBy) {
-    return nil, false
+		return nil, false
 	}
 	return o.NameSetBy, true
 }
@@ -216,7 +219,7 @@ func (o *UserGroupResponseResultsDataInner) GetGroupCreated() string {
 // and a boolean to check if the value has been set.
 func (o *UserGroupResponseResultsDataInner) GetGroupCreatedOk() (*string, bool) {
 	if o == nil || isNil(o.GroupCreated) {
-    return nil, false
+		return nil, false
 	}
 	return o.GroupCreated, true
 }
@@ -248,7 +251,7 @@ func (o *UserGroupResponseResultsDataInner) GetParticipantVersionID() string {
 // and a boolean to check if the value has been set.
 func (o *UserGroupResponseResultsDataInner) GetParticipantVersionIDOk() (*string, bool) {
 	if o == nil || isNil(o.ParticipantVersionID) {
-    return nil, false
+		return nil, false
 	}
 	return o.ParticipantVersionID, true
 }
@@ -280,7 +283,7 @@ func (o *UserGroupResponseResultsDataInner) GetParticipants() []UserGroupRespons
 // and a boolean to check if the value has been set.
 func (o *UserGroupResponseResultsDataInner) GetParticipantsOk() ([]UserGroupResponseResultsDataInnerParticipantsInner, bool) {
 	if o == nil || isNil(o.Participants) {
-    return nil, false
+		return nil, false
 	}
 	return o.Participants, true
 }
@@ -300,6 +303,14 @@ func (o *UserGroupResponseResultsDataInner) SetParticipants(v []UserGroupRespons
 }
 
 func (o UserGroupResponseResultsDataInner) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserGroupResponseResultsDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !isNil(o.JID) {
 		toSerialize["JID"] = o.JID
@@ -325,7 +336,7 @@ func (o UserGroupResponseResultsDataInner) MarshalJSON() ([]byte, error) {
 	if !isNil(o.Participants) {
 		toSerialize["Participants"] = o.Participants
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableUserGroupResponseResultsDataInner struct {
