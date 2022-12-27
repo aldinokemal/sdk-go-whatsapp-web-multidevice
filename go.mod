@@ -1,4 +1,4 @@
-module github.com/GIT_USER_ID/GIT_REPO_ID
+module github.com/aldinokemal/sdk-go-whatsapp-web-multidevice
 
 go 1.13
 
