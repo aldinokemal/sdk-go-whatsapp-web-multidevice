@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Code** | Pointer to **int32** | HTTP Status Code | [optional] 
+**Code** | Pointer to **string** | HTTP Status Code | [optional] 
 **Message** | Pointer to **string** | Detail error message | [optional] 
 **Results** | Pointer to **map[string]interface{}** | additional data | [optional] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCode
 
-`func (o *ErrorBadRequest) GetCode() int32`
+`func (o *ErrorBadRequest) GetCode() string`
 
 GetCode returns the Code field if non-nil, zero value otherwise.
 
 ### GetCodeOk
 
-`func (o *ErrorBadRequest) GetCodeOk() (*int32, bool)`
+`func (o *ErrorBadRequest) GetCodeOk() (*string, bool)`
 
 GetCodeOk returns a tuple with the Code field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCode
 
-`func (o *ErrorBadRequest) SetCode(v int32)`
+`func (o *ErrorBadRequest) SetCode(v string)`
 
 SetCode sets Code field to given value.
 

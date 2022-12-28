@@ -20,7 +20,7 @@ var _ MappedNullable = &ErrorBadRequest{}
 // ErrorBadRequest struct for ErrorBadRequest
 type ErrorBadRequest struct {
 	// HTTP Status Code
-	Code *int32 `json:"code,omitempty"`
+	Code *string `json:"code,omitempty"`
 	// Detail error message
 	Message *string `json:"message,omitempty"`
 	// additional data
@@ -45,9 +45,9 @@ func NewErrorBadRequestWithDefaults() *ErrorBadRequest {
 }
 
 // GetCode returns the Code field value if set, zero value otherwise.
-func (o *ErrorBadRequest) GetCode() int32 {
+func (o *ErrorBadRequest) GetCode() string {
 	if o == nil || isNil(o.Code) {
-		var ret int32
+		var ret string
 		return ret
 	}
 	return *o.Code
@@ -55,7 +55,7 @@ func (o *ErrorBadRequest) GetCode() int32 {
 
 // GetCodeOk returns a tuple with the Code field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ErrorBadRequest) GetCodeOk() (*int32, bool) {
+func (o *ErrorBadRequest) GetCodeOk() (*string, bool) {
 	if o == nil || isNil(o.Code) {
 		return nil, false
 	}
@@ -71,8 +71,8 @@ func (o *ErrorBadRequest) HasCode() bool {
 	return false
 }
 
-// SetCode gets a reference to the given int32 and assigns it to the Code field.
-func (o *ErrorBadRequest) SetCode(v int32) {
+// SetCode gets a reference to the given string and assigns it to the Code field.
+func (o *ErrorBadRequest) SetCode(v string) {
 	o.Code = &v
 }
 
