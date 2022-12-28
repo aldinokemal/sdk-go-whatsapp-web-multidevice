@@ -14,35 +14,35 @@ import (
 	"encoding/json"
 )
 
-// checks if the LoginResponse type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &LoginResponse{}
+// checks if the UserInfoResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserInfoResponse{}
 
-// LoginResponse struct for LoginResponse
-type LoginResponse struct {
+// UserInfoResponse struct for UserInfoResponse
+type UserInfoResponse struct {
 	Code *string `json:"code,omitempty"`
 	Message *string `json:"message,omitempty"`
-	Results *LoginResponseResults `json:"results,omitempty"`
+	Results *UserInfoResponseResults `json:"results,omitempty"`
 }
 
-// NewLoginResponse instantiates a new LoginResponse object
+// NewUserInfoResponse instantiates a new UserInfoResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLoginResponse() *LoginResponse {
-	this := LoginResponse{}
+func NewUserInfoResponse() *UserInfoResponse {
+	this := UserInfoResponse{}
 	return &this
 }
 
-// NewLoginResponseWithDefaults instantiates a new LoginResponse object
+// NewUserInfoResponseWithDefaults instantiates a new UserInfoResponse object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewLoginResponseWithDefaults() *LoginResponse {
-	this := LoginResponse{}
+func NewUserInfoResponseWithDefaults() *UserInfoResponse {
+	this := UserInfoResponse{}
 	return &this
 }
 
 // GetCode returns the Code field value if set, zero value otherwise.
-func (o *LoginResponse) GetCode() string {
+func (o *UserInfoResponse) GetCode() string {
 	if o == nil || isNil(o.Code) {
 		var ret string
 		return ret
@@ -52,7 +52,7 @@ func (o *LoginResponse) GetCode() string {
 
 // GetCodeOk returns a tuple with the Code field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LoginResponse) GetCodeOk() (*string, bool) {
+func (o *UserInfoResponse) GetCodeOk() (*string, bool) {
 	if o == nil || isNil(o.Code) {
 		return nil, false
 	}
@@ -60,7 +60,7 @@ func (o *LoginResponse) GetCodeOk() (*string, bool) {
 }
 
 // HasCode returns a boolean if a field has been set.
-func (o *LoginResponse) HasCode() bool {
+func (o *UserInfoResponse) HasCode() bool {
 	if o != nil && !isNil(o.Code) {
 		return true
 	}
@@ -69,12 +69,12 @@ func (o *LoginResponse) HasCode() bool {
 }
 
 // SetCode gets a reference to the given string and assigns it to the Code field.
-func (o *LoginResponse) SetCode(v string) {
+func (o *UserInfoResponse) SetCode(v string) {
 	o.Code = &v
 }
 
 // GetMessage returns the Message field value if set, zero value otherwise.
-func (o *LoginResponse) GetMessage() string {
+func (o *UserInfoResponse) GetMessage() string {
 	if o == nil || isNil(o.Message) {
 		var ret string
 		return ret
@@ -84,7 +84,7 @@ func (o *LoginResponse) GetMessage() string {
 
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LoginResponse) GetMessageOk() (*string, bool) {
+func (o *UserInfoResponse) GetMessageOk() (*string, bool) {
 	if o == nil || isNil(o.Message) {
 		return nil, false
 	}
@@ -92,7 +92,7 @@ func (o *LoginResponse) GetMessageOk() (*string, bool) {
 }
 
 // HasMessage returns a boolean if a field has been set.
-func (o *LoginResponse) HasMessage() bool {
+func (o *UserInfoResponse) HasMessage() bool {
 	if o != nil && !isNil(o.Message) {
 		return true
 	}
@@ -101,14 +101,14 @@ func (o *LoginResponse) HasMessage() bool {
 }
 
 // SetMessage gets a reference to the given string and assigns it to the Message field.
-func (o *LoginResponse) SetMessage(v string) {
+func (o *UserInfoResponse) SetMessage(v string) {
 	o.Message = &v
 }
 
 // GetResults returns the Results field value if set, zero value otherwise.
-func (o *LoginResponse) GetResults() LoginResponseResults {
+func (o *UserInfoResponse) GetResults() UserInfoResponseResults {
 	if o == nil || isNil(o.Results) {
-		var ret LoginResponseResults
+		var ret UserInfoResponseResults
 		return ret
 	}
 	return *o.Results
@@ -116,7 +116,7 @@ func (o *LoginResponse) GetResults() LoginResponseResults {
 
 // GetResultsOk returns a tuple with the Results field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LoginResponse) GetResultsOk() (*LoginResponseResults, bool) {
+func (o *UserInfoResponse) GetResultsOk() (*UserInfoResponseResults, bool) {
 	if o == nil || isNil(o.Results) {
 		return nil, false
 	}
@@ -124,7 +124,7 @@ func (o *LoginResponse) GetResultsOk() (*LoginResponseResults, bool) {
 }
 
 // HasResults returns a boolean if a field has been set.
-func (o *LoginResponse) HasResults() bool {
+func (o *UserInfoResponse) HasResults() bool {
 	if o != nil && !isNil(o.Results) {
 		return true
 	}
@@ -132,12 +132,12 @@ func (o *LoginResponse) HasResults() bool {
 	return false
 }
 
-// SetResults gets a reference to the given LoginResponseResults and assigns it to the Results field.
-func (o *LoginResponse) SetResults(v LoginResponseResults) {
+// SetResults gets a reference to the given UserInfoResponseResults and assigns it to the Results field.
+func (o *UserInfoResponse) SetResults(v UserInfoResponseResults) {
 	o.Results = &v
 }
 
-func (o LoginResponse) MarshalJSON() ([]byte, error) {
+func (o UserInfoResponse) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -145,7 +145,7 @@ func (o LoginResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o LoginResponse) ToMap() (map[string]interface{}, error) {
+func (o UserInfoResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !isNil(o.Code) {
 		toSerialize["code"] = o.Code
@@ -159,38 +159,38 @@ func (o LoginResponse) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-type NullableLoginResponse struct {
-	value *LoginResponse
+type NullableUserInfoResponse struct {
+	value *UserInfoResponse
 	isSet bool
 }
 
-func (v NullableLoginResponse) Get() *LoginResponse {
+func (v NullableUserInfoResponse) Get() *UserInfoResponse {
 	return v.value
 }
 
-func (v *NullableLoginResponse) Set(val *LoginResponse) {
+func (v *NullableUserInfoResponse) Set(val *UserInfoResponse) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableLoginResponse) IsSet() bool {
+func (v NullableUserInfoResponse) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableLoginResponse) Unset() {
+func (v *NullableUserInfoResponse) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableLoginResponse(val *LoginResponse) *NullableLoginResponse {
-	return &NullableLoginResponse{value: val, isSet: true}
+func NewNullableUserInfoResponse(val *UserInfoResponse) *NullableUserInfoResponse {
+	return &NullableUserInfoResponse{value: val, isSet: true}
 }
 
-func (v NullableLoginResponse) MarshalJSON() ([]byte, error) {
+func (v NullableUserInfoResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableLoginResponse) UnmarshalJSON(src []byte) error {
+func (v *NullableUserInfoResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

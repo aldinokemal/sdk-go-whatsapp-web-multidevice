@@ -79,7 +79,7 @@ No authorization required
 
 ## UserInfo
 
-> map[string]interface{} UserInfo(ctx).Phone(phone).Execute()
+> UserInfoResponse UserInfo(ctx).Phone(phone).Execute()
 
 User Info
 
@@ -105,7 +105,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.UserInfo``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `UserInfo`: map[string]interface{}
+    // response from `UserInfo`: UserInfoResponse
     fmt.Fprintf(os.Stdout, "Response from `UserApi.UserInfo`: %v\n", resp)
 }
 ```
@@ -125,7 +125,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]interface{}**
+[**UserInfoResponse**](UserInfoResponse.md)
 
 ### Authorization
 
@@ -200,7 +200,7 @@ No authorization required
 
 ## UserMyPrivacy
 
-> map[string]interface{} UserMyPrivacy(ctx).Execute()
+> UserPrivacyResponse UserMyPrivacy(ctx).Execute()
 
 User My Privacy Setting
 
@@ -225,7 +225,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.UserMyPrivacy``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `UserMyPrivacy`: map[string]interface{}
+    // response from `UserMyPrivacy`: UserPrivacyResponse
     fmt.Fprintf(os.Stdout, "Response from `UserApi.UserMyPrivacy`: %v\n", resp)
 }
 ```
@@ -241,7 +241,7 @@ Other parameters are passed through a pointer to a apiUserMyPrivacyRequest struc
 
 ### Return type
 
-**map[string]interface{}**
+[**UserPrivacyResponse**](UserPrivacyResponse.md)
 
 ### Authorization
 

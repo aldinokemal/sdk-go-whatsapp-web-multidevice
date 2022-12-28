@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   description: This API is used for sending whatsapp via API
   title: WhatsApp API MultiDevice
-  version: 3.3.0
+  version: 3.3.1
 servers:
 - url: http://localhost:3000
 tags:
@@ -86,63 +86,9 @@ paths:
         "200":
           content:
             application/json:
-              example:
-                code: 200
-                message: Success
-                results:
-                  verified_name: ""
-                  status: you are blocked
-                  picture_id: "1635239861"
-                  devices:
-                  - User: 6289685028129@s.whatsapp.net
-                    Agent: 0
-                    Device: UNKNOWN
-                    Server: s.whatsapp.net
-                    AD: true
-                  - User: 6289685028129@s.whatsapp.net
-                    Agent: 0
-                    Device: SAFARI
-                    Server: s.whatsapp.net
-                    AD: true
-                  - User: 6289685028129@s.whatsapp.net
-                    Agent: 0
-                    Device: IPAD
-                    Server: s.whatsapp.net
-                    AD: true
               schema:
-                type: object
+                $ref: '#/components/schemas/UserInfoResponse'
           description: OK
-          headers:
-            Date:
-              explode: false
-              schema:
-                example: "Sun, 13 Feb 2022 05:46:55 GMT"
-                type: string
-              style: simple
-            Content-Type:
-              explode: false
-              schema:
-                example: application/json
-                type: string
-              style: simple
-            Content-Length:
-              explode: false
-              schema:
-                example: 394
-                type: integer
-              style: simple
-            Vary:
-              explode: false
-              schema:
-                example: Origin
-                type: string
-              style: simple
-            Access-Control-Allow-Origin:
-              explode: false
-              schema:
-                example: '*'
-                type: string
-              style: simple
         "400":
           content:
             application/json:
@@ -207,49 +153,9 @@ paths:
         "200":
           content:
             application/json:
-              example:
-                code: 200
-                message: Success get privacy
-                results:
-                  group_add: all
-                  last_seen: ""
-                  status: all
-                  profile: contacts
-                  read_receipts: all
               schema:
-                type: object
+                $ref: '#/components/schemas/UserPrivacyResponse'
           description: OK
-          headers:
-            Date:
-              explode: false
-              schema:
-                example: "Sun, 13 Feb 2022 04:01:41 GMT"
-                type: string
-              style: simple
-            Content-Type:
-              explode: false
-              schema:
-                example: application/json
-                type: string
-              style: simple
-            Content-Length:
-              explode: false
-              schema:
-                example: 147
-                type: integer
-              style: simple
-            Vary:
-              explode: false
-              schema:
-                example: Origin
-                type: string
-              style: simple
-            Access-Control-Allow-Origin:
-              explode: false
-              schema:
-                example: '*'
-                type: string
-              style: simple
         "500":
           content:
             application/json:
@@ -516,48 +422,125 @@ components:
   schemas:
     UserGroupResponse:
       properties:
+        code:
+          example: SUCCESS
+          type: string
         message:
           example: Success get list groups
           type: string
         results:
           $ref: '#/components/schemas/UserGroupResponse_results'
       type: object
+    UserInfoResponse:
+      example:
+        code: SUCCESS
+        message: message
+        results:
+          devices:
+          - Agent: 0
+            User: "6289685021291"
+            AD: true
+            Server: s.whatsapp.net
+            Device: UNKNOWN
+          - Agent: 0
+            User: "6289685021291"
+            AD: true
+            Server: s.whatsapp.net
+            Device: UNKNOWN
+          verified_name: Aldino Kemal
+          picture_id: "1651459152"
+          status: Hello World
+      properties:
+        code:
+          example: SUCCESS
+          type: string
+        message:
+          type: string
+          example: null
+        results:
+          $ref: '#/components/schemas/UserInfoResponse_results'
+      type: object
     UserAvatarResponse:
       example:
+        code: SUCCESS
         message: Success
         results:
           id: "1635239861"
           type: image
           url: https://pps.whatsapp.net/v/t61.24694-24/181358562_385581386633509_6230178822944778044_n.jpg?ccb=11-4&oh=df36c5b990497b8a5758a0f1ad8118a8&oe=620AA726
       properties:
+        code:
+          example: SUCCESS
+          type: string
         message:
           example: Success
           type: string
         results:
           $ref: '#/components/schemas/UserAvatarResponse_results'
       type: object
+    UserPrivacyResponse:
+      example:
+        code: SUCCESS
+        message: Success get privacy
+        results:
+          group_add: all
+          last_seen: last_seen
+          profile: all
+          read_receipts: all
+          status: all
+      properties:
+        code:
+          example: SUCCESS
+          type: string
+        message:
+          example: Success get privacy
+          type: string
+        results:
+          $ref: '#/components/schemas/UserPrivacyResponse_results'
+      type: object
     SendResponse:
       example:
+        code: SUCCESS
         message: Success
         results:
           message_id: 3EB0B430B6F8F1D0E053AC120E0A9E5C
           status: <feature> success ....
       properties:
+        code:
+          example: SUCCESS
+          type: string
         message:
           example: Success
           type: string
         results:
           $ref: '#/components/schemas/SendResponse_results'
       type: object
+    LoginResponse:
+      example:
+        code: SUCCESS
+        message: Success
+        results:
+          qr_duration: 30
+          qr_link: http://localhost:3000/statics/images/qrcode/scan-qr-b0b7bb43-9a22-455a-814f-5a225c743310.png
+      properties:
+        code:
+          example: SUCCESS
+          type: string
+        message:
+          example: Success
+          type: string
+        results:
+          $ref: '#/components/schemas/LoginResponse_results'
+      type: object
     GenericResponse:
       example:
-        code: 200
+        code: SUCCESS
         message: Success
         results: results
       properties:
         code:
-          example: 200
-          type: integer
+          example: SUCCESS
+          type: string
         message:
           example: Success
           type: string
@@ -565,29 +548,12 @@ components:
           type: string
           example: null
       type: object
-    LoginResponse:
-      example:
-        code: 200
-        message: Success
-        results:
-          qr_duration: 30
-          qr_link: http://localhost:3000/statics/images/qrcode/scan-qr-b0b7bb43-9a22-455a-814f-5a225c743310.png
-      properties:
-        code:
-          example: 200
-          type: integer
-        message:
-          example: Success
-          type: string
-        results:
-          $ref: '#/components/schemas/LoginResponse_results'
-      type: object
     ErrorInternalServer:
       properties:
         code:
-          description: HTTP Status Code
-          example: 500
-          type: integer
+          description: SYSTEM_CODE_ERROR
+          example: INTERNAL_SERVER_ERROR
+          type: string
         message:
           description: Detail error message
           example: you are not loggin
@@ -778,6 +744,61 @@ components:
             $ref: '#/components/schemas/UserGroupResponse_results_data_inner'
           type: array
       type: object
+    UserInfoResponse_results_devices_inner:
+      example:
+        Agent: 0
+        User: "6289685021291"
+        AD: true
+        Server: s.whatsapp.net
+        Device: UNKNOWN
+      properties:
+        User:
+          example: "6289685021291"
+          type: string
+        Agent:
+          example: 0
+          type: integer
+        Device:
+          example: UNKNOWN
+          type: string
+        Server:
+          example: s.whatsapp.net
+          type: string
+        AD:
+          example: true
+          type: boolean
+      type: object
+    UserInfoResponse_results:
+      example:
+        devices:
+        - Agent: 0
+          User: "6289685021291"
+          AD: true
+          Server: s.whatsapp.net
+          Device: UNKNOWN
+        - Agent: 0
+          User: "6289685021291"
+          AD: true
+          Server: s.whatsapp.net
+          Device: UNKNOWN
+        verified_name: Aldino Kemal
+        picture_id: "1651459152"
+        status: Hello World
+      properties:
+        verified_name:
+          example: Aldino Kemal
+          type: string
+        status:
+          example: Hello World
+          type: string
+        picture_id:
+          example: "1651459152"
+          type: string
+        devices:
+          items:
+            $ref: '#/components/schemas/UserInfoResponse_results_devices_inner'
+          type: array
+      type: object
     UserAvatarResponse_results:
       example:
         id: "1635239861"
@@ -792,6 +813,30 @@ components:
           type: string
         type:
           example: image
+          type: string
+      type: object
+    UserPrivacyResponse_results:
+      example:
+        group_add: all
+        last_seen: last_seen
+        profile: all
+        read_receipts: all
+        status: all
+      properties:
+        group_add:
+          example: all
+          type: string
+        last_seen:
+          type: string
+          example: null
+        status:
+          example: all
+          type: string
+        profile:
+          example: all
+          type: string
+        read_receipts:
+          example: all
           type: string
       type: object
     SendResponse_results:

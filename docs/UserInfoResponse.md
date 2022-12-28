@@ -1,4 +1,4 @@
-# SendResponse
+# UserInfoResponse
 
 ## Properties
 
@@ -6,99 +6,99 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Code** | Pointer to **string** |  | [optional] 
 **Message** | Pointer to **string** |  | [optional] 
-**Results** | Pointer to [**SendResponseResults**](SendResponseResults.md) |  | [optional] 
+**Results** | Pointer to [**UserInfoResponseResults**](UserInfoResponseResults.md) |  | [optional] 
 
 ## Methods
 
-### NewSendResponse
+### NewUserInfoResponse
 
-`func NewSendResponse() *SendResponse`
+`func NewUserInfoResponse() *UserInfoResponse`
 
-NewSendResponse instantiates a new SendResponse object
+NewUserInfoResponse instantiates a new UserInfoResponse object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewSendResponseWithDefaults
+### NewUserInfoResponseWithDefaults
 
-`func NewSendResponseWithDefaults() *SendResponse`
+`func NewUserInfoResponseWithDefaults() *UserInfoResponse`
 
-NewSendResponseWithDefaults instantiates a new SendResponse object
+NewUserInfoResponseWithDefaults instantiates a new UserInfoResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetCode
 
-`func (o *SendResponse) GetCode() string`
+`func (o *UserInfoResponse) GetCode() string`
 
 GetCode returns the Code field if non-nil, zero value otherwise.
 
 ### GetCodeOk
 
-`func (o *SendResponse) GetCodeOk() (*string, bool)`
+`func (o *UserInfoResponse) GetCodeOk() (*string, bool)`
 
 GetCodeOk returns a tuple with the Code field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCode
 
-`func (o *SendResponse) SetCode(v string)`
+`func (o *UserInfoResponse) SetCode(v string)`
 
 SetCode sets Code field to given value.
 
 ### HasCode
 
-`func (o *SendResponse) HasCode() bool`
+`func (o *UserInfoResponse) HasCode() bool`
 
 HasCode returns a boolean if a field has been set.
 
 ### GetMessage
 
-`func (o *SendResponse) GetMessage() string`
+`func (o *UserInfoResponse) GetMessage() string`
 
 GetMessage returns the Message field if non-nil, zero value otherwise.
 
 ### GetMessageOk
 
-`func (o *SendResponse) GetMessageOk() (*string, bool)`
+`func (o *UserInfoResponse) GetMessageOk() (*string, bool)`
 
 GetMessageOk returns a tuple with the Message field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMessage
 
-`func (o *SendResponse) SetMessage(v string)`
+`func (o *UserInfoResponse) SetMessage(v string)`
 
 SetMessage sets Message field to given value.
 
 ### HasMessage
 
-`func (o *SendResponse) HasMessage() bool`
+`func (o *UserInfoResponse) HasMessage() bool`
 
 HasMessage returns a boolean if a field has been set.
 
 ### GetResults
 
-`func (o *SendResponse) GetResults() SendResponseResults`
+`func (o *UserInfoResponse) GetResults() UserInfoResponseResults`
 
 GetResults returns the Results field if non-nil, zero value otherwise.
 
 ### GetResultsOk
 
-`func (o *SendResponse) GetResultsOk() (*SendResponseResults, bool)`
+`func (o *UserInfoResponse) GetResultsOk() (*UserInfoResponseResults, bool)`
 
 GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResults
 
-`func (o *SendResponse) SetResults(v SendResponseResults)`
+`func (o *UserInfoResponse) SetResults(v UserInfoResponseResults)`
 
 SetResults sets Results field to given value.
 
 ### HasResults
 
-`func (o *SendResponse) HasResults() bool`
+`func (o *UserInfoResponse) HasResults() bool`
 
 HasResults returns a boolean if a field has been set.
 

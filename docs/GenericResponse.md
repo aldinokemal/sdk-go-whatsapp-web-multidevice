@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Code** | Pointer to **int32** |  | [optional] 
+**Code** | Pointer to **string** |  | [optional] 
 **Message** | Pointer to **string** |  | [optional] 
 **Results** | Pointer to **string** |  | [optional] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCode
 
-`func (o *GenericResponse) GetCode() int32`
+`func (o *GenericResponse) GetCode() string`
 
 GetCode returns the Code field if non-nil, zero value otherwise.
 
 ### GetCodeOk
 
-`func (o *GenericResponse) GetCodeOk() (*int32, bool)`
+`func (o *GenericResponse) GetCodeOk() (*string, bool)`
 
 GetCodeOk returns a tuple with the Code field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCode
 
-`func (o *GenericResponse) SetCode(v int32)`
+`func (o *GenericResponse) SetCode(v string)`
 
 SetCode sets Code field to given value.
 
