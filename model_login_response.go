@@ -19,7 +19,7 @@ var _ MappedNullable = &LoginResponse{}
 
 // LoginResponse struct for LoginResponse
 type LoginResponse struct {
-	Code *string `json:"code,omitempty"`
+	Code *int32 `json:"code,omitempty"`
 	Message *string `json:"message,omitempty"`
 	Results *LoginResponseResults `json:"results,omitempty"`
 }
@@ -42,9 +42,9 @@ func NewLoginResponseWithDefaults() *LoginResponse {
 }
 
 // GetCode returns the Code field value if set, zero value otherwise.
-func (o *LoginResponse) GetCode() string {
+func (o *LoginResponse) GetCode() int32 {
 	if o == nil || isNil(o.Code) {
-		var ret string
+		var ret int32
 		return ret
 	}
 	return *o.Code
@@ -52,7 +52,7 @@ func (o *LoginResponse) GetCode() string {
 
 // GetCodeOk returns a tuple with the Code field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LoginResponse) GetCodeOk() (*string, bool) {
+func (o *LoginResponse) GetCodeOk() (*int32, bool) {
 	if o == nil || isNil(o.Code) {
 		return nil, false
 	}
@@ -68,8 +68,8 @@ func (o *LoginResponse) HasCode() bool {
 	return false
 }
 
-// SetCode gets a reference to the given string and assigns it to the Code field.
-func (o *LoginResponse) SetCode(v string) {
+// SetCode gets a reference to the given int32 and assigns it to the Code field.
+func (o *LoginResponse) SetCode(v int32) {
 	o.Code = &v
 }
 

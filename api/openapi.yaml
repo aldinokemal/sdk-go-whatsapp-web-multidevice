@@ -567,15 +567,15 @@ components:
       type: object
     LoginResponse:
       example:
-        code: "200"
+        code: 200
         message: Success
         results:
           qr_duration: 30
           qr_link: http://localhost:3000/statics/images/qrcode/scan-qr-b0b7bb43-9a22-455a-814f-5a225c743310.png
       properties:
         code:
-          example: "200"
-          type: string
+          example: 200
+          type: integer
         message:
           example: Success
           type: string
