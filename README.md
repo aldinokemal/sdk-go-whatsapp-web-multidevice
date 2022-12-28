@@ -77,6 +77,7 @@ All URIs are relative to *http://localhost:3000*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AppApi* | [**AppDevices**](docs/AppApi.md#appdevices) | **Get** /app/devices | Get list connected devices
 *AppApi* | [**AppLogin**](docs/AppApi.md#applogin) | **Get** /app/login | Login to whatsapp server
 *AppApi* | [**AppLogout**](docs/AppApi.md#applogout) | **Get** /app/logout | Remove database and logout
 *AppApi* | [**AppReconnect**](docs/AppApi.md#appreconnect) | **Get** /app/reconnect | Reconnecting to whatsapp server
@@ -96,6 +97,8 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [DeviceResponse](docs/DeviceResponse.md)
+ - [DeviceResponseResultsInner](docs/DeviceResponseResultsInner.md)
  - [ErrorBadRequest](docs/ErrorBadRequest.md)
  - [ErrorInternalServer](docs/ErrorInternalServer.md)
  - [GenericResponse](docs/GenericResponse.md)

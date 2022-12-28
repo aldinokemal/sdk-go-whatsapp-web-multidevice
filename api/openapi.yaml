@@ -70,6 +70,25 @@ paths:
       summary: Reconnecting to whatsapp server
       tags:
       - app
+  /app/devices:
+    get:
+      operationId: appDevices
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceResponse'
+          description: OK
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternalServer'
+          description: Internal Server Error
+      summary: Get list connected devices
+      tags:
+      - app
   /user/info:
     get:
       operationId: userInfo
@@ -515,6 +534,27 @@ components:
         results:
           $ref: '#/components/schemas/SendResponse_results'
       type: object
+    DeviceResponse:
+      example:
+        code: SUCCESS
+        message: Fetch device success
+        results:
+        - name: Aldino Kemal
+          device: 628960561XXX.0:64@s.whatsapp.net
+        - name: Aldino Kemal
+          device: 628960561XXX.0:64@s.whatsapp.net
+      properties:
+        code:
+          example: SUCCESS
+          type: string
+        message:
+          example: Fetch device success
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/DeviceResponse_results_inner'
+          type: array
+      type: object
     LoginResponse:
       example:
         code: SUCCESS
@@ -849,6 +889,18 @@ components:
           type: string
         status:
           example: <feature> success ....
+          type: string
+      type: object
+    DeviceResponse_results_inner:
+      example:
+        name: Aldino Kemal
+        device: 628960561XXX.0:64@s.whatsapp.net
+      properties:
+        name:
+          example: Aldino Kemal
+          type: string
+        device:
+          example: 628960561XXX.0:64@s.whatsapp.net
           type: string
       type: object
     LoginResponse_results:
