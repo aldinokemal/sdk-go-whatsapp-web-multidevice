@@ -26,7 +26,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
 )
 
 func main() {
@@ -85,7 +85,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
 )
 
 func main() {
@@ -144,7 +144,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
 )
 
 func main() {
@@ -203,7 +203,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
 )
 
 func main() {

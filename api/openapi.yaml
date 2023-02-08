@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   description: This API is used for sending whatsapp via API
   title: WhatsApp API MultiDevice
-  version: 3.3.1
+  version: 3.4.0
 servers:
 - url: http://localhost:3000
 tags:
@@ -10,7 +10,9 @@ tags:
   name: app
 - description: Getting information
   name: user
-- description: Send or Manipulate Message (Text/Image/File/Video).
+- description: Send Message (Text/Image/File/Video).
+  name: send
+- description: Message manipulation (revoke/react/update).
   name: message
 paths:
   /app/login:
@@ -226,7 +228,7 @@ paths:
           description: Internal Server Error
       summary: Send Message
       tags:
-      - message
+      - send
   /send/image:
     post:
       operationId: sendImage
@@ -256,7 +258,7 @@ paths:
           description: Internal Server Error
       summary: Send Image
       tags:
-      - message
+      - send
   /send/file:
     post:
       operationId: sendFile
@@ -286,7 +288,7 @@ paths:
           description: Internal Server Error
       summary: Send File
       tags:
-      - message
+      - send
   /send/video:
     post:
       operationId: sendVideo
@@ -316,7 +318,7 @@ paths:
           description: Internal Server Error
       summary: Send Video
       tags:
-      - message
+      - send
   /send/contact:
     post:
       operationId: sendContact
@@ -346,7 +348,7 @@ paths:
           description: Internal Server Error
       summary: Send Contact
       tags:
-      - message
+      - send
   /send/link:
     post:
       operationId: sendLink
@@ -376,7 +378,7 @@ paths:
           description: Internal Server Error
       summary: Send Link
       tags:
-      - message
+      - send
   /send/location:
     post:
       operationId: sendLocation
@@ -406,10 +408,19 @@ paths:
           description: Internal Server Error
       summary: Send Location
       tags:
-      - message
-  /message/:message_id/revoke:
+      - send
+  /message/{message_id}/revoke:
     post:
       operationId: revokeMessage
+      parameters:
+      - description: Message ID
+        explode: false
+        in: path
+        name: message_id
+        required: true
+        schema:
+          type: string
+        style: simple
       requestBody:
         content:
           multipart/form-data:
@@ -434,7 +445,46 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorInternalServer'
           description: Internal Server Error
-      summary: Send Link
+      summary: Revoke Message
+      tags:
+      - message
+  /message/{message_id}/reaction:
+    post:
+      operationId: reactMessage
+      parameters:
+      - description: Message ID
+        explode: false
+        in: path
+        name: message_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/reactMessage_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternalServer'
+          description: Internal Server Error
+      summary: Send reaction to message
       tags:
       - message
 components:
@@ -741,9 +791,16 @@ components:
           description: Phone number with country code
           example: 6289685024051@s.whatsapp.net
           type: string
-        message_id:
-          description: Message ID
-          example: 3EB007D87686670344D7
+      type: object
+    reactMessage_request:
+      properties:
+        phone:
+          description: Phone number with country code
+          example: 6289685024051@s.whatsapp.net
+          type: string
+        emoji:
+          description: Emoji to react
+          example: 🙏
           type: string
       type: object
     UserGroupResponse_results_data_inner_Participants_inner:
