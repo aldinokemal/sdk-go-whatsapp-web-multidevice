@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   description: This API is used for sending whatsapp via API
   title: WhatsApp API MultiDevice
-  version: 3.4.0
+  version: 3.5.0
 servers:
 - url: http://localhost:3000
 tags:
@@ -14,6 +14,8 @@ tags:
   name: send
 - description: Message manipulation (revoke/react/update).
   name: message
+- description: Group setting
+  name: group
 paths:
   /app/login:
     get:
@@ -487,6 +489,36 @@ paths:
       summary: Send reaction to message
       tags:
       - message
+  /group/join-with-link:
+    post:
+      operationId: joinGroupWithLink
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/joinGroupWithLink_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternalServer'
+          description: Internal Server Error
+      summary: Join group with link
+      tags:
+      - group
 components:
   schemas:
     UserGroupResponse:
@@ -801,6 +833,12 @@ components:
         emoji:
           description: Emoji to react
           example: 🙏
+          type: string
+      type: object
+    joinGroupWithLink_request:
+      properties:
+        link:
+          example: https://chat.whatsapp.com/whatsappKeyJoinGroup
           type: string
       type: object
     UserGroupResponse_results_data_inner_Participants_inner:
