@@ -1,7 +1,7 @@
 /*
 WhatsApp API MultiDevice
 
-Testing MessageApiService
+Testing MessageAPIService
 
 */
 
@@ -17,18 +17,18 @@ import (
 	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
 )
 
-func Test_sdk_go_whatsapp_web_multidevice_MessageApiService(t *testing.T) {
+func Test_sdk_go_whatsapp_web_multidevice_MessageAPIService(t *testing.T) {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test MessageApiService ReactMessage", func(t *testing.T) {
+	t.Run("Test MessageAPIService ReactMessage", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var messageId string
 
-		resp, httpRes, err := apiClient.MessageApi.ReactMessage(context.Background(), messageId).Execute()
+		resp, httpRes, err := apiClient.MessageAPI.ReactMessage(context.Background(), messageId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -36,13 +36,13 @@ func Test_sdk_go_whatsapp_web_multidevice_MessageApiService(t *testing.T) {
 
 	})
 
-	t.Run("Test MessageApiService RevokeMessage", func(t *testing.T) {
+	t.Run("Test MessageAPIService RevokeMessage", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var messageId string
 
-		resp, httpRes, err := apiClient.MessageApi.RevokeMessage(context.Background(), messageId).Execute()
+		resp, httpRes, err := apiClient.MessageAPI.RevokeMessage(context.Background(), messageId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

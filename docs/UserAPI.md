@@ -1,13 +1,13 @@
-# \UserApi
+# \UserAPI
 
 All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**UserAvatar**](UserApi.md#UserAvatar) | **Get** /user/avatar | User Avatar
-[**UserInfo**](UserApi.md#UserInfo) | **Get** /user/info | User Info
-[**UserMyGroups**](UserApi.md#UserMyGroups) | **Get** /user/my/groups | User My List Groups
-[**UserMyPrivacy**](UserApi.md#UserMyPrivacy) | **Get** /user/my/privacy | User My Privacy Setting
+[**UserAvatar**](UserAPI.md#UserAvatar) | **Get** /user/avatar | User Avatar
+[**UserInfo**](UserAPI.md#UserInfo) | **Get** /user/info | User Info
+[**UserMyGroups**](UserAPI.md#UserMyGroups) | **Get** /user/my/groups | User My List Groups
+[**UserMyPrivacy**](UserAPI.md#UserMyPrivacy) | **Get** /user/my/privacy | User My Privacy Setting
 
 
 
@@ -23,25 +23,25 @@ User Avatar
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
 )
 
 func main() {
-    phone := int32(6289685028129@s.whatsapp.net) // int32 |  (optional)
-    isPreview := true // bool |  (optional)
+	phone := int32(6289685028129@s.whatsapp.net) // int32 |  (optional)
+	isPreview := true // bool |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserApi.UserAvatar(context.Background()).Phone(phone).IsPreview(isPreview).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.UserAvatar``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UserAvatar`: UserAvatarResponse
-    fmt.Fprintf(os.Stdout, "Response from `UserApi.UserAvatar`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserAPI.UserAvatar(context.Background()).Phone(phone).IsPreview(isPreview).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UserAvatar``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UserAvatar`: UserAvatarResponse
+	fmt.Fprintf(os.Stdout, "Response from `UserAPI.UserAvatar`: %v\n", resp)
 }
 ```
 
@@ -89,24 +89,24 @@ User Info
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
 )
 
 func main() {
-    phone := int32(6289685028129@s.whatsapp.net) // int32 |  (optional)
+	phone := int32(6289685028129@s.whatsapp.net) // int32 |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserApi.UserInfo(context.Background()).Phone(phone).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.UserInfo``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UserInfo`: UserInfoResponse
-    fmt.Fprintf(os.Stdout, "Response from `UserApi.UserInfo`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserAPI.UserInfo(context.Background()).Phone(phone).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UserInfo``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UserInfo`: UserInfoResponse
+	fmt.Fprintf(os.Stdout, "Response from `UserAPI.UserInfo`: %v\n", resp)
 }
 ```
 
@@ -153,21 +153,21 @@ User My List Groups
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.UserApi.UserMyGroups(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.UserMyGroups``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.UserAPI.UserMyGroups(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UserMyGroups``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -210,23 +210,23 @@ User My Privacy Setting
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserApi.UserMyPrivacy(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.UserMyPrivacy``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UserMyPrivacy`: UserPrivacyResponse
-    fmt.Fprintf(os.Stdout, "Response from `UserApi.UserMyPrivacy`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserAPI.UserMyPrivacy(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UserMyPrivacy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UserMyPrivacy`: UserPrivacyResponse
+	fmt.Fprintf(os.Stdout, "Response from `UserAPI.UserMyPrivacy`: %v\n", resp)
 }
 ```
 

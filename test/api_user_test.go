@@ -1,7 +1,7 @@
 /*
 WhatsApp API MultiDevice
 
-Testing UserApiService
+Testing UserAPIService
 
 */
 
@@ -17,16 +17,16 @@ import (
 	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
 )
 
-func Test_sdk_go_whatsapp_web_multidevice_UserApiService(t *testing.T) {
+func Test_sdk_go_whatsapp_web_multidevice_UserAPIService(t *testing.T) {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test UserApiService UserAvatar", func(t *testing.T) {
+	t.Run("Test UserAPIService UserAvatar", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.UserApi.UserAvatar(context.Background()).Execute()
+		resp, httpRes, err := apiClient.UserAPI.UserAvatar(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -34,11 +34,11 @@ func Test_sdk_go_whatsapp_web_multidevice_UserApiService(t *testing.T) {
 
 	})
 
-	t.Run("Test UserApiService UserInfo", func(t *testing.T) {
+	t.Run("Test UserAPIService UserInfo", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.UserApi.UserInfo(context.Background()).Execute()
+		resp, httpRes, err := apiClient.UserAPI.UserInfo(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -46,22 +46,22 @@ func Test_sdk_go_whatsapp_web_multidevice_UserApiService(t *testing.T) {
 
 	})
 
-	t.Run("Test UserApiService UserMyGroups", func(t *testing.T) {
+	t.Run("Test UserAPIService UserMyGroups", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		httpRes, err := apiClient.UserApi.UserMyGroups(context.Background()).Execute()
+		httpRes, err := apiClient.UserAPI.UserMyGroups(context.Background()).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})
 
-	t.Run("Test UserApiService UserMyPrivacy", func(t *testing.T) {
+	t.Run("Test UserAPIService UserMyPrivacy", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.UserApi.UserMyPrivacy(context.Background()).Execute()
+		resp, httpRes, err := apiClient.UserAPI.UserMyPrivacy(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

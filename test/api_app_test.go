@@ -1,7 +1,7 @@
 /*
 WhatsApp API MultiDevice
 
-Testing AppApiService
+Testing AppAPIService
 
 */
 
@@ -17,16 +17,16 @@ import (
 	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
 )
 
-func Test_sdk_go_whatsapp_web_multidevice_AppApiService(t *testing.T) {
+func Test_sdk_go_whatsapp_web_multidevice_AppAPIService(t *testing.T) {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test AppApiService AppDevices", func(t *testing.T) {
+	t.Run("Test AppAPIService AppDevices", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.AppApi.AppDevices(context.Background()).Execute()
+		resp, httpRes, err := apiClient.AppAPI.AppDevices(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -34,11 +34,11 @@ func Test_sdk_go_whatsapp_web_multidevice_AppApiService(t *testing.T) {
 
 	})
 
-	t.Run("Test AppApiService AppLogin", func(t *testing.T) {
+	t.Run("Test AppAPIService AppLogin", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.AppApi.AppLogin(context.Background()).Execute()
+		resp, httpRes, err := apiClient.AppAPI.AppLogin(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -46,11 +46,11 @@ func Test_sdk_go_whatsapp_web_multidevice_AppApiService(t *testing.T) {
 
 	})
 
-	t.Run("Test AppApiService AppLogout", func(t *testing.T) {
+	t.Run("Test AppAPIService AppLogout", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.AppApi.AppLogout(context.Background()).Execute()
+		resp, httpRes, err := apiClient.AppAPI.AppLogout(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -58,11 +58,11 @@ func Test_sdk_go_whatsapp_web_multidevice_AppApiService(t *testing.T) {
 
 	})
 
-	t.Run("Test AppApiService AppReconnect", func(t *testing.T) {
+	t.Run("Test AppAPIService AppReconnect", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.AppApi.AppReconnect(context.Background()).Execute()
+		resp, httpRes, err := apiClient.AppAPI.AppReconnect(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

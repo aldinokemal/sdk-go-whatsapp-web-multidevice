@@ -1,7 +1,7 @@
 /*
 WhatsApp API MultiDevice
 
-Testing SendApiService
+Testing SendAPIService
 
 */
 
@@ -17,16 +17,16 @@ import (
 	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
 )
 
-func Test_sdk_go_whatsapp_web_multidevice_SendApiService(t *testing.T) {
+func Test_sdk_go_whatsapp_web_multidevice_SendAPIService(t *testing.T) {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test SendApiService SendContact", func(t *testing.T) {
+	t.Run("Test SendAPIService SendAudio", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.SendApi.SendContact(context.Background()).Execute()
+		resp, httpRes, err := apiClient.SendAPI.SendAudio(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -34,11 +34,11 @@ func Test_sdk_go_whatsapp_web_multidevice_SendApiService(t *testing.T) {
 
 	})
 
-	t.Run("Test SendApiService SendFile", func(t *testing.T) {
+	t.Run("Test SendAPIService SendContact", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.SendApi.SendFile(context.Background()).Execute()
+		resp, httpRes, err := apiClient.SendAPI.SendContact(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -46,11 +46,11 @@ func Test_sdk_go_whatsapp_web_multidevice_SendApiService(t *testing.T) {
 
 	})
 
-	t.Run("Test SendApiService SendImage", func(t *testing.T) {
+	t.Run("Test SendAPIService SendFile", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.SendApi.SendImage(context.Background()).Execute()
+		resp, httpRes, err := apiClient.SendAPI.SendFile(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -58,11 +58,11 @@ func Test_sdk_go_whatsapp_web_multidevice_SendApiService(t *testing.T) {
 
 	})
 
-	t.Run("Test SendApiService SendLink", func(t *testing.T) {
+	t.Run("Test SendAPIService SendImage", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.SendApi.SendLink(context.Background()).Execute()
+		resp, httpRes, err := apiClient.SendAPI.SendImage(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -70,11 +70,11 @@ func Test_sdk_go_whatsapp_web_multidevice_SendApiService(t *testing.T) {
 
 	})
 
-	t.Run("Test SendApiService SendLocation", func(t *testing.T) {
+	t.Run("Test SendAPIService SendLink", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.SendApi.SendLocation(context.Background()).Execute()
+		resp, httpRes, err := apiClient.SendAPI.SendLink(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -82,11 +82,11 @@ func Test_sdk_go_whatsapp_web_multidevice_SendApiService(t *testing.T) {
 
 	})
 
-	t.Run("Test SendApiService SendMessage", func(t *testing.T) {
+	t.Run("Test SendAPIService SendLocation", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.SendApi.SendMessage(context.Background()).Execute()
+		resp, httpRes, err := apiClient.SendAPI.SendLocation(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -94,11 +94,23 @@ func Test_sdk_go_whatsapp_web_multidevice_SendApiService(t *testing.T) {
 
 	})
 
-	t.Run("Test SendApiService SendVideo", func(t *testing.T) {
+	t.Run("Test SendAPIService SendMessage", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.SendApi.SendVideo(context.Background()).Execute()
+		resp, httpRes, err := apiClient.SendAPI.SendMessage(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test SendAPIService SendVideo", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.SendAPI.SendVideo(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

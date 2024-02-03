@@ -1,11 +1,11 @@
-# \MessageApi
+# \MessageAPI
 
 All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ReactMessage**](MessageApi.md#ReactMessage) | **Post** /message/{message_id}/reaction | Send reaction to message
-[**RevokeMessage**](MessageApi.md#RevokeMessage) | **Post** /message/{message_id}/revoke | Revoke Message
+[**ReactMessage**](MessageAPI.md#ReactMessage) | **Post** /message/{message_id}/reaction | Send reaction to message
+[**RevokeMessage**](MessageAPI.md#RevokeMessage) | **Post** /message/{message_id}/revoke | Revoke Message
 
 
 
@@ -21,26 +21,26 @@ Send reaction to message
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
 )
 
 func main() {
-    messageId := "messageId_example" // string | Message ID
-    phone := "phone_example" // string | Phone number with country code (optional)
-    emoji := "emoji_example" // string | Emoji to react (optional)
+	messageId := "messageId_example" // string | Message ID
+	phone := "phone_example" // string | Phone number with country code (optional)
+	emoji := "emoji_example" // string | Emoji to react (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.MessageApi.ReactMessage(context.Background(), messageId).Phone(phone).Emoji(emoji).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.ReactMessage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReactMessage`: SendResponse
-    fmt.Fprintf(os.Stdout, "Response from `MessageApi.ReactMessage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MessageAPI.ReactMessage(context.Background(), messageId).Phone(phone).Emoji(emoji).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MessageAPI.ReactMessage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReactMessage`: SendResponse
+	fmt.Fprintf(os.Stdout, "Response from `MessageAPI.ReactMessage`: %v\n", resp)
 }
 ```
 
@@ -93,25 +93,25 @@ Revoke Message
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
 )
 
 func main() {
-    messageId := "messageId_example" // string | Message ID
-    phone := "phone_example" // string | Phone number with country code (optional)
+	messageId := "messageId_example" // string | Message ID
+	phone := "phone_example" // string | Phone number with country code (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.MessageApi.RevokeMessage(context.Background(), messageId).Phone(phone).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MessageApi.RevokeMessage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `RevokeMessage`: SendResponse
-    fmt.Fprintf(os.Stdout, "Response from `MessageApi.RevokeMessage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MessageAPI.RevokeMessage(context.Background(), messageId).Phone(phone).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MessageAPI.RevokeMessage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `RevokeMessage`: SendResponse
+	fmt.Fprintf(os.Stdout, "Response from `MessageAPI.RevokeMessage`: %v\n", resp)
 }
 ```
 

@@ -1,13 +1,13 @@
-# \AppApi
+# \AppAPI
 
 All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AppDevices**](AppApi.md#AppDevices) | **Get** /app/devices | Get list connected devices
-[**AppLogin**](AppApi.md#AppLogin) | **Get** /app/login | Login to whatsapp server
-[**AppLogout**](AppApi.md#AppLogout) | **Get** /app/logout | Remove database and logout
-[**AppReconnect**](AppApi.md#AppReconnect) | **Get** /app/reconnect | Reconnecting to whatsapp server
+[**AppDevices**](AppAPI.md#AppDevices) | **Get** /app/devices | Get list connected devices
+[**AppLogin**](AppAPI.md#AppLogin) | **Get** /app/login | Login to whatsapp server
+[**AppLogout**](AppAPI.md#AppLogout) | **Get** /app/logout | Remove database and logout
+[**AppReconnect**](AppAPI.md#AppReconnect) | **Get** /app/reconnect | Reconnecting to whatsapp server
 
 
 
@@ -23,23 +23,23 @@ Get list connected devices
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AppApi.AppDevices(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AppApi.AppDevices``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppDevices`: DeviceResponse
-    fmt.Fprintf(os.Stdout, "Response from `AppApi.AppDevices`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AppAPI.AppDevices(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AppAPI.AppDevices``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AppDevices`: DeviceResponse
+	fmt.Fprintf(os.Stdout, "Response from `AppAPI.AppDevices`: %v\n", resp)
 }
 ```
 
@@ -82,23 +82,23 @@ Login to whatsapp server
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AppApi.AppLogin(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AppApi.AppLogin``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppLogin`: LoginResponse
-    fmt.Fprintf(os.Stdout, "Response from `AppApi.AppLogin`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AppAPI.AppLogin(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AppAPI.AppLogin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AppLogin`: LoginResponse
+	fmt.Fprintf(os.Stdout, "Response from `AppAPI.AppLogin`: %v\n", resp)
 }
 ```
 
@@ -141,23 +141,23 @@ Remove database and logout
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AppApi.AppLogout(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AppApi.AppLogout``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppLogout`: GenericResponse
-    fmt.Fprintf(os.Stdout, "Response from `AppApi.AppLogout`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AppAPI.AppLogout(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AppAPI.AppLogout``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AppLogout`: GenericResponse
+	fmt.Fprintf(os.Stdout, "Response from `AppAPI.AppLogout`: %v\n", resp)
 }
 ```
 
@@ -200,23 +200,23 @@ Reconnecting to whatsapp server
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AppApi.AppReconnect(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AppApi.AppReconnect``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppReconnect`: GenericResponse
-    fmt.Fprintf(os.Stdout, "Response from `AppApi.AppReconnect`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AppAPI.AppReconnect(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AppAPI.AppReconnect``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AppReconnect`: GenericResponse
+	fmt.Fprintf(os.Stdout, "Response from `AppAPI.AppReconnect`: %v\n", resp)
 }
 ```
 
