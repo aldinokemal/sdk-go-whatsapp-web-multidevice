@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   description: This API is used for sending whatsapp via API
   title: WhatsApp API MultiDevice
-  version: 3.7.0
+  version: 3.10.1
 servers:
 - url: http://localhost:3000
 tags:
@@ -441,6 +441,37 @@ paths:
       summary: Send Location
       tags:
       - send
+  /send/poll:
+    post:
+      operationId: sendPoll
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendPoll_request'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternalServer'
+          description: Internal Server Error
+      summary: Send Poll / Vote
+      tags:
+      - send
   /message/{message_id}/revoke:
     post:
       operationId: revokeMessage
@@ -519,6 +550,75 @@ paths:
       summary: Send reaction to message
       tags:
       - message
+  /message/{message_id}/update:
+    post:
+      operationId: updateMessage
+      parameters:
+      - description: Message ID
+        explode: false
+        in: path
+        name: message_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateMessage_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternalServer'
+          description: Internal Server Error
+      summary: Edit message by message ID before 15 minutes
+      tags:
+      - message
+  /group:
+    post:
+      operationId: createGroup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createGroup_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternalServer'
+          description: Internal Server Error
+      summary: Create group and add participant
+      tags:
+      - group
   /group/join-with-link:
     post:
       operationId: joinGroupWithLink
@@ -900,6 +1000,36 @@ components:
           example: "110.370529"
           type: string
       type: object
+    sendPoll_request:
+      properties:
+        phone:
+          description: "The WhatsApp phone number to send the poll to, including the\
+            \ '@s.whatsapp.net' suffix."
+          example: 6289685024421@s.whatsapp.net
+          type: string
+        question:
+          description: The question for the poll.
+          example: Siapa Nama Avatar The Last Air Bender?
+          type: string
+        options:
+          description: The options for the poll.
+          example:
+          - Zuko
+          - Aang
+          - Katara
+          items:
+            type: string
+          type: array
+        max_answer:
+          description: The maximum number of answers allowed for the poll.
+          example: 2
+          type: integer
+      required:
+      - max_answer
+      - options
+      - phone
+      - question
+      type: object
     revokeMessage_request:
       properties:
         phone:
@@ -917,6 +1047,36 @@ components:
           description: Emoji to react
           example: 🙏
           type: string
+      type: object
+    updateMessage_request:
+      properties:
+        phone:
+          description: Phone number with country code
+          example: 62819273192397132@s.whatsapp.net
+          type: string
+        message:
+          description: New message to send
+          example: Hello World
+          type: string
+      required:
+      - message
+      - phone
+      type: object
+    createGroup_request:
+      properties:
+        title:
+          example: Example Group Title
+          type: string
+        participants:
+          example:
+          - "6819241294719274"
+          - "6829241294719274"
+          - "6839241294719274"
+          items:
+            example: "[\"6819241294719274\",\"6829241294719274\",\"6839241294719274\"\
+              ]"
+            type: string
+          type: array
       type: object
     joinGroupWithLink_request:
       properties:

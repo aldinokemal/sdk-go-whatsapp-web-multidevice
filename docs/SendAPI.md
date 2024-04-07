@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**SendLink**](SendAPI.md#SendLink) | **Post** /send/link | Send Link
 [**SendLocation**](SendAPI.md#SendLocation) | **Post** /send/location | Send Location
 [**SendMessage**](SendAPI.md#SendMessage) | **Post** /send/message | Send Message
+[**SendPoll**](SendAPI.md#SendPoll) | **Post** /send/poll | Send Poll / Vote
 [**SendVideo**](SendAPI.md#SendVideo) | **Post** /send/video | Send Video
 
 
@@ -486,6 +487,70 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: multipart/form-data
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SendPoll
+
+> SendResponse SendPoll(ctx).SendPollRequest(sendPollRequest).Execute()
+
+Send Poll / Vote
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+)
+
+func main() {
+	sendPollRequest := *openapiclient.NewSendPollRequest("6289685024421@s.whatsapp.net", "Siapa Nama Avatar The Last Air Bender?", []string{"Options_example"}, int32(2)) // SendPollRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SendAPI.SendPoll(context.Background()).SendPollRequest(sendPollRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendPoll``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SendPoll`: SendResponse
+	fmt.Fprintf(os.Stdout, "Response from `SendAPI.SendPoll`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSendPollRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sendPollRequest** | [**SendPollRequest**](SendPollRequest.md) |  | 
+
+### Return type
+
+[**SendResponse**](SendResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

@@ -50,4 +50,18 @@ func Test_sdk_go_whatsapp_web_multidevice_MessageAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test MessageAPIService UpdateMessage", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var messageId string
+
+		resp, httpRes, err := apiClient.MessageAPI.UpdateMessage(context.Background(), messageId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 }

@@ -22,6 +22,18 @@ func Test_sdk_go_whatsapp_web_multidevice_GroupAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
+	t.Run("Test GroupAPIService CreateGroup", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.GroupAPI.CreateGroup(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test GroupAPIService JoinGroupWithLink", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
