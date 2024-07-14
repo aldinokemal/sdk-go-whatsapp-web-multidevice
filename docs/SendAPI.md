@@ -84,7 +84,7 @@ No authorization required
 
 ## SendContact
 
-> SendResponse SendContact(ctx).Phone(phone).ContactName(contactName).ContactPhone(contactPhone).Execute()
+> SendResponse SendContact(ctx).SendContactRequest(sendContactRequest).Execute()
 
 Send Contact
 
@@ -101,13 +101,11 @@ import (
 )
 
 func main() {
-	phone := "phone_example" // string | Phone number with country code (optional)
-	contactName := "contactName_example" // string | Contact name (optional)
-	contactPhone := "contactPhone_example" // string | Contact phone number (optional)
+	sendContactRequest := *openapiclient.NewSendContactRequest() // SendContactRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SendAPI.SendContact(context.Background()).Phone(phone).ContactName(contactName).ContactPhone(contactPhone).Execute()
+	resp, r, err := apiClient.SendAPI.SendContact(context.Background()).SendContactRequest(sendContactRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendContact``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -128,9 +126,7 @@ Other parameters are passed through a pointer to a apiSendContactRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **phone** | **string** | Phone number with country code | 
- **contactName** | **string** | Contact name | 
- **contactPhone** | **string** | Contact phone number | 
+ **sendContactRequest** | [**SendContactRequest**](SendContactRequest.md) |  | 
 
 ### Return type
 
@@ -142,7 +138,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: multipart/form-data
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -292,7 +288,7 @@ No authorization required
 
 ## SendLink
 
-> SendResponse SendLink(ctx).Phone(phone).Link(link).Caption(caption).Execute()
+> SendResponse SendLink(ctx).SendLinkRequest(sendLinkRequest).Execute()
 
 Send Link
 
@@ -309,13 +305,11 @@ import (
 )
 
 func main() {
-	phone := "phone_example" // string | Phone number with country code (optional)
-	link := "link_example" // string | Link to send (optional)
-	caption := "caption_example" // string | Caption to send (optional)
+	sendLinkRequest := *openapiclient.NewSendLinkRequest() // SendLinkRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SendAPI.SendLink(context.Background()).Phone(phone).Link(link).Caption(caption).Execute()
+	resp, r, err := apiClient.SendAPI.SendLink(context.Background()).SendLinkRequest(sendLinkRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendLink``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -336,9 +330,7 @@ Other parameters are passed through a pointer to a apiSendLinkRequest struct via
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **phone** | **string** | Phone number with country code | 
- **link** | **string** | Link to send | 
- **caption** | **string** | Caption to send | 
+ **sendLinkRequest** | [**SendLinkRequest**](SendLinkRequest.md) |  | 
 
 ### Return type
 
@@ -350,7 +342,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: multipart/form-data
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -360,7 +352,7 @@ No authorization required
 
 ## SendLocation
 
-> SendResponse SendLocation(ctx).Phone(phone).Latitude(latitude).Longitude(longitude).Execute()
+> SendResponse SendLocation(ctx).SendLocationRequest(sendLocationRequest).Execute()
 
 Send Location
 
@@ -377,13 +369,11 @@ import (
 )
 
 func main() {
-	phone := "phone_example" // string | Phone number with country code (optional)
-	latitude := "latitude_example" // string | Latitude coordinate (optional)
-	longitude := "longitude_example" // string | Longitude coordinate (optional)
+	sendLocationRequest := *openapiclient.NewSendLocationRequest() // SendLocationRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SendAPI.SendLocation(context.Background()).Phone(phone).Latitude(latitude).Longitude(longitude).Execute()
+	resp, r, err := apiClient.SendAPI.SendLocation(context.Background()).SendLocationRequest(sendLocationRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendLocation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -404,9 +394,7 @@ Other parameters are passed through a pointer to a apiSendLocationRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **phone** | **string** | Phone number with country code | 
- **latitude** | **string** | Latitude coordinate | 
- **longitude** | **string** | Longitude coordinate | 
+ **sendLocationRequest** | [**SendLocationRequest**](SendLocationRequest.md) |  | 
 
 ### Return type
 
@@ -418,7 +406,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: multipart/form-data
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -428,7 +416,7 @@ No authorization required
 
 ## SendMessage
 
-> SendResponse SendMessage(ctx).Phone(phone).Message(message).ReplyMessageId(replyMessageId).Execute()
+> SendResponse SendMessage(ctx).SendMessageRequest(sendMessageRequest).Execute()
 
 Send Message
 
@@ -445,13 +433,11 @@ import (
 )
 
 func main() {
-	phone := "phone_example" // string | Phone number with country code (optional)
-	message := "message_example" // string | Message to send (optional)
-	replyMessageId := "replyMessageId_example" // string | Message ID that you want reply (optional)
+	sendMessageRequest := *openapiclient.NewSendMessageRequest() // SendMessageRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SendAPI.SendMessage(context.Background()).Phone(phone).Message(message).ReplyMessageId(replyMessageId).Execute()
+	resp, r, err := apiClient.SendAPI.SendMessage(context.Background()).SendMessageRequest(sendMessageRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendMessage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -472,9 +458,7 @@ Other parameters are passed through a pointer to a apiSendMessageRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **phone** | **string** | Phone number with country code | 
- **message** | **string** | Message to send | 
- **replyMessageId** | **string** | Message ID that you want reply | 
+ **sendMessageRequest** | [**SendMessageRequest**](SendMessageRequest.md) |  | 
 
 ### Return type
 
@@ -486,7 +470,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: multipart/form-data
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

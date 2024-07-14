@@ -22,6 +22,20 @@ func Test_sdk_go_whatsapp_web_multidevice_MessageAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
+	t.Run("Test MessageAPIService DeleteMessage", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var messageId string
+
+		resp, httpRes, err := apiClient.MessageAPI.DeleteMessage(context.Background(), messageId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test MessageAPIService ReactMessage", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
