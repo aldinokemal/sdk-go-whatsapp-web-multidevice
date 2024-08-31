@@ -46,6 +46,18 @@ func Test_sdk_go_whatsapp_web_multidevice_AppAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test AppAPIService AppLoginWithCode", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.AppAPI.AppLoginWithCode(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test AppAPIService AppLogout", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

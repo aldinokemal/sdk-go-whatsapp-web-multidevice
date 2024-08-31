@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AppDevices**](AppAPI.md#AppDevices) | **Get** /app/devices | Get list connected devices
 [**AppLogin**](AppAPI.md#AppLogin) | **Get** /app/login | Login to whatsapp server
+[**AppLoginWithCode**](AppAPI.md#AppLoginWithCode) | **Get** /app/login-with-code | Login with pairing code
 [**AppLogout**](AppAPI.md#AppLogout) | **Get** /app/logout | Remove database and logout
 [**AppReconnect**](AppAPI.md#AppReconnect) | **Get** /app/reconnect | Reconnecting to whatsapp server
 
@@ -114,6 +115,70 @@ Other parameters are passed through a pointer to a apiAppLoginRequest struct via
 ### Return type
 
 [**LoginResponse**](LoginResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## AppLoginWithCode
+
+> LoginWithCodeResponse AppLoginWithCode(ctx).Phone(phone).Execute()
+
+Login with pairing code
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+)
+
+func main() {
+	phone := "628912344551" // string | Your phone number (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AppAPI.AppLoginWithCode(context.Background()).Phone(phone).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AppAPI.AppLoginWithCode``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AppLoginWithCode`: LoginWithCodeResponse
+	fmt.Fprintf(os.Stdout, "Response from `AppAPI.AppLoginWithCode`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAppLoginWithCodeRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **phone** | **string** | Your phone number | 
+
+### Return type
+
+[**LoginWithCodeResponse**](LoginWithCodeResponse.md)
 
 ### Authorization
 

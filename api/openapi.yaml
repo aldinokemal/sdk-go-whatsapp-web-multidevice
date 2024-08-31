@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   description: This API is used for sending whatsapp via API
   title: WhatsApp API MultiDevice
-  version: 4.1.0
+  version: 4.2.0
 servers:
 - url: http://localhost:3000
 tags:
@@ -34,6 +34,35 @@ paths:
                 $ref: '#/components/schemas/ErrorInternalServer'
           description: Internal Server Error
       summary: Login to whatsapp server
+      tags:
+      - app
+  /app/login-with-code:
+    get:
+      operationId: appLoginWithCode
+      parameters:
+      - description: Your phone number
+        example: "628912344551"
+        explode: true
+        in: query
+        name: phone
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginWithCodeResponse'
+          description: OK
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternalServer'
+          description: Internal Server Error
+      summary: Login with pairing code
       tags:
       - app
   /app/logout:
@@ -1015,6 +1044,22 @@ components:
             $ref: '#/components/schemas/DeviceResponse_results_inner'
           type: array
       type: object
+    LoginWithCodeResponse:
+      example:
+        code: SUCCESS
+        message: Success
+        results:
+          pair_code: ABCD-1234
+      properties:
+        code:
+          example: SUCCESS
+          type: string
+        message:
+          example: Success
+          type: string
+        results:
+          $ref: '#/components/schemas/LoginWithCodeResponse_results'
+      type: object
     LoginResponse:
       example:
         code: SUCCESS
@@ -1486,6 +1531,14 @@ components:
           type: string
         device:
           example: 628960561XXX.0:64@s.whatsapp.net
+          type: string
+      type: object
+    LoginWithCodeResponse_results:
+      example:
+        pair_code: ABCD-1234
+      properties:
+        pair_code:
+          example: ABCD-1234
           type: string
       type: object
     LoginResponse_results:
