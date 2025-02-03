@@ -1,4 +1,4 @@
-# \SendAPI
+# SdkWhatsappWebMultiDevice\SendAPI
 
 All URIs are relative to *http://localhost:3000*
 
@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**SendLocation**](SendAPI.md#SendLocation) | **Post** /send/location | Send Location
 [**SendMessage**](SendAPI.md#SendMessage) | **Post** /send/message | Send Message
 [**SendPoll**](SendAPI.md#SendPoll) | **Post** /send/poll | Send Poll / Vote
+[**SendPresence**](SendAPI.md#SendPresence) | **Post** /send/presence | Send presence status
 [**SendVideo**](SendAPI.md#SendVideo) | **Post** /send/video | Send Video
 
 
@@ -523,6 +524,70 @@ Other parameters are passed through a pointer to a apiSendPollRequest struct via
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sendPollRequest** | [**SendPollRequest**](SendPollRequest.md) |  | 
+
+### Return type
+
+[**SendResponse**](SendResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SendPresence
+
+> SendResponse SendPresence(ctx).SendPresenceRequest(sendPresenceRequest).Execute()
+
+Send presence status
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+)
+
+func main() {
+	sendPresenceRequest := *openapiclient.NewSendPresenceRequest("available") // SendPresenceRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SendAPI.SendPresence(context.Background()).SendPresenceRequest(sendPresenceRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendPresence``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SendPresence`: SendResponse
+	fmt.Fprintf(os.Stdout, "Response from `SendAPI.SendPresence`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSendPresenceRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sendPresenceRequest** | [**SendPresenceRequest**](SendPresenceRequest.md) |  | 
 
 ### Return type
 

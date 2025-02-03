@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   description: This API is used for sending whatsapp via API
   title: WhatsApp API MultiDevice
-  version: 4.2.0
+  version: 5.0.0
 servers:
 - url: http://localhost:3000
 tags:
@@ -16,6 +16,8 @@ tags:
   name: message
 - description: Group setting
   name: group
+- description: newsletter setting
+  name: newsletter
 paths:
   /app/login:
     get:
@@ -198,6 +200,35 @@ paths:
       summary: User Avatar
       tags:
       - user
+    post:
+      operationId: userChangeAvatar
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/userChangeAvatar_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternalServer'
+          description: Internal Server Error
+      summary: User Change Avatar
+      tags:
+      - user
   /user/my/privacy:
     get:
       operationId: userMyPrivacy
@@ -221,6 +252,31 @@ paths:
     get:
       operationId: userMyGroups
       responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroupResponse'
+          description: OK
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternalServer'
+          description: Internal Server Error
+      summary: User My List Groups
+      tags:
+      - user
+  /user/my/newsletters:
+    get:
+      operationId: userMyNewsletter
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewsletterResponse'
+          description: OK
         "500":
           content:
             application/json:
@@ -501,6 +557,37 @@ paths:
       summary: Send Poll / Vote
       tags:
       - send
+  /send/presence:
+    post:
+      operationId: sendPresence
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendPresence_request'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternalServer'
+          description: Internal Server Error
+      summary: Send presence status
+      tags:
+      - send
   /message/{message_id}/revoke:
     post:
       operationId: revokeMessage
@@ -655,6 +742,45 @@ paths:
                 $ref: '#/components/schemas/ErrorInternalServer'
           description: Internal Server Error
       summary: Edit message by message ID before 15 minutes
+      tags:
+      - message
+  /message/{message_id}/read:
+    post:
+      operationId: readMessage
+      parameters:
+      - description: Message ID
+        explode: false
+        in: path
+        name: message_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/readMessage_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternalServer'
+          description: Internal Server Error
+      summary: Mark as read message
       tags:
       - message
   /group:
@@ -867,6 +993,36 @@ paths:
       summary: Leave group
       tags:
       - group
+  /newsletter/unfollow:
+    post:
+      operationId: unfollowNewsletter
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/unfollowNewsletter_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternalServer'
+          description: Internal Server Error
+      summary: Unfollow newsletter
+      tags:
+      - newsletter
 components:
   schemas:
     CreateGroupResponse:
@@ -929,6 +1085,43 @@ components:
           type: array
       type: object
     UserGroupResponse:
+      example:
+        code: SUCCESS
+        message: Success get list groups
+        results:
+          data:
+          - NameSetBy: NameSetBy
+            JID: JID
+            NameSetAt: NameSetAt
+            OwnerJID: OwnerJID
+            ParticipantVersionID: ParticipantVersionID
+            Participants:
+            - IsSuperAdmin: true
+              IsAdmin: true
+              JID: JID
+              Error: 0.8008281904610115
+            - IsSuperAdmin: true
+              IsAdmin: true
+              JID: JID
+              Error: 0.8008281904610115
+            GroupCreated: GroupCreated
+            Name: Name
+          - NameSetBy: NameSetBy
+            JID: JID
+            NameSetAt: NameSetAt
+            OwnerJID: OwnerJID
+            ParticipantVersionID: ParticipantVersionID
+            Participants:
+            - IsSuperAdmin: true
+              IsAdmin: true
+              JID: JID
+              Error: 0.8008281904610115
+            - IsSuperAdmin: true
+              IsAdmin: true
+              JID: JID
+              Error: 0.8008281904610115
+            GroupCreated: GroupCreated
+            Name: Name
       properties:
         code:
           example: SUCCESS
@@ -1131,6 +1324,258 @@ components:
           type: object
           example: null
       type: object
+    NewsletterResponse:
+      example:
+        code: SUCCESS
+        message: Success get list newsletter
+        results:
+          data:
+          - id: 120363144038483540@newsletter
+            state:
+              type: active
+            thread_metadata:
+              creation_time: "1688746895"
+              preview:
+                direct_path: /v/t61.24694-24/416962407_970228831134395_8869146381947923973_n.jpg?stp=dst-jpg_s192x192&ccb=11-4&oh=01_Q5AaIHO-DQklqm3q3awF7xwji_WAn9DkgZASQA0B2Ct0qbSa&oe=670D95B1&_nc_sid=5e03e0&_nc_cat=110
+                id: "1707950960975554"
+                type: PREVIEW
+                url: ""
+              settings:
+                reaction_codes:
+                  value: ALL
+              name:
+                update_time: "1688746895480511"
+                text: WhatsApp
+                id: "1688746895480511"
+              description:
+                update_time: "1689653839450668"
+                text: "WhatsApp’s official channel. Follow for our latest feature\
+                  \ launches, updates, exclusive drops and more."
+                id: "1689653839450668"
+              subscribers_count: "0"
+              invite: 0029Va4K0PZ5a245NkngBA2M
+              verification: verified
+              picture:
+                direct_path: /v/t61.24694-24/416962407_970228831134395_8869146381947923973_n.jpg?ccb=11-4&oh=01_Q5AaIIvOIeu3l0HCZWILrmr-dGR_vXFqnhUeytw0-ojPc4hL&oe=670D95B1&_nc_sid=5e03e0&_nc_cat=110
+                id: "1707950960975554"
+                type: IMAGE
+                url: ""
+            viewer_metadata:
+              role: subscriber
+              mute: "off"
+          - id: 120363144038483540@newsletter
+            state:
+              type: active
+            thread_metadata:
+              creation_time: "1688746895"
+              preview:
+                direct_path: /v/t61.24694-24/416962407_970228831134395_8869146381947923973_n.jpg?stp=dst-jpg_s192x192&ccb=11-4&oh=01_Q5AaIHO-DQklqm3q3awF7xwji_WAn9DkgZASQA0B2Ct0qbSa&oe=670D95B1&_nc_sid=5e03e0&_nc_cat=110
+                id: "1707950960975554"
+                type: PREVIEW
+                url: ""
+              settings:
+                reaction_codes:
+                  value: ALL
+              name:
+                update_time: "1688746895480511"
+                text: WhatsApp
+                id: "1688746895480511"
+              description:
+                update_time: "1689653839450668"
+                text: "WhatsApp’s official channel. Follow for our latest feature\
+                  \ launches, updates, exclusive drops and more."
+                id: "1689653839450668"
+              subscribers_count: "0"
+              invite: 0029Va4K0PZ5a245NkngBA2M
+              verification: verified
+              picture:
+                direct_path: /v/t61.24694-24/416962407_970228831134395_8869146381947923973_n.jpg?ccb=11-4&oh=01_Q5AaIIvOIeu3l0HCZWILrmr-dGR_vXFqnhUeytw0-ojPc4hL&oe=670D95B1&_nc_sid=5e03e0&_nc_cat=110
+                id: "1707950960975554"
+                type: IMAGE
+                url: ""
+            viewer_metadata:
+              role: subscriber
+              mute: "off"
+      properties:
+        code:
+          example: SUCCESS
+          type: string
+        message:
+          example: Success get list newsletter
+          type: string
+        results:
+          $ref: '#/components/schemas/NewsletterResponse_results'
+      type: object
+    Newsletter:
+      example:
+        id: 120363144038483540@newsletter
+        state:
+          type: active
+        thread_metadata:
+          creation_time: "1688746895"
+          preview:
+            direct_path: /v/t61.24694-24/416962407_970228831134395_8869146381947923973_n.jpg?stp=dst-jpg_s192x192&ccb=11-4&oh=01_Q5AaIHO-DQklqm3q3awF7xwji_WAn9DkgZASQA0B2Ct0qbSa&oe=670D95B1&_nc_sid=5e03e0&_nc_cat=110
+            id: "1707950960975554"
+            type: PREVIEW
+            url: ""
+          settings:
+            reaction_codes:
+              value: ALL
+          name:
+            update_time: "1688746895480511"
+            text: WhatsApp
+            id: "1688746895480511"
+          description:
+            update_time: "1689653839450668"
+            text: "WhatsApp’s official channel. Follow for our latest feature launches,\
+              \ updates, exclusive drops and more."
+            id: "1689653839450668"
+          subscribers_count: "0"
+          invite: 0029Va4K0PZ5a245NkngBA2M
+          verification: verified
+          picture:
+            direct_path: /v/t61.24694-24/416962407_970228831134395_8869146381947923973_n.jpg?ccb=11-4&oh=01_Q5AaIIvOIeu3l0HCZWILrmr-dGR_vXFqnhUeytw0-ojPc4hL&oe=670D95B1&_nc_sid=5e03e0&_nc_cat=110
+            id: "1707950960975554"
+            type: IMAGE
+            url: ""
+        viewer_metadata:
+          role: subscriber
+          mute: "off"
+      properties:
+        id:
+          example: 120363144038483540@newsletter
+          type: string
+        state:
+          $ref: '#/components/schemas/Newsletter_state'
+        thread_metadata:
+          $ref: '#/components/schemas/Newsletter_thread_metadata'
+        viewer_metadata:
+          $ref: '#/components/schemas/Newsletter_viewer_metadata'
+      type: object
+    GroupResponse:
+      properties:
+        code:
+          example: SUCCESS
+          type: string
+        message:
+          example: Success get list groups
+          type: string
+        results:
+          $ref: '#/components/schemas/GroupResponse_results'
+      type: object
+    Group:
+      properties:
+        JID:
+          example: 120363347168689807@g.us
+          type: string
+        OwnerJID:
+          example: 6288228744537@s.whatsapp.net
+          type: string
+        Name:
+          example: Example Group
+          type: string
+        NameSetAt:
+          example: 2024-10-11T21:27:29+07:00
+          format: date-time
+          type: string
+        NameSetBy:
+          example: 6288228744537@s.whatsapp.net
+          type: string
+        Topic:
+          example: ""
+          type: string
+        TopicID:
+          example: ""
+          type: string
+        TopicSetAt:
+          example: 0001-01-01T00:00:00Z
+          format: date-time
+          type: string
+        TopicSetBy:
+          example: ""
+          type: string
+        TopicDeleted:
+          example: false
+          type: boolean
+        IsLocked:
+          example: false
+          type: boolean
+        IsAnnounce:
+          example: false
+          type: boolean
+        AnnounceVersionID:
+          example: "1728656849439709"
+          type: string
+        IsEphemeral:
+          example: false
+          type: boolean
+        DisappearingTimer:
+          example: 0
+          type: integer
+        IsIncognito:
+          example: false
+          type: boolean
+        IsParent:
+          example: false
+          type: boolean
+        DefaultMembershipApprovalMode:
+          example: ""
+          type: string
+        LinkedParentJID:
+          example: ""
+          type: string
+        IsDefaultSubGroup:
+          example: false
+          type: boolean
+        IsJoinApprovalRequired:
+          example: false
+          type: boolean
+        GroupCreated:
+          example: 2024-10-11T21:27:29+07:00
+          format: date-time
+          type: string
+        ParticipantVersionID:
+          example: "1728656849439790"
+          type: string
+        Participants:
+          items:
+            $ref: '#/components/schemas/Participant'
+          type: array
+        MemberAddMode:
+          example: admin_add
+          type: string
+      type: object
+    Participant:
+      properties:
+        JID:
+          example: 6288228744537@s.whatsapp.net
+          type: string
+        LID:
+          example: 20036609675500@lid
+          type: string
+        IsAdmin:
+          example: true
+          type: boolean
+        IsSuperAdmin:
+          example: true
+          type: boolean
+        DisplayName:
+          example: ""
+          type: string
+        Error:
+          example: 0
+          type: integer
+        AddRequest:
+          type: string
+          example: null
+      type: object
+    userChangeAvatar_request:
+      properties:
+        avatar:
+          description: Avatar to send
+          format: binary
+          type: string
+      type: object
     sendMessage_request:
       properties:
         phone:
@@ -1293,6 +1738,18 @@ components:
       - phone
       - question
       type: object
+    sendPresence_request:
+      properties:
+        presence:
+          description: The presence status to send
+          enum:
+          - available
+          - unavailable
+          example: available
+          type: string
+      required:
+      - presence
+      type: object
     revokeMessage_request:
       properties:
         phone:
@@ -1325,6 +1782,15 @@ components:
       - message
       - phone
       type: object
+    readMessage_request:
+      properties:
+        phone:
+          description: Phone number with country code
+          example: 62819273192397132@s.whatsapp.net
+          type: string
+      required:
+      - phone
+      type: object
     createGroup_request:
       properties:
         title:
@@ -1353,6 +1819,12 @@ components:
           example: 120363024512399999@g.us
           type: string
       type: object
+    unfollowNewsletter_request:
+      properties:
+        newsletter_id:
+          example: 120363024512399999@newsletter
+          type: string
+      type: object
     CreateGroupResponse_results:
       example:
         group_id: 1203632782168851111@g.us
@@ -1377,6 +1849,11 @@ components:
           example: Participant added
           type: string
     UserGroupResponse_results_data_inner_Participants_inner:
+      example:
+        IsSuperAdmin: true
+        IsAdmin: true
+        JID: JID
+        Error: 0.8008281904610115
       properties:
         JID:
           type: string
@@ -1387,6 +1864,23 @@ components:
         Error:
           type: number
     UserGroupResponse_results_data_inner:
+      example:
+        NameSetBy: NameSetBy
+        JID: JID
+        NameSetAt: NameSetAt
+        OwnerJID: OwnerJID
+        ParticipantVersionID: ParticipantVersionID
+        Participants:
+        - IsSuperAdmin: true
+          IsAdmin: true
+          JID: JID
+          Error: 0.8008281904610115
+        - IsSuperAdmin: true
+          IsAdmin: true
+          JID: JID
+          Error: 0.8008281904610115
+        GroupCreated: GroupCreated
+        Name: Name
       properties:
         JID:
           type: string
@@ -1408,6 +1902,40 @@ components:
           type: array
       type: object
     UserGroupResponse_results:
+      example:
+        data:
+        - NameSetBy: NameSetBy
+          JID: JID
+          NameSetAt: NameSetAt
+          OwnerJID: OwnerJID
+          ParticipantVersionID: ParticipantVersionID
+          Participants:
+          - IsSuperAdmin: true
+            IsAdmin: true
+            JID: JID
+            Error: 0.8008281904610115
+          - IsSuperAdmin: true
+            IsAdmin: true
+            JID: JID
+            Error: 0.8008281904610115
+          GroupCreated: GroupCreated
+          Name: Name
+        - NameSetBy: NameSetBy
+          JID: JID
+          NameSetAt: NameSetAt
+          OwnerJID: OwnerJID
+          ParticipantVersionID: ParticipantVersionID
+          Participants:
+          - IsSuperAdmin: true
+            IsAdmin: true
+            JID: JID
+            Error: 0.8008281904610115
+          - IsSuperAdmin: true
+            IsAdmin: true
+            JID: JID
+            Error: 0.8008281904610115
+          GroupCreated: GroupCreated
+          Name: Name
       properties:
         data:
           items:
@@ -1552,4 +2080,248 @@ components:
         qr_link:
           example: http://localhost:3000/statics/images/qrcode/scan-qr-b0b7bb43-9a22-455a-814f-5a225c743310.png
           type: string
+      type: object
+    NewsletterResponse_results:
+      example:
+        data:
+        - id: 120363144038483540@newsletter
+          state:
+            type: active
+          thread_metadata:
+            creation_time: "1688746895"
+            preview:
+              direct_path: /v/t61.24694-24/416962407_970228831134395_8869146381947923973_n.jpg?stp=dst-jpg_s192x192&ccb=11-4&oh=01_Q5AaIHO-DQklqm3q3awF7xwji_WAn9DkgZASQA0B2Ct0qbSa&oe=670D95B1&_nc_sid=5e03e0&_nc_cat=110
+              id: "1707950960975554"
+              type: PREVIEW
+              url: ""
+            settings:
+              reaction_codes:
+                value: ALL
+            name:
+              update_time: "1688746895480511"
+              text: WhatsApp
+              id: "1688746895480511"
+            description:
+              update_time: "1689653839450668"
+              text: "WhatsApp’s official channel. Follow for our latest feature launches,\
+                \ updates, exclusive drops and more."
+              id: "1689653839450668"
+            subscribers_count: "0"
+            invite: 0029Va4K0PZ5a245NkngBA2M
+            verification: verified
+            picture:
+              direct_path: /v/t61.24694-24/416962407_970228831134395_8869146381947923973_n.jpg?ccb=11-4&oh=01_Q5AaIIvOIeu3l0HCZWILrmr-dGR_vXFqnhUeytw0-ojPc4hL&oe=670D95B1&_nc_sid=5e03e0&_nc_cat=110
+              id: "1707950960975554"
+              type: IMAGE
+              url: ""
+          viewer_metadata:
+            role: subscriber
+            mute: "off"
+        - id: 120363144038483540@newsletter
+          state:
+            type: active
+          thread_metadata:
+            creation_time: "1688746895"
+            preview:
+              direct_path: /v/t61.24694-24/416962407_970228831134395_8869146381947923973_n.jpg?stp=dst-jpg_s192x192&ccb=11-4&oh=01_Q5AaIHO-DQklqm3q3awF7xwji_WAn9DkgZASQA0B2Ct0qbSa&oe=670D95B1&_nc_sid=5e03e0&_nc_cat=110
+              id: "1707950960975554"
+              type: PREVIEW
+              url: ""
+            settings:
+              reaction_codes:
+                value: ALL
+            name:
+              update_time: "1688746895480511"
+              text: WhatsApp
+              id: "1688746895480511"
+            description:
+              update_time: "1689653839450668"
+              text: "WhatsApp’s official channel. Follow for our latest feature launches,\
+                \ updates, exclusive drops and more."
+              id: "1689653839450668"
+            subscribers_count: "0"
+            invite: 0029Va4K0PZ5a245NkngBA2M
+            verification: verified
+            picture:
+              direct_path: /v/t61.24694-24/416962407_970228831134395_8869146381947923973_n.jpg?ccb=11-4&oh=01_Q5AaIIvOIeu3l0HCZWILrmr-dGR_vXFqnhUeytw0-ojPc4hL&oe=670D95B1&_nc_sid=5e03e0&_nc_cat=110
+              id: "1707950960975554"
+              type: IMAGE
+              url: ""
+          viewer_metadata:
+            role: subscriber
+            mute: "off"
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Newsletter'
+          type: array
+      type: object
+    Newsletter_state:
+      example:
+        type: active
+      properties:
+        type:
+          example: active
+          type: string
+      type: object
+    Newsletter_thread_metadata_name:
+      example:
+        update_time: "1688746895480511"
+        text: WhatsApp
+        id: "1688746895480511"
+      properties:
+        text:
+          example: WhatsApp
+          type: string
+        id:
+          example: "1688746895480511"
+          type: string
+        update_time:
+          example: "1688746895480511"
+          type: string
+      type: object
+    Newsletter_thread_metadata_description:
+      example:
+        update_time: "1689653839450668"
+        text: "WhatsApp’s official channel. Follow for our latest feature launches,\
+          \ updates, exclusive drops and more."
+        id: "1689653839450668"
+      properties:
+        text:
+          example: "WhatsApp’s official channel. Follow for our latest feature launches,\
+            \ updates, exclusive drops and more."
+          type: string
+        id:
+          example: "1689653839450668"
+          type: string
+        update_time:
+          example: "1689653839450668"
+          type: string
+      type: object
+    Newsletter_thread_metadata_picture:
+      example:
+        direct_path: /v/t61.24694-24/416962407_970228831134395_8869146381947923973_n.jpg?ccb=11-4&oh=01_Q5AaIIvOIeu3l0HCZWILrmr-dGR_vXFqnhUeytw0-ojPc4hL&oe=670D95B1&_nc_sid=5e03e0&_nc_cat=110
+        id: "1707950960975554"
+        type: IMAGE
+        url: ""
+      properties:
+        url:
+          example: ""
+          type: string
+        id:
+          example: "1707950960975554"
+          type: string
+        type:
+          example: IMAGE
+          type: string
+        direct_path:
+          example: /v/t61.24694-24/416962407_970228831134395_8869146381947923973_n.jpg?ccb=11-4&oh=01_Q5AaIIvOIeu3l0HCZWILrmr-dGR_vXFqnhUeytw0-ojPc4hL&oe=670D95B1&_nc_sid=5e03e0&_nc_cat=110
+          type: string
+      type: object
+    Newsletter_thread_metadata_preview:
+      example:
+        direct_path: /v/t61.24694-24/416962407_970228831134395_8869146381947923973_n.jpg?stp=dst-jpg_s192x192&ccb=11-4&oh=01_Q5AaIHO-DQklqm3q3awF7xwji_WAn9DkgZASQA0B2Ct0qbSa&oe=670D95B1&_nc_sid=5e03e0&_nc_cat=110
+        id: "1707950960975554"
+        type: PREVIEW
+        url: ""
+      properties:
+        url:
+          example: ""
+          type: string
+        id:
+          example: "1707950960975554"
+          type: string
+        type:
+          example: PREVIEW
+          type: string
+        direct_path:
+          example: /v/t61.24694-24/416962407_970228831134395_8869146381947923973_n.jpg?stp=dst-jpg_s192x192&ccb=11-4&oh=01_Q5AaIHO-DQklqm3q3awF7xwji_WAn9DkgZASQA0B2Ct0qbSa&oe=670D95B1&_nc_sid=5e03e0&_nc_cat=110
+          type: string
+      type: object
+    Newsletter_thread_metadata_settings_reaction_codes:
+      example:
+        value: ALL
+      properties:
+        value:
+          example: ALL
+          type: string
+      type: object
+    Newsletter_thread_metadata_settings:
+      example:
+        reaction_codes:
+          value: ALL
+      properties:
+        reaction_codes:
+          $ref: '#/components/schemas/Newsletter_thread_metadata_settings_reaction_codes'
+      type: object
+    Newsletter_thread_metadata:
+      example:
+        creation_time: "1688746895"
+        preview:
+          direct_path: /v/t61.24694-24/416962407_970228831134395_8869146381947923973_n.jpg?stp=dst-jpg_s192x192&ccb=11-4&oh=01_Q5AaIHO-DQklqm3q3awF7xwji_WAn9DkgZASQA0B2Ct0qbSa&oe=670D95B1&_nc_sid=5e03e0&_nc_cat=110
+          id: "1707950960975554"
+          type: PREVIEW
+          url: ""
+        settings:
+          reaction_codes:
+            value: ALL
+        name:
+          update_time: "1688746895480511"
+          text: WhatsApp
+          id: "1688746895480511"
+        description:
+          update_time: "1689653839450668"
+          text: "WhatsApp’s official channel. Follow for our latest feature launches,\
+            \ updates, exclusive drops and more."
+          id: "1689653839450668"
+        subscribers_count: "0"
+        invite: 0029Va4K0PZ5a245NkngBA2M
+        verification: verified
+        picture:
+          direct_path: /v/t61.24694-24/416962407_970228831134395_8869146381947923973_n.jpg?ccb=11-4&oh=01_Q5AaIIvOIeu3l0HCZWILrmr-dGR_vXFqnhUeytw0-ojPc4hL&oe=670D95B1&_nc_sid=5e03e0&_nc_cat=110
+          id: "1707950960975554"
+          type: IMAGE
+          url: ""
+      properties:
+        creation_time:
+          example: "1688746895"
+          type: string
+        invite:
+          example: 0029Va4K0PZ5a245NkngBA2M
+          type: string
+        name:
+          $ref: '#/components/schemas/Newsletter_thread_metadata_name'
+        description:
+          $ref: '#/components/schemas/Newsletter_thread_metadata_description'
+        subscribers_count:
+          example: "0"
+          type: string
+        verification:
+          example: verified
+          type: string
+        picture:
+          $ref: '#/components/schemas/Newsletter_thread_metadata_picture'
+        preview:
+          $ref: '#/components/schemas/Newsletter_thread_metadata_preview'
+        settings:
+          $ref: '#/components/schemas/Newsletter_thread_metadata_settings'
+      type: object
+    Newsletter_viewer_metadata:
+      example:
+        role: subscriber
+        mute: "off"
+      properties:
+        mute:
+          example: "off"
+          type: string
+        role:
+          example: subscriber
+          type: string
+      type: object
+    GroupResponse_results:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Group'
+          type: array
       type: object
