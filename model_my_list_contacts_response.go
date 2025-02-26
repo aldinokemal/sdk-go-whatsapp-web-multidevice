@@ -14,35 +14,35 @@ import (
 	"encoding/json"
 )
 
-// checks if the UserGroupResponse type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &UserGroupResponse{}
+// checks if the MyListContactsResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MyListContactsResponse{}
 
-// UserGroupResponse struct for UserGroupResponse
-type UserGroupResponse struct {
+// MyListContactsResponse struct for MyListContactsResponse
+type MyListContactsResponse struct {
 	Code *string `json:"code,omitempty"`
 	Message *string `json:"message,omitempty"`
-	Results *UserGroupResponseResults `json:"results,omitempty"`
+	Results *MyListContactsResponseResults `json:"results,omitempty"`
 }
 
-// NewUserGroupResponse instantiates a new UserGroupResponse object
+// NewMyListContactsResponse instantiates a new MyListContactsResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUserGroupResponse() *UserGroupResponse {
-	this := UserGroupResponse{}
+func NewMyListContactsResponse() *MyListContactsResponse {
+	this := MyListContactsResponse{}
 	return &this
 }
 
-// NewUserGroupResponseWithDefaults instantiates a new UserGroupResponse object
+// NewMyListContactsResponseWithDefaults instantiates a new MyListContactsResponse object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewUserGroupResponseWithDefaults() *UserGroupResponse {
-	this := UserGroupResponse{}
+func NewMyListContactsResponseWithDefaults() *MyListContactsResponse {
+	this := MyListContactsResponse{}
 	return &this
 }
 
 // GetCode returns the Code field value if set, zero value otherwise.
-func (o *UserGroupResponse) GetCode() string {
+func (o *MyListContactsResponse) GetCode() string {
 	if o == nil || IsNil(o.Code) {
 		var ret string
 		return ret
@@ -52,7 +52,7 @@ func (o *UserGroupResponse) GetCode() string {
 
 // GetCodeOk returns a tuple with the Code field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserGroupResponse) GetCodeOk() (*string, bool) {
+func (o *MyListContactsResponse) GetCodeOk() (*string, bool) {
 	if o == nil || IsNil(o.Code) {
 		return nil, false
 	}
@@ -60,7 +60,7 @@ func (o *UserGroupResponse) GetCodeOk() (*string, bool) {
 }
 
 // HasCode returns a boolean if a field has been set.
-func (o *UserGroupResponse) HasCode() bool {
+func (o *MyListContactsResponse) HasCode() bool {
 	if o != nil && !IsNil(o.Code) {
 		return true
 	}
@@ -69,12 +69,12 @@ func (o *UserGroupResponse) HasCode() bool {
 }
 
 // SetCode gets a reference to the given string and assigns it to the Code field.
-func (o *UserGroupResponse) SetCode(v string) {
+func (o *MyListContactsResponse) SetCode(v string) {
 	o.Code = &v
 }
 
 // GetMessage returns the Message field value if set, zero value otherwise.
-func (o *UserGroupResponse) GetMessage() string {
+func (o *MyListContactsResponse) GetMessage() string {
 	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
@@ -84,7 +84,7 @@ func (o *UserGroupResponse) GetMessage() string {
 
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserGroupResponse) GetMessageOk() (*string, bool) {
+func (o *MyListContactsResponse) GetMessageOk() (*string, bool) {
 	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
@@ -92,7 +92,7 @@ func (o *UserGroupResponse) GetMessageOk() (*string, bool) {
 }
 
 // HasMessage returns a boolean if a field has been set.
-func (o *UserGroupResponse) HasMessage() bool {
+func (o *MyListContactsResponse) HasMessage() bool {
 	if o != nil && !IsNil(o.Message) {
 		return true
 	}
@@ -101,14 +101,14 @@ func (o *UserGroupResponse) HasMessage() bool {
 }
 
 // SetMessage gets a reference to the given string and assigns it to the Message field.
-func (o *UserGroupResponse) SetMessage(v string) {
+func (o *MyListContactsResponse) SetMessage(v string) {
 	o.Message = &v
 }
 
 // GetResults returns the Results field value if set, zero value otherwise.
-func (o *UserGroupResponse) GetResults() UserGroupResponseResults {
+func (o *MyListContactsResponse) GetResults() MyListContactsResponseResults {
 	if o == nil || IsNil(o.Results) {
-		var ret UserGroupResponseResults
+		var ret MyListContactsResponseResults
 		return ret
 	}
 	return *o.Results
@@ -116,7 +116,7 @@ func (o *UserGroupResponse) GetResults() UserGroupResponseResults {
 
 // GetResultsOk returns a tuple with the Results field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserGroupResponse) GetResultsOk() (*UserGroupResponseResults, bool) {
+func (o *MyListContactsResponse) GetResultsOk() (*MyListContactsResponseResults, bool) {
 	if o == nil || IsNil(o.Results) {
 		return nil, false
 	}
@@ -124,7 +124,7 @@ func (o *UserGroupResponse) GetResultsOk() (*UserGroupResponseResults, bool) {
 }
 
 // HasResults returns a boolean if a field has been set.
-func (o *UserGroupResponse) HasResults() bool {
+func (o *MyListContactsResponse) HasResults() bool {
 	if o != nil && !IsNil(o.Results) {
 		return true
 	}
@@ -132,12 +132,12 @@ func (o *UserGroupResponse) HasResults() bool {
 	return false
 }
 
-// SetResults gets a reference to the given UserGroupResponseResults and assigns it to the Results field.
-func (o *UserGroupResponse) SetResults(v UserGroupResponseResults) {
+// SetResults gets a reference to the given MyListContactsResponseResults and assigns it to the Results field.
+func (o *MyListContactsResponse) SetResults(v MyListContactsResponseResults) {
 	o.Results = &v
 }
 
-func (o UserGroupResponse) MarshalJSON() ([]byte, error) {
+func (o MyListContactsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -145,7 +145,7 @@ func (o UserGroupResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o UserGroupResponse) ToMap() (map[string]interface{}, error) {
+func (o MyListContactsResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Code) {
 		toSerialize["code"] = o.Code
@@ -159,38 +159,38 @@ func (o UserGroupResponse) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-type NullableUserGroupResponse struct {
-	value *UserGroupResponse
+type NullableMyListContactsResponse struct {
+	value *MyListContactsResponse
 	isSet bool
 }
 
-func (v NullableUserGroupResponse) Get() *UserGroupResponse {
+func (v NullableMyListContactsResponse) Get() *MyListContactsResponse {
 	return v.value
 }
 
-func (v *NullableUserGroupResponse) Set(val *UserGroupResponse) {
+func (v *NullableMyListContactsResponse) Set(val *MyListContactsResponse) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableUserGroupResponse) IsSet() bool {
+func (v NullableMyListContactsResponse) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableUserGroupResponse) Unset() {
+func (v *NullableMyListContactsResponse) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableUserGroupResponse(val *UserGroupResponse) *NullableUserGroupResponse {
-	return &NullableUserGroupResponse{value: val, isSet: true}
+func NewNullableMyListContactsResponse(val *MyListContactsResponse) *NullableMyListContactsResponse {
+	return &NullableMyListContactsResponse{value: val, isSet: true}
 }
 
-func (v NullableUserGroupResponse) MarshalJSON() ([]byte, error) {
+func (v NullableMyListContactsResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableUserGroupResponse) UnmarshalJSON(src []byte) error {
+func (v *NullableMyListContactsResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

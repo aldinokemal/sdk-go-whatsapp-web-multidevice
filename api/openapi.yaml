@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   description: This API is used for sending whatsapp via API
   title: WhatsApp API MultiDevice
-  version: 5.0.0
+  version: 5.2.0
 servers:
 - url: http://localhost:3000
 tags:
@@ -128,13 +128,14 @@ paths:
     get:
       operationId: userInfo
       parameters:
-      - example: 6289685028129@s.whatsapp.net
+      - description: Phone number with country code
+        example: 6289685028129@s.whatsapp.net
         explode: true
         in: query
         name: phone
         required: false
         schema:
-          type: integer
+          type: string
         style: form
       responses:
         "200":
@@ -162,15 +163,17 @@ paths:
     get:
       operationId: userAvatar
       parameters:
-      - example: 6289685028129@s.whatsapp.net
+      - description: Phone number with country code
+        example: 6289685028129@s.whatsapp.net
         explode: true
         in: query
         name: phone
         required: false
         schema:
-          type: integer
+          type: string
         style: form
-      - example: true
+      - description: Whether to fetch a preview of the avatar
+        example: true
         explode: true
         in: query
         name: is_preview
@@ -284,6 +287,25 @@ paths:
                 $ref: '#/components/schemas/ErrorInternalServer'
           description: Internal Server Error
       summary: User My List Groups
+      tags:
+      - user
+  /user/my/contacts:
+    get:
+      operationId: userMyContacts
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MyListContactsResponse'
+          description: OK
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternalServer'
+          description: Internal Server Error
+      summary: Get list of user contacts
       tags:
       - user
   /send/message:
@@ -1135,7 +1157,7 @@ components:
     UserInfoResponse:
       example:
         code: SUCCESS
-        message: message
+        message: Success
         results:
           devices:
           - Agent: 0
@@ -1156,10 +1178,14 @@ components:
           example: SUCCESS
           type: string
         message:
+          example: Success
           type: string
-          example: null
         results:
           $ref: '#/components/schemas/UserInfoResponse_results'
+      required:
+      - code
+      - message
+      - results
       type: object
     UserAvatarResponse:
       example:
@@ -1349,7 +1375,7 @@ components:
                 id: "1688746895480511"
               description:
                 update_time: "1689653839450668"
-                text: "WhatsApp’s official channel. Follow for our latest feature\
+                text: "WhatsApp's official channel. Follow for our latest feature\
                   \ launches, updates, exclusive drops and more."
                 id: "1689653839450668"
               subscribers_count: "0"
@@ -1382,7 +1408,7 @@ components:
                 id: "1688746895480511"
               description:
                 update_time: "1689653839450668"
-                text: "WhatsApp’s official channel. Follow for our latest feature\
+                text: "WhatsApp's official channel. Follow for our latest feature\
                   \ launches, updates, exclusive drops and more."
                 id: "1689653839450668"
               subscribers_count: "0"
@@ -1427,7 +1453,7 @@ components:
             id: "1688746895480511"
           description:
             update_time: "1689653839450668"
-            text: "WhatsApp’s official channel. Follow for our latest feature launches,\
+            text: "WhatsApp's official channel. Follow for our latest feature launches,\
               \ updates, exclusive drops and more."
             id: "1689653839450668"
           subscribers_count: "0"
@@ -1451,6 +1477,38 @@ components:
           $ref: '#/components/schemas/Newsletter_thread_metadata'
         viewer_metadata:
           $ref: '#/components/schemas/Newsletter_viewer_metadata'
+      type: object
+    MyListContactsResponse:
+      example:
+        code: SUCCESS
+        message: Success get list contacts
+        results:
+          data:
+          - jid: 628123123123123@s.whatsapp.net
+            name: Aldino Kemal
+          - jid: 628123123123123@s.whatsapp.net
+            name: Aldino Kemal
+      properties:
+        code:
+          example: SUCCESS
+          type: string
+        message:
+          example: Success get list contacts
+          type: string
+        results:
+          $ref: '#/components/schemas/MyListContactsResponse_results'
+      type: object
+    MyListContacts:
+      example:
+        jid: 628123123123123@s.whatsapp.net
+        name: Aldino Kemal
+      properties:
+        jid:
+          example: 628123123123123@s.whatsapp.net
+          type: string
+        name:
+          example: Aldino Kemal
+          type: string
       type: object
     GroupResponse:
       properties:
@@ -1608,6 +1666,10 @@ components:
         image:
           description: Image to send
           format: binary
+          type: string
+        image_url:
+          description: Image URL to send
+          example: https://example.com/image.jpg
           type: string
         compress:
           description: Compress image
@@ -2103,7 +2165,7 @@ components:
               id: "1688746895480511"
             description:
               update_time: "1689653839450668"
-              text: "WhatsApp’s official channel. Follow for our latest feature launches,\
+              text: "WhatsApp's official channel. Follow for our latest feature launches,\
                 \ updates, exclusive drops and more."
               id: "1689653839450668"
             subscribers_count: "0"
@@ -2136,7 +2198,7 @@ components:
               id: "1688746895480511"
             description:
               update_time: "1689653839450668"
-              text: "WhatsApp’s official channel. Follow for our latest feature launches,\
+              text: "WhatsApp's official channel. Follow for our latest feature launches,\
                 \ updates, exclusive drops and more."
               id: "1689653839450668"
             subscribers_count: "0"
@@ -2183,12 +2245,12 @@ components:
     Newsletter_thread_metadata_description:
       example:
         update_time: "1689653839450668"
-        text: "WhatsApp’s official channel. Follow for our latest feature launches,\
+        text: "WhatsApp's official channel. Follow for our latest feature launches,\
           \ updates, exclusive drops and more."
         id: "1689653839450668"
       properties:
         text:
-          example: "WhatsApp’s official channel. Follow for our latest feature launches,\
+          example: "WhatsApp's official channel. Follow for our latest feature launches,\
             \ updates, exclusive drops and more."
           type: string
         id:
@@ -2271,7 +2333,7 @@ components:
           id: "1688746895480511"
         description:
           update_time: "1689653839450668"
-          text: "WhatsApp’s official channel. Follow for our latest feature launches,\
+          text: "WhatsApp's official channel. Follow for our latest feature launches,\
             \ updates, exclusive drops and more."
           id: "1689653839450668"
         subscribers_count: "0"
@@ -2317,6 +2379,19 @@ components:
         role:
           example: subscriber
           type: string
+      type: object
+    MyListContactsResponse_results:
+      example:
+        data:
+        - jid: 628123123123123@s.whatsapp.net
+          name: Aldino Kemal
+        - jid: 628123123123123@s.whatsapp.net
+          name: Aldino Kemal
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/MyListContacts'
+          type: array
       type: object
     GroupResponse_results:
       properties:

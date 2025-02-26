@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**UserAvatar**](UserAPI.md#UserAvatar) | **Get** /user/avatar | User Avatar
 [**UserChangeAvatar**](UserAPI.md#UserChangeAvatar) | **Post** /user/avatar | User Change Avatar
 [**UserInfo**](UserAPI.md#UserInfo) | **Get** /user/info | User Info
+[**UserMyContacts**](UserAPI.md#UserMyContacts) | **Get** /user/my/contacts | Get list of user contacts
 [**UserMyGroups**](UserAPI.md#UserMyGroups) | **Get** /user/my/groups | User My List Groups
 [**UserMyNewsletter**](UserAPI.md#UserMyNewsletter) | **Get** /user/my/newsletters | User My List Groups
 [**UserMyPrivacy**](UserAPI.md#UserMyPrivacy) | **Get** /user/my/privacy | User My Privacy Setting
@@ -32,8 +33,8 @@ import (
 )
 
 func main() {
-	phone := int32(6289685028129@s.whatsapp.net) // int32 |  (optional)
-	isPreview := true // bool |  (optional)
+	phone := "6289685028129@s.whatsapp.net" // string | Phone number with country code (optional)
+	isPreview := true // bool | Whether to fetch a preview of the avatar (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -58,8 +59,8 @@ Other parameters are passed through a pointer to a apiUserAvatarRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **phone** | **int32** |  | 
- **isPreview** | **bool** |  | 
+ **phone** | **string** | Phone number with country code | 
+ **isPreview** | **bool** | Whether to fetch a preview of the avatar | 
 
 ### Return type
 
@@ -162,7 +163,7 @@ import (
 )
 
 func main() {
-	phone := int32(6289685028129@s.whatsapp.net) // int32 |  (optional)
+	phone := "6289685028129@s.whatsapp.net" // string | Phone number with country code (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -187,11 +188,70 @@ Other parameters are passed through a pointer to a apiUserInfoRequest struct via
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **phone** | **int32** |  | 
+ **phone** | **string** | Phone number with country code | 
 
 ### Return type
 
 [**UserInfoResponse**](UserInfoResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UserMyContacts
+
+> MyListContactsResponse UserMyContacts(ctx).Execute()
+
+Get list of user contacts
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserAPI.UserMyContacts(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UserMyContacts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UserMyContacts`: MyListContactsResponse
+	fmt.Fprintf(os.Stdout, "Response from `UserAPI.UserMyContacts`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUserMyContactsRequest struct via the builder pattern
+
+
+### Return type
+
+[**MyListContactsResponse**](MyListContactsResponse.md)
 
 ### Authorization
 

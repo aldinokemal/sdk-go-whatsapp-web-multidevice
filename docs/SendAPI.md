@@ -217,7 +217,7 @@ No authorization required
 
 ## SendImage
 
-> SendResponse SendImage(ctx).Phone(phone).Caption(caption).ViewOnce(viewOnce).Image(image).Compress(compress).Execute()
+> SendResponse SendImage(ctx).Phone(phone).Caption(caption).ViewOnce(viewOnce).Image(image).ImageUrl(imageUrl).Compress(compress).Execute()
 
 Send Image
 
@@ -238,11 +238,12 @@ func main() {
 	caption := "caption_example" // string | Caption to send (optional)
 	viewOnce := true // bool | View once (optional)
 	image := os.NewFile(1234, "some_file") // *os.File | Image to send (optional)
+	imageUrl := "imageUrl_example" // string | Image URL to send (optional)
 	compress := true // bool | Compress image (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SendAPI.SendImage(context.Background()).Phone(phone).Caption(caption).ViewOnce(viewOnce).Image(image).Compress(compress).Execute()
+	resp, r, err := apiClient.SendAPI.SendImage(context.Background()).Phone(phone).Caption(caption).ViewOnce(viewOnce).Image(image).ImageUrl(imageUrl).Compress(compress).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendImage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -267,6 +268,7 @@ Name | Type | Description  | Notes
  **caption** | **string** | Caption to send | 
  **viewOnce** | **bool** | View once | 
  **image** | ***os.File** | Image to send | 
+ **imageUrl** | **string** | Image URL to send | 
  **compress** | **bool** | Compress image | 
 
 ### Return type

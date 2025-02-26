@@ -1,91 +1,106 @@
-# UserInfoResponse
+# MyListContactsResponse
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Code** | **string** |  | 
-**Message** | **string** |  | 
-**Results** | [**UserInfoResponseResults**](UserInfoResponseResults.md) |  | 
+**Code** | Pointer to **string** |  | [optional] 
+**Message** | Pointer to **string** |  | [optional] 
+**Results** | Pointer to [**MyListContactsResponseResults**](MyListContactsResponseResults.md) |  | [optional] 
 
 ## Methods
 
-### NewUserInfoResponse
+### NewMyListContactsResponse
 
-`func NewUserInfoResponse(code string, message string, results UserInfoResponseResults, ) *UserInfoResponse`
+`func NewMyListContactsResponse() *MyListContactsResponse`
 
-NewUserInfoResponse instantiates a new UserInfoResponse object
+NewMyListContactsResponse instantiates a new MyListContactsResponse object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewUserInfoResponseWithDefaults
+### NewMyListContactsResponseWithDefaults
 
-`func NewUserInfoResponseWithDefaults() *UserInfoResponse`
+`func NewMyListContactsResponseWithDefaults() *MyListContactsResponse`
 
-NewUserInfoResponseWithDefaults instantiates a new UserInfoResponse object
+NewMyListContactsResponseWithDefaults instantiates a new MyListContactsResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetCode
 
-`func (o *UserInfoResponse) GetCode() string`
+`func (o *MyListContactsResponse) GetCode() string`
 
 GetCode returns the Code field if non-nil, zero value otherwise.
 
 ### GetCodeOk
 
-`func (o *UserInfoResponse) GetCodeOk() (*string, bool)`
+`func (o *MyListContactsResponse) GetCodeOk() (*string, bool)`
 
 GetCodeOk returns a tuple with the Code field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCode
 
-`func (o *UserInfoResponse) SetCode(v string)`
+`func (o *MyListContactsResponse) SetCode(v string)`
 
 SetCode sets Code field to given value.
 
+### HasCode
+
+`func (o *MyListContactsResponse) HasCode() bool`
+
+HasCode returns a boolean if a field has been set.
 
 ### GetMessage
 
-`func (o *UserInfoResponse) GetMessage() string`
+`func (o *MyListContactsResponse) GetMessage() string`
 
 GetMessage returns the Message field if non-nil, zero value otherwise.
 
 ### GetMessageOk
 
-`func (o *UserInfoResponse) GetMessageOk() (*string, bool)`
+`func (o *MyListContactsResponse) GetMessageOk() (*string, bool)`
 
 GetMessageOk returns a tuple with the Message field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMessage
 
-`func (o *UserInfoResponse) SetMessage(v string)`
+`func (o *MyListContactsResponse) SetMessage(v string)`
 
 SetMessage sets Message field to given value.
 
+### HasMessage
+
+`func (o *MyListContactsResponse) HasMessage() bool`
+
+HasMessage returns a boolean if a field has been set.
 
 ### GetResults
 
-`func (o *UserInfoResponse) GetResults() UserInfoResponseResults`
+`func (o *MyListContactsResponse) GetResults() MyListContactsResponseResults`
 
 GetResults returns the Results field if non-nil, zero value otherwise.
 
 ### GetResultsOk
 
-`func (o *UserInfoResponse) GetResultsOk() (*UserInfoResponseResults, bool)`
+`func (o *MyListContactsResponse) GetResultsOk() (*MyListContactsResponseResults, bool)`
 
 GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResults
 
-`func (o *UserInfoResponse) SetResults(v UserInfoResponseResults)`
+`func (o *MyListContactsResponse) SetResults(v MyListContactsResponseResults)`
 
 SetResults sets Results field to given value.
 
+### HasResults
+
+`func (o *MyListContactsResponse) HasResults() bool`
+
+HasResults returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
