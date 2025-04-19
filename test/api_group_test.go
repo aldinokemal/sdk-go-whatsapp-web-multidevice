@@ -34,6 +34,18 @@ func Test_SdkWhatsappWebMultiDevice_GroupAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test GroupAPIService ApproveGroupParticipantRequest", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.GroupAPI.ApproveGroupParticipantRequest(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test GroupAPIService CreateGroup", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -51,6 +63,18 @@ func Test_SdkWhatsappWebMultiDevice_GroupAPIService(t *testing.T) {
 		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.GroupAPI.DemoteParticipantToMember(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test GroupAPIService GetGroupParticipantRequests", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.GroupAPI.GetGroupParticipantRequests(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -87,6 +111,18 @@ func Test_SdkWhatsappWebMultiDevice_GroupAPIService(t *testing.T) {
 		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.GroupAPI.PromoteParticipantToAdmin(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test GroupAPIService RejectGroupParticipantRequest", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.GroupAPI.RejectGroupParticipantRequest(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

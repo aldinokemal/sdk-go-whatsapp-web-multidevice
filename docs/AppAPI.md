@@ -59,7 +59,7 @@ Other parameters are passed through a pointer to a apiAppDevicesRequest struct v
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -118,7 +118,7 @@ Other parameters are passed through a pointer to a apiAppLoginRequest struct via
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -182,7 +182,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -241,7 +241,7 @@ Other parameters are passed through a pointer to a apiAppLogoutRequest struct vi
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -300,7 +300,7 @@ Other parameters are passed through a pointer to a apiAppReconnectRequest struct
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 

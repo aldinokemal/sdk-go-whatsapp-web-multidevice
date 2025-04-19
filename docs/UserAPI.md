@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**UserAvatar**](UserAPI.md#UserAvatar) | **Get** /user/avatar | User Avatar
 [**UserChangeAvatar**](UserAPI.md#UserChangeAvatar) | **Post** /user/avatar | User Change Avatar
+[**UserChangePushName**](UserAPI.md#UserChangePushName) | **Post** /user/pushname | User Change Push Name
 [**UserInfo**](UserAPI.md#UserInfo) | **Get** /user/info | User Info
 [**UserMyContacts**](UserAPI.md#UserMyContacts) | **Get** /user/my/contacts | Get list of user contacts
 [**UserMyGroups**](UserAPI.md#UserMyGroups) | **Get** /user/my/groups | User My List Groups
@@ -68,7 +69,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -132,11 +133,77 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: multipart/form-data
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UserChangePushName
+
+> GenericResponse UserChangePushName(ctx).UserChangePushNameRequest(userChangePushNameRequest).Execute()
+
+User Change Push Name
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+)
+
+func main() {
+	userChangePushNameRequest := *openapiclient.NewUserChangePushNameRequest("John Doe") // UserChangePushNameRequest |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserAPI.UserChangePushName(context.Background()).UserChangePushNameRequest(userChangePushNameRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UserChangePushName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UserChangePushName`: GenericResponse
+	fmt.Fprintf(os.Stdout, "Response from `UserAPI.UserChangePushName`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUserChangePushNameRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **userChangePushNameRequest** | [**UserChangePushNameRequest**](UserChangePushNameRequest.md) |  | 
+
+### Return type
+
+[**GenericResponse**](GenericResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -196,7 +263,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -255,7 +322,7 @@ Other parameters are passed through a pointer to a apiUserMyContactsRequest stru
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -314,7 +381,7 @@ Other parameters are passed through a pointer to a apiUserMyGroupsRequest struct
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -373,7 +440,7 @@ Other parameters are passed through a pointer to a apiUserMyNewsletterRequest st
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -432,7 +499,7 @@ Other parameters are passed through a pointer to a apiUserMyPrivacyRequest struc
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 

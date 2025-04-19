@@ -5,11 +5,14 @@ All URIs are relative to *http://localhost:3000*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AddParticipantToGroup**](GroupAPI.md#AddParticipantToGroup) | **Post** /group/participants | Adding more participants to group
+[**ApproveGroupParticipantRequest**](GroupAPI.md#ApproveGroupParticipantRequest) | **Post** /group/participant-requests/approve | Approve participant request to join group
 [**CreateGroup**](GroupAPI.md#CreateGroup) | **Post** /group | Create group and add participant
 [**DemoteParticipantToMember**](GroupAPI.md#DemoteParticipantToMember) | **Post** /group/participants/demote | Demote participants to member
+[**GetGroupParticipantRequests**](GroupAPI.md#GetGroupParticipantRequests) | **Get** /group/participant-requests | Get list of participant requests to join group
 [**JoinGroupWithLink**](GroupAPI.md#JoinGroupWithLink) | **Post** /group/join-with-link | Join group with link
 [**LeaveGroup**](GroupAPI.md#LeaveGroup) | **Post** /group/leave | Leave group
 [**PromoteParticipantToAdmin**](GroupAPI.md#PromoteParticipantToAdmin) | **Post** /group/participants/promote | Promote participants to admin
+[**RejectGroupParticipantRequest**](GroupAPI.md#RejectGroupParticipantRequest) | **Post** /group/participant-requests/reject | Reject participant request to join group
 [**RemoveParticipantFromGroup**](GroupAPI.md#RemoveParticipantFromGroup) | **Post** /group/participants/remove | Remove participants from group
 
 
@@ -66,7 +69,71 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ApproveGroupParticipantRequest
+
+> GenericResponse ApproveGroupParticipantRequest(ctx).ApproveGroupParticipantRequestRequest(approveGroupParticipantRequestRequest).Execute()
+
+Approve participant request to join group
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+)
+
+func main() {
+	approveGroupParticipantRequestRequest := *openapiclient.NewApproveGroupParticipantRequestRequest("120363024512399999@g.us", "6281234567890") // ApproveGroupParticipantRequestRequest |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GroupAPI.ApproveGroupParticipantRequest(context.Background()).ApproveGroupParticipantRequestRequest(approveGroupParticipantRequestRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.ApproveGroupParticipantRequest``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ApproveGroupParticipantRequest`: GenericResponse
+	fmt.Fprintf(os.Stdout, "Response from `GroupAPI.ApproveGroupParticipantRequest`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiApproveGroupParticipantRequestRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **approveGroupParticipantRequestRequest** | [**ApproveGroupParticipantRequestRequest**](ApproveGroupParticipantRequestRequest.md) |  | 
+
+### Return type
+
+[**GenericResponse**](GenericResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -130,7 +197,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -194,11 +261,75 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetGroupParticipantRequests
+
+> GroupParticipantRequestListResponse GetGroupParticipantRequests(ctx).GroupId(groupId).Execute()
+
+Get list of participant requests to join group
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+)
+
+func main() {
+	groupId := "120363024512399999@g.us" // string | The group ID to get participant requests for
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GroupAPI.GetGroupParticipantRequests(context.Background()).GroupId(groupId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.GetGroupParticipantRequests``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetGroupParticipantRequests`: GroupParticipantRequestListResponse
+	fmt.Fprintf(os.Stdout, "Response from `GroupAPI.GetGroupParticipantRequests`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGroupParticipantRequestsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **groupId** | **string** | The group ID to get participant requests for | 
+
+### Return type
+
+[**GroupParticipantRequestListResponse**](GroupParticipantRequestListResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -258,7 +389,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -322,7 +453,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -386,7 +517,71 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## RejectGroupParticipantRequest
+
+> GenericResponse RejectGroupParticipantRequest(ctx).RejectGroupParticipantRequestRequest(rejectGroupParticipantRequestRequest).Execute()
+
+Reject participant request to join group
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+)
+
+func main() {
+	rejectGroupParticipantRequestRequest := *openapiclient.NewRejectGroupParticipantRequestRequest("120363024512399999@g.us", "6281234567890") // RejectGroupParticipantRequestRequest |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GroupAPI.RejectGroupParticipantRequest(context.Background()).RejectGroupParticipantRequestRequest(rejectGroupParticipantRequestRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.RejectGroupParticipantRequest``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `RejectGroupParticipantRequest`: GenericResponse
+	fmt.Fprintf(os.Stdout, "Response from `GroupAPI.RejectGroupParticipantRequest`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiRejectGroupParticipantRequestRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **rejectGroupParticipantRequestRequest** | [**RejectGroupParticipantRequestRequest**](RejectGroupParticipantRequestRequest.md) |  | 
+
+### Return type
+
+[**GenericResponse**](GenericResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
@@ -450,7 +645,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
