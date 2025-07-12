@@ -34,6 +34,18 @@ func Test_SdkWhatsappWebMultiDevice_UserAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test UserAPIService UserBusinessProfile", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.UserAPI.UserBusinessProfile(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test UserAPIService UserChangeAvatar", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -51,6 +63,18 @@ func Test_SdkWhatsappWebMultiDevice_UserAPIService(t *testing.T) {
 		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.UserAPI.UserChangePushName(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test UserAPIService UserCheck", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.UserAPI.UserCheck(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

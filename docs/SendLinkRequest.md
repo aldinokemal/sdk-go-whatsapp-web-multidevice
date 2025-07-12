@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **Phone** | Pointer to **string** | Phone number with country code | [optional] 
 **Link** | Pointer to **string** | Link to send | [optional] 
 **Caption** | Pointer to **string** | Caption to send | [optional] 
+**IsForwarded** | Pointer to **bool** | Whether this is a forwarded message | [optional] 
+**Duration** | Pointer to **int32** | Disappearing message duration in seconds (optional) | [optional] 
 
 ## Methods
 
@@ -101,6 +103,56 @@ SetCaption sets Caption field to given value.
 `func (o *SendLinkRequest) HasCaption() bool`
 
 HasCaption returns a boolean if a field has been set.
+
+### GetIsForwarded
+
+`func (o *SendLinkRequest) GetIsForwarded() bool`
+
+GetIsForwarded returns the IsForwarded field if non-nil, zero value otherwise.
+
+### GetIsForwardedOk
+
+`func (o *SendLinkRequest) GetIsForwardedOk() (*bool, bool)`
+
+GetIsForwardedOk returns a tuple with the IsForwarded field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsForwarded
+
+`func (o *SendLinkRequest) SetIsForwarded(v bool)`
+
+SetIsForwarded sets IsForwarded field to given value.
+
+### HasIsForwarded
+
+`func (o *SendLinkRequest) HasIsForwarded() bool`
+
+HasIsForwarded returns a boolean if a field has been set.
+
+### GetDuration
+
+`func (o *SendLinkRequest) GetDuration() int32`
+
+GetDuration returns the Duration field if non-nil, zero value otherwise.
+
+### GetDurationOk
+
+`func (o *SendLinkRequest) GetDurationOk() (*int32, bool)`
+
+GetDurationOk returns a tuple with the Duration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDuration
+
+`func (o *SendLinkRequest) SetDuration(v int32)`
+
+SetDuration sets Duration field to given value.
+
+### HasDuration
+
+`func (o *SendLinkRequest) HasDuration() bool`
+
+HasDuration returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

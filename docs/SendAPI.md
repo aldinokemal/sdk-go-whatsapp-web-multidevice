@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost:3000*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**SendAudio**](SendAPI.md#SendAudio) | **Post** /send/audio | Send Audio
+[**SendChatPresence**](SendAPI.md#SendChatPresence) | **Post** /send/chat-presence | Send chat presence (typing indicator)
 [**SendContact**](SendAPI.md#SendContact) | **Post** /send/contact | Send Contact
 [**SendFile**](SendAPI.md#SendFile) | **Post** /send/file | Send File
 [**SendImage**](SendAPI.md#SendImage) | **Post** /send/image | Send Image
@@ -19,7 +20,7 @@ Method | HTTP request | Description
 
 ## SendAudio
 
-> SendResponse SendAudio(ctx).Phone(phone).Audio(audio).Execute()
+> SendResponse SendAudio(ctx).Phone(phone).Audio(audio).AudioUrl(audioUrl).IsForwarded(isForwarded).Duration(duration).Execute()
 
 Send Audio
 
@@ -38,10 +39,13 @@ import (
 func main() {
 	phone := "phone_example" // string | Phone number with country code (optional)
 	audio := os.NewFile(1234, "some_file") // *os.File | Audio to send (optional)
+	audioUrl := "audioUrl_example" // string | Audio URL to send (optional)
+	isForwarded := true // bool | Whether this is a forwarded message (optional)
+	duration := int32(56) // int32 | Disappearing message duration in seconds (optional) (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SendAPI.SendAudio(context.Background()).Phone(phone).Audio(audio).Execute()
+	resp, r, err := apiClient.SendAPI.SendAudio(context.Background()).Phone(phone).Audio(audio).AudioUrl(audioUrl).IsForwarded(isForwarded).Duration(duration).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendAudio``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -64,6 +68,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **phone** | **string** | Phone number with country code | 
  **audio** | ***os.File** | Audio to send | 
+ **audioUrl** | **string** | Audio URL to send | 
+ **isForwarded** | **bool** | Whether this is a forwarded message | 
+ **duration** | **int32** | Disappearing message duration in seconds (optional) | 
 
 ### Return type
 
@@ -76,6 +83,72 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: multipart/form-data
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SendChatPresence
+
+> SendResponse SendChatPresence(ctx).SendChatPresenceRequest(sendChatPresenceRequest).Execute()
+
+Send chat presence (typing indicator)
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+)
+
+func main() {
+	sendChatPresenceRequest := *openapiclient.NewSendChatPresenceRequest("6289685024051@s.whatsapp.net", "start") // SendChatPresenceRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SendAPI.SendChatPresence(context.Background()).SendChatPresenceRequest(sendChatPresenceRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendChatPresence``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SendChatPresence`: SendResponse
+	fmt.Fprintf(os.Stdout, "Response from `SendAPI.SendChatPresence`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSendChatPresenceRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sendChatPresenceRequest** | [**SendChatPresenceRequest**](SendChatPresenceRequest.md) |  | 
+
+### Return type
+
+[**SendResponse**](SendResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -149,7 +222,7 @@ Name | Type | Description  | Notes
 
 ## SendFile
 
-> SendResponse SendFile(ctx).Phone(phone).Caption(caption).File(file).Execute()
+> SendResponse SendFile(ctx).Phone(phone).Caption(caption).File(file).IsForwarded(isForwarded).Duration(duration).Execute()
 
 Send File
 
@@ -169,10 +242,12 @@ func main() {
 	phone := "phone_example" // string | Phone number with country code (optional)
 	caption := "caption_example" // string | Caption to send (optional)
 	file := os.NewFile(1234, "some_file") // *os.File | File to send (optional)
+	isForwarded := true // bool | Whether this is a forwarded message (optional)
+	duration := int32(56) // int32 | Disappearing message duration in seconds (optional) (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SendAPI.SendFile(context.Background()).Phone(phone).Caption(caption).File(file).Execute()
+	resp, r, err := apiClient.SendAPI.SendFile(context.Background()).Phone(phone).Caption(caption).File(file).IsForwarded(isForwarded).Duration(duration).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendFile``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -196,6 +271,8 @@ Name | Type | Description  | Notes
  **phone** | **string** | Phone number with country code | 
  **caption** | **string** | Caption to send | 
  **file** | ***os.File** | File to send | 
+ **isForwarded** | **bool** | Whether this is a forwarded message | 
+ **duration** | **int32** | Disappearing message duration in seconds (optional) | 
 
 ### Return type
 
@@ -217,7 +294,7 @@ Name | Type | Description  | Notes
 
 ## SendImage
 
-> SendResponse SendImage(ctx).Phone(phone).Caption(caption).ViewOnce(viewOnce).Image(image).ImageUrl(imageUrl).Compress(compress).Execute()
+> SendResponse SendImage(ctx).Phone(phone).Caption(caption).ViewOnce(viewOnce).Image(image).ImageUrl(imageUrl).Compress(compress).Duration(duration).IsForwarded(isForwarded).Execute()
 
 Send Image
 
@@ -240,10 +317,12 @@ func main() {
 	image := os.NewFile(1234, "some_file") // *os.File | Image to send (optional)
 	imageUrl := "imageUrl_example" // string | Image URL to send (optional)
 	compress := true // bool | Compress image (optional)
+	duration := int32(56) // int32 | Disappearing message duration in seconds (optional) (optional)
+	isForwarded := true // bool | Whether this is a forwarded message (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SendAPI.SendImage(context.Background()).Phone(phone).Caption(caption).ViewOnce(viewOnce).Image(image).ImageUrl(imageUrl).Compress(compress).Execute()
+	resp, r, err := apiClient.SendAPI.SendImage(context.Background()).Phone(phone).Caption(caption).ViewOnce(viewOnce).Image(image).ImageUrl(imageUrl).Compress(compress).Duration(duration).IsForwarded(isForwarded).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendImage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -270,6 +349,8 @@ Name | Type | Description  | Notes
  **image** | ***os.File** | Image to send | 
  **imageUrl** | **string** | Image URL to send | 
  **compress** | **bool** | Compress image | 
+ **duration** | **int32** | Disappearing message duration in seconds (optional) | 
+ **isForwarded** | **bool** | Whether this is a forwarded message | 
 
 ### Return type
 
@@ -611,7 +692,7 @@ Name | Type | Description  | Notes
 
 ## SendVideo
 
-> SendResponse SendVideo(ctx).Phone(phone).Caption(caption).ViewOnce(viewOnce).Video(video).Compress(compress).Execute()
+> SendResponse SendVideo(ctx).Phone(phone).Caption(caption).ViewOnce(viewOnce).Video(video).VideoUrl(videoUrl).Compress(compress).Duration(duration).IsForwarded(isForwarded).Execute()
 
 Send Video
 
@@ -632,11 +713,14 @@ func main() {
 	caption := "caption_example" // string | Caption to send (optional)
 	viewOnce := true // bool | View once (optional)
 	video := os.NewFile(1234, "some_file") // *os.File | Video to send (optional)
+	videoUrl := "videoUrl_example" // string | Video URL to send (optional)
 	compress := true // bool | Compress video (optional)
+	duration := int32(56) // int32 | Disappearing message duration in seconds (optional) (optional)
+	isForwarded := true // bool | Whether this is a forwarded message (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SendAPI.SendVideo(context.Background()).Phone(phone).Caption(caption).ViewOnce(viewOnce).Video(video).Compress(compress).Execute()
+	resp, r, err := apiClient.SendAPI.SendVideo(context.Background()).Phone(phone).Caption(caption).ViewOnce(viewOnce).Video(video).VideoUrl(videoUrl).Compress(compress).Duration(duration).IsForwarded(isForwarded).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendVideo``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -661,7 +745,10 @@ Name | Type | Description  | Notes
  **caption** | **string** | Caption to send | 
  **viewOnce** | **bool** | View once | 
  **video** | ***os.File** | Video to send | 
+ **videoUrl** | **string** | Video URL to send | 
  **compress** | **bool** | Compress video | 
+ **duration** | **int32** | Disappearing message duration in seconds (optional) | 
+ **isForwarded** | **bool** | Whether this is a forwarded message | 
 
 ### Return type
 

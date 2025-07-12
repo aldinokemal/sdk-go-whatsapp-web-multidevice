@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **GroupId** | **string** | The group ID | 
-**ParticipantId** | **string** | The participant&#39;s WhatsApp ID to reject | 
+**Participants** | **[]string** | Array of participant WhatsApp IDs to reject | 
 
 ## Methods
 
 ### NewRejectGroupParticipantRequestRequest
 
-`func NewRejectGroupParticipantRequestRequest(groupId string, participantId string, ) *RejectGroupParticipantRequestRequest`
+`func NewRejectGroupParticipantRequestRequest(groupId string, participants []string, ) *RejectGroupParticipantRequestRequest`
 
 NewRejectGroupParticipantRequestRequest instantiates a new RejectGroupParticipantRequestRequest object
 This constructor will assign default values to properties that have it defined,
@@ -46,24 +46,24 @@ and a boolean to check if the value has been set.
 SetGroupId sets GroupId field to given value.
 
 
-### GetParticipantId
+### GetParticipants
 
-`func (o *RejectGroupParticipantRequestRequest) GetParticipantId() string`
+`func (o *RejectGroupParticipantRequestRequest) GetParticipants() []string`
 
-GetParticipantId returns the ParticipantId field if non-nil, zero value otherwise.
+GetParticipants returns the Participants field if non-nil, zero value otherwise.
 
-### GetParticipantIdOk
+### GetParticipantsOk
 
-`func (o *RejectGroupParticipantRequestRequest) GetParticipantIdOk() (*string, bool)`
+`func (o *RejectGroupParticipantRequestRequest) GetParticipantsOk() (*[]string, bool)`
 
-GetParticipantIdOk returns a tuple with the ParticipantId field if it's non-nil, zero value otherwise
+GetParticipantsOk returns a tuple with the Participants field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetParticipantId
+### SetParticipants
 
-`func (o *RejectGroupParticipantRequestRequest) SetParticipantId(v string)`
+`func (o *RejectGroupParticipantRequestRequest) SetParticipants(v []string)`
 
-SetParticipantId sets ParticipantId field to given value.
+SetParticipants sets Participants field to given value.
 
 
 

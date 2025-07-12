@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **Phone** | Pointer to **string** | Phone number with country code | [optional] 
 **Message** | Pointer to **string** | Message to send | [optional] 
 **ReplyMessageId** | Pointer to **string** | Message ID that you want reply | [optional] 
+**IsForwarded** | Pointer to **bool** | Whether this is a forwarded message | [optional] 
+**Duration** | Pointer to **int32** | Disappearing message duration in seconds (optional) | [optional] 
 
 ## Methods
 
@@ -101,6 +103,56 @@ SetReplyMessageId sets ReplyMessageId field to given value.
 `func (o *SendMessageRequest) HasReplyMessageId() bool`
 
 HasReplyMessageId returns a boolean if a field has been set.
+
+### GetIsForwarded
+
+`func (o *SendMessageRequest) GetIsForwarded() bool`
+
+GetIsForwarded returns the IsForwarded field if non-nil, zero value otherwise.
+
+### GetIsForwardedOk
+
+`func (o *SendMessageRequest) GetIsForwardedOk() (*bool, bool)`
+
+GetIsForwardedOk returns a tuple with the IsForwarded field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsForwarded
+
+`func (o *SendMessageRequest) SetIsForwarded(v bool)`
+
+SetIsForwarded sets IsForwarded field to given value.
+
+### HasIsForwarded
+
+`func (o *SendMessageRequest) HasIsForwarded() bool`
+
+HasIsForwarded returns a boolean if a field has been set.
+
+### GetDuration
+
+`func (o *SendMessageRequest) GetDuration() int32`
+
+GetDuration returns the Duration field if non-nil, zero value otherwise.
+
+### GetDurationOk
+
+`func (o *SendMessageRequest) GetDurationOk() (*int32, bool)`
+
+GetDurationOk returns a tuple with the Duration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDuration
+
+`func (o *SendMessageRequest) SetDuration(v int32)`
+
+SetDuration sets Duration field to given value.
+
+### HasDuration
+
+`func (o *SendMessageRequest) HasDuration() bool`
+
+HasDuration returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

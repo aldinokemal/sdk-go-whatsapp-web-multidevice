@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Question** | **string** | The question for the poll. | 
 **Options** | **[]string** | The options for the poll. | 
 **MaxAnswer** | **int32** | The maximum number of answers allowed for the poll. | 
+**Duration** | Pointer to **int32** | Disappearing message duration in seconds (optional) | [optional] 
 
 ## Methods
 
@@ -107,6 +108,31 @@ and a boolean to check if the value has been set.
 
 SetMaxAnswer sets MaxAnswer field to given value.
 
+
+### GetDuration
+
+`func (o *SendPollRequest) GetDuration() int32`
+
+GetDuration returns the Duration field if non-nil, zero value otherwise.
+
+### GetDurationOk
+
+`func (o *SendPollRequest) GetDurationOk() (*int32, bool)`
+
+GetDurationOk returns a tuple with the Duration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDuration
+
+`func (o *SendPollRequest) SetDuration(v int32)`
+
+SetDuration sets Duration field to given value.
+
+### HasDuration
+
+`func (o *SendPollRequest) HasDuration() bool`
+
+HasDuration returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

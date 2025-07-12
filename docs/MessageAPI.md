@@ -8,6 +8,8 @@ Method | HTTP request | Description
 [**ReactMessage**](MessageAPI.md#ReactMessage) | **Post** /message/{message_id}/reaction | Send reaction to message
 [**ReadMessage**](MessageAPI.md#ReadMessage) | **Post** /message/{message_id}/read | Mark as read message
 [**RevokeMessage**](MessageAPI.md#RevokeMessage) | **Post** /message/{message_id}/revoke | Revoke Message
+[**StarMessage**](MessageAPI.md#StarMessage) | **Post** /message/{message_id}/star | Star message
+[**UnstarMessage**](MessageAPI.md#UnstarMessage) | **Post** /message/{message_id}/unstar | Unstar message
 [**UpdateMessage**](MessageAPI.md#UpdateMessage) | **Post** /message/{message_id}/update | Edit message by message ID before 15 minutes
 
 
@@ -277,6 +279,146 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**SendResponse**](SendResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## StarMessage
+
+> GenericResponse StarMessage(ctx, messageId).ReadMessageRequest(readMessageRequest).Execute()
+
+Star message
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+)
+
+func main() {
+	messageId := "messageId_example" // string | Message ID
+	readMessageRequest := *openapiclient.NewReadMessageRequest("62819273192397132@s.whatsapp.net") // ReadMessageRequest |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MessageAPI.StarMessage(context.Background(), messageId).ReadMessageRequest(readMessageRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MessageAPI.StarMessage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `StarMessage`: GenericResponse
+	fmt.Fprintf(os.Stdout, "Response from `MessageAPI.StarMessage`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**messageId** | **string** | Message ID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiStarMessageRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **readMessageRequest** | [**ReadMessageRequest**](ReadMessageRequest.md) |  | 
+
+### Return type
+
+[**GenericResponse**](GenericResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UnstarMessage
+
+> GenericResponse UnstarMessage(ctx, messageId).ReadMessageRequest(readMessageRequest).Execute()
+
+Unstar message
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+)
+
+func main() {
+	messageId := "messageId_example" // string | Message ID
+	readMessageRequest := *openapiclient.NewReadMessageRequest("62819273192397132@s.whatsapp.net") // ReadMessageRequest |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MessageAPI.UnstarMessage(context.Background(), messageId).ReadMessageRequest(readMessageRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MessageAPI.UnstarMessage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UnstarMessage`: GenericResponse
+	fmt.Fprintf(os.Stdout, "Response from `MessageAPI.UnstarMessage`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**messageId** | **string** | Message ID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUnstarMessageRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **readMessageRequest** | [**ReadMessageRequest**](ReadMessageRequest.md) |  | 
+
+### Return type
+
+[**GenericResponse**](GenericResponse.md)
 
 ### Authorization
 
