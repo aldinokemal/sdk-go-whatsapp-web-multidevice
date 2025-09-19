@@ -8,9 +8,12 @@ Method | HTTP request | Description
 [**ApproveGroupParticipantRequest**](GroupAPI.md#ApproveGroupParticipantRequest) | **Post** /group/participant-requests/approve | Approve participant request to join group
 [**CreateGroup**](GroupAPI.md#CreateGroup) | **Post** /group | Create group and add participant
 [**DemoteParticipantToMember**](GroupAPI.md#DemoteParticipantToMember) | **Post** /group/participants/demote | Demote participants to member
+[**ExportGroupParticipants**](GroupAPI.md#ExportGroupParticipants) | **Get** /group/participants/export | Export group participants as CSV
 [**GetGroupInfoFromLink**](GroupAPI.md#GetGroupInfoFromLink) | **Get** /group/info-from-link | Get group information from invitation link
 [**GetGroupParticipantRequests**](GroupAPI.md#GetGroupParticipantRequests) | **Get** /group/participant-requests | Get list of participant requests to join group
+[**GetGroupParticipants**](GroupAPI.md#GetGroupParticipants) | **Get** /group/participants | Get list of participants in a group
 [**GroupInfo**](GroupAPI.md#GroupInfo) | **Get** /group/info | Group Info
+[**GroupInviteLink**](GroupAPI.md#GroupInviteLink) | **Get** /group/invite-link | Group Invite Link
 [**JoinGroupWithLink**](GroupAPI.md#JoinGroupWithLink) | **Post** /group/join-with-link | Join group with link
 [**LeaveGroup**](GroupAPI.md#LeaveGroup) | **Post** /group/leave | Leave group
 [**PromoteParticipantToAdmin**](GroupAPI.md#PromoteParticipantToAdmin) | **Post** /group/participants/promote | Promote participants to admin
@@ -280,6 +283,70 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## ExportGroupParticipants
+
+> *os.File ExportGroupParticipants(ctx).GroupId(groupId).Execute()
+
+Export group participants as CSV
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+)
+
+func main() {
+	groupId := "120363024512399999@g.us" // string | The group ID to export participants for
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GroupAPI.ExportGroupParticipants(context.Background()).GroupId(groupId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.ExportGroupParticipants``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExportGroupParticipants`: *os.File
+	fmt.Fprintf(os.Stdout, "Response from `GroupAPI.ExportGroupParticipants`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiExportGroupParticipantsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **groupId** | **string** | The group ID to export participants for | 
+
+### Return type
+
+[***os.File**](*os.File.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/csv, application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetGroupInfoFromLink
 
 > GroupInfoFromLinkResponse GetGroupInfoFromLink(ctx).Link(link).Execute()
@@ -410,6 +477,70 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetGroupParticipants
+
+> GroupParticipantsResponse GetGroupParticipants(ctx).GroupId(groupId).Execute()
+
+Get list of participants in a group
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+)
+
+func main() {
+	groupId := "120363024512399999@g.us" // string | The group ID to fetch participants for
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GroupAPI.GetGroupParticipants(context.Background()).GroupId(groupId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.GetGroupParticipants``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetGroupParticipants`: GroupParticipantsResponse
+	fmt.Fprintf(os.Stdout, "Response from `GroupAPI.GetGroupParticipants`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGroupParticipantsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **groupId** | **string** | The group ID to fetch participants for | 
+
+### Return type
+
+[**GroupParticipantsResponse**](GroupParticipantsResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GroupInfo
 
 > GroupInfoResponse GroupInfo(ctx).GroupId(groupId).Execute()
@@ -459,6 +590,72 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**GroupInfoResponse**](GroupInfoResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GroupInviteLink
+
+> GetGroupInviteLinkResponse GroupInviteLink(ctx).GroupId(groupId).Reset(reset).Execute()
+
+Group Invite Link
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+)
+
+func main() {
+	groupId := "groupId_example" // string | WhatsApp Group ID
+	reset := false // bool | Reset existing invite link (optional) (default to false)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GroupAPI.GroupInviteLink(context.Background()).GroupId(groupId).Reset(reset).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.GroupInviteLink``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GroupInviteLink`: GetGroupInviteLinkResponse
+	fmt.Fprintf(os.Stdout, "Response from `GroupAPI.GroupInviteLink`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGroupInviteLinkRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **groupId** | **string** | WhatsApp Group ID | 
+ **reset** | **bool** | Reset existing invite link | [default to false]
+
+### Return type
+
+[**GetGroupInviteLinkResponse**](GetGroupInviteLinkResponse.md)
 
 ### Authorization
 

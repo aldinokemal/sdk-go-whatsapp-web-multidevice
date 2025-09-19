@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   description: This API is used for sending whatsapp via API
   title: WhatsApp API MultiDevice
-  version: 6.9.0
+  version: 6.11.0
 servers:
 - url: http://localhost:3000
 security:
@@ -1390,6 +1390,40 @@ paths:
       tags:
       - group
   /group/participants:
+    get:
+      operationId: getGroupParticipants
+      parameters:
+      - description: The group ID to fetch participants for
+        example: 120363024512399999@g.us
+        explode: true
+        in: query
+        name: group_id
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GroupParticipantsResponse"
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBadRequest"
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorInternalServer"
+          description: Internal Server Error
+      summary: Get list of participants in a group
+      tags:
+      - group
     post:
       operationId: addParticipantToGroup
       requestBody:
@@ -1417,6 +1451,42 @@ paths:
                 $ref: "#/components/schemas/ErrorInternalServer"
           description: Internal Server Error
       summary: Adding more participants to group
+      tags:
+      - group
+  /group/participants/export:
+    get:
+      operationId: exportGroupParticipants
+      parameters:
+      - description: The group ID to export participants for
+        example: 120363024512399999@g.us
+        explode: true
+        in: query
+        name: group_id
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            text/csv:
+              schema:
+                format: binary
+                type: string
+          description: CSV stream containing the participants list
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBadRequest"
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorInternalServer"
+          description: Internal Server Error
+      summary: Export group participants as CSV
       tags:
       - group
   /group/participants/remove:
@@ -1854,6 +1924,50 @@ paths:
       summary: Set group topic
       tags:
       - group
+  /group/invite-link:
+    get:
+      operationId: groupInviteLink
+      parameters:
+      - description: WhatsApp Group ID
+        explode: true
+        in: query
+        name: group_id
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Reset existing invite link
+        example: false
+        explode: true
+        in: query
+        name: reset
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetGroupInviteLinkResponse"
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBadRequest"
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorInternalServer"
+          description: Internal Server Error
+      summary: Group Invite Link
+      tags:
+      - group
   /newsletter/unfollow:
     post:
       operationId: unfollowNewsletter
@@ -1969,6 +2083,98 @@ components:
           items:
             $ref: "#/components/schemas/ManageParticipantResponse_results_inner"
           type: array
+      type: object
+    GroupParticipantsResponse:
+      additionalProperties: false
+      example:
+        code: SUCCESS
+        message: Success getting group participants
+        results:
+          group_id: 120363024512399999@g.us
+          name: My Awesome Group
+          participants:
+          - is_admin: true
+            jid: 6289987391723@s.whatsapp.net
+            lid: 12345@lid
+            phone_number: 6289987391723@s.whatsapp.net
+            is_super_admin: false
+            display_name: Anonymous Member
+          - is_admin: true
+            jid: 6289987391723@s.whatsapp.net
+            lid: 12345@lid
+            phone_number: 6289987391723@s.whatsapp.net
+            is_super_admin: false
+            display_name: Anonymous Member
+      properties:
+        code:
+          example: SUCCESS
+          type: string
+        message:
+          example: Success getting group participants
+          type: string
+        results:
+          $ref: "#/components/schemas/GroupParticipantsResult"
+      type: object
+    GroupParticipantsResult:
+      additionalProperties: false
+      example:
+        group_id: 120363024512399999@g.us
+        name: My Awesome Group
+        participants:
+        - is_admin: true
+          jid: 6289987391723@s.whatsapp.net
+          lid: 12345@lid
+          phone_number: 6289987391723@s.whatsapp.net
+          is_super_admin: false
+          display_name: Anonymous Member
+        - is_admin: true
+          jid: 6289987391723@s.whatsapp.net
+          lid: 12345@lid
+          phone_number: 6289987391723@s.whatsapp.net
+          is_super_admin: false
+          display_name: Anonymous Member
+      properties:
+        group_id:
+          example: 120363024512399999@g.us
+          type: string
+        name:
+          example: My Awesome Group
+          type: string
+        participants:
+          items:
+            $ref: "#/components/schemas/GroupParticipantItem"
+          type: array
+      type: object
+    GroupParticipantItem:
+      additionalProperties: false
+      example:
+        is_admin: true
+        jid: 6289987391723@s.whatsapp.net
+        lid: 12345@lid
+        phone_number: 6289987391723@s.whatsapp.net
+        is_super_admin: false
+        display_name: Anonymous Member
+      properties:
+        jid:
+          example: 6289987391723@s.whatsapp.net
+          type: string
+        phone_number:
+          example: 6289987391723@s.whatsapp.net
+          type: string
+        lid:
+          example: 12345@lid
+          nullable: true
+          type: string
+        display_name:
+          example: Anonymous Member
+          nullable: true
+          type: string
+        is_admin:
+          example: true
+          type: boolean
+        is_super_admin:
+          example: false
+          type: boolean
       type: object
     SetGroupPhotoResponse:
       example:
@@ -2885,6 +3091,23 @@ components:
           additionalProperties: true
           description: Group information object (structure may vary)
           type: object
+      type: object
+    GetGroupInviteLinkResponse:
+      example:
+        code: SUCCESS
+        message: Success get group invite link
+        results:
+          group_id: 120363025982934543@g.us
+          invite_link: https://chat.whatsapp.com/ABC123...
+      properties:
+        code:
+          example: SUCCESS
+          type: string
+        message:
+          example: Success get group invite link
+          type: string
+        results:
+          $ref: "#/components/schemas/GetGroupInviteLinkResponse_results"
       type: object
     userChangeAvatar_request:
       properties:
@@ -4237,6 +4460,20 @@ components:
         pinned:
           example: true
           type: boolean
+      type: object
+    GetGroupInviteLinkResponse_results:
+      example:
+        group_id: 120363025982934543@g.us
+        invite_link: https://chat.whatsapp.com/ABC123...
+      properties:
+        invite_link:
+          description: The group invite link
+          example: https://chat.whatsapp.com/ABC123...
+          type: string
+        group_id:
+          description: The group ID
+          example: 120363025982934543@g.us
+          type: string
       type: object
   securitySchemes:
     basicAuth:
