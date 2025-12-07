@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**SendMessage**](SendAPI.md#SendMessage) | **Post** /send/message | Send Message
 [**SendPoll**](SendAPI.md#SendPoll) | **Post** /send/poll | Send Poll / Vote
 [**SendPresence**](SendAPI.md#SendPresence) | **Post** /send/presence | Send presence status
+[**SendSticker**](SendAPI.md#SendSticker) | **Post** /send/sticker | Send Sticker
 [**SendVideo**](SendAPI.md#SendVideo) | **Post** /send/video | Send Video
 
 
@@ -683,6 +684,80 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SendSticker
+
+> SendResponse SendSticker(ctx).Phone(phone).Sticker(sticker).StickerUrl(stickerUrl).Duration(duration).IsForwarded(isForwarded).Execute()
+
+Send Sticker
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+)
+
+func main() {
+	phone := "phone_example" // string | Phone number with country code (optional)
+	sticker := os.NewFile(1234, "some_file") // *os.File | Sticker image file (jpg/jpeg/png/webp/gif) (optional)
+	stickerUrl := "stickerUrl_example" // string | URL of sticker image to send (optional)
+	duration := int32(56) // int32 | Disappearing message duration in seconds (optional) (optional)
+	isForwarded := true // bool | Whether this is a forwarded sticker (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SendAPI.SendSticker(context.Background()).Phone(phone).Sticker(sticker).StickerUrl(stickerUrl).Duration(duration).IsForwarded(isForwarded).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendSticker``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SendSticker`: SendResponse
+	fmt.Fprintf(os.Stdout, "Response from `SendAPI.SendSticker`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSendStickerRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **phone** | **string** | Phone number with country code | 
+ **sticker** | ***os.File** | Sticker image file (jpg/jpeg/png/webp/gif) | 
+ **stickerUrl** | **string** | URL of sticker image to send | 
+ **duration** | **int32** | Disappearing message duration in seconds (optional) | 
+ **isForwarded** | **bool** | Whether this is a forwarded sticker | 
+
+### Return type
+
+[**SendResponse**](SendResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

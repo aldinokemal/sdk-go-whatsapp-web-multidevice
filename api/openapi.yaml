@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   description: This API is used for sending whatsapp via API
   title: WhatsApp API MultiDevice
-  version: 6.11.0
+  version: 6.12.0
 servers:
 - url: http://localhost:3000
 security:
@@ -542,6 +542,37 @@ paths:
                 $ref: "#/components/schemas/ErrorInternalServer"
           description: Internal Server Error
       summary: Send File
+      tags:
+      - send
+  /send/sticker:
+    post:
+      description: Send sticker with automatic conversion to WebP format
+      operationId: sendSticker
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/sendSticker_request"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SendResponse"
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBadRequest"
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorInternalServer"
+          description: Internal Server Error
+      summary: Send Sticker
       tags:
       - send
   /send/video:
@@ -3228,6 +3259,29 @@ components:
           description: Disappearing message duration in seconds (optional)
           example: 3600
           type: integer
+      type: object
+    sendSticker_request:
+      properties:
+        phone:
+          description: Phone number with country code
+          example: 6289685028129@s.whatsapp.net
+          type: string
+        sticker:
+          description: Sticker image file (jpg/jpeg/png/webp/gif)
+          format: binary
+          type: string
+        sticker_url:
+          description: URL of sticker image to send
+          example: https://example.com/sticker.png
+          type: string
+        duration:
+          description: Disappearing message duration in seconds (optional)
+          example: 3600
+          type: integer
+        is_forwarded:
+          description: Whether this is a forwarded sticker
+          example: false
+          type: boolean
       type: object
     sendVideo_request:
       properties:
