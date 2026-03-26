@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**AppLoginWithCode**](AppAPI.md#AppLoginWithCode) | **Get** /app/login-with-code | Login with pairing code
 [**AppLogout**](AppAPI.md#AppLogout) | **Get** /app/logout | Remove database and logout
 [**AppReconnect**](AppAPI.md#AppReconnect) | **Get** /app/reconnect | Reconnecting to whatsapp server
+[**AppStatus**](AppAPI.md#AppStatus) | **Get** /app/status | Get connection status
 
 
 
@@ -17,6 +18,8 @@ Method | HTTP request | Description
 > DeviceResponse AppDevices(ctx).Execute()
 
 Get list connected devices
+
+
 
 ### Example
 
@@ -73,7 +76,7 @@ Other parameters are passed through a pointer to a apiAppDevicesRequest struct v
 
 ## AppLogin
 
-> LoginResponse AppLogin(ctx).Execute()
+> LoginResponse AppLogin(ctx).XDeviceId(xDeviceId).Execute()
 
 Login to whatsapp server
 
@@ -90,10 +93,11 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AppAPI.AppLogin(context.Background()).Execute()
+	resp, r, err := apiClient.AppAPI.AppLogin(context.Background()).XDeviceId(xDeviceId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AppAPI.AppLogin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -105,12 +109,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiAppLoginRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
 
 ### Return type
 
@@ -132,7 +140,7 @@ Other parameters are passed through a pointer to a apiAppLoginRequest struct via
 
 ## AppLoginWithCode
 
-> LoginWithCodeResponse AppLoginWithCode(ctx).Phone(phone).Execute()
+> LoginWithCodeResponse AppLoginWithCode(ctx).XDeviceId(xDeviceId).Phone(phone).Execute()
 
 Login with pairing code
 
@@ -149,11 +157,12 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	phone := "628912344551" // string | Your phone number (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AppAPI.AppLoginWithCode(context.Background()).Phone(phone).Execute()
+	resp, r, err := apiClient.AppAPI.AppLoginWithCode(context.Background()).XDeviceId(xDeviceId).Phone(phone).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AppAPI.AppLoginWithCode``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -174,6 +183,7 @@ Other parameters are passed through a pointer to a apiAppLoginWithCodeRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **phone** | **string** | Your phone number | 
 
 ### Return type
@@ -196,7 +206,7 @@ Name | Type | Description  | Notes
 
 ## AppLogout
 
-> GenericResponse AppLogout(ctx).Execute()
+> GenericResponse AppLogout(ctx).XDeviceId(xDeviceId).Execute()
 
 Remove database and logout
 
@@ -213,10 +223,11 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AppAPI.AppLogout(context.Background()).Execute()
+	resp, r, err := apiClient.AppAPI.AppLogout(context.Background()).XDeviceId(xDeviceId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AppAPI.AppLogout``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -228,12 +239,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiAppLogoutRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
 
 ### Return type
 
@@ -255,7 +270,7 @@ Other parameters are passed through a pointer to a apiAppLogoutRequest struct vi
 
 ## AppReconnect
 
-> GenericResponse AppReconnect(ctx).Execute()
+> GenericResponse AppReconnect(ctx).XDeviceId(xDeviceId).Execute()
 
 Reconnecting to whatsapp server
 
@@ -272,10 +287,11 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AppAPI.AppReconnect(context.Background()).Execute()
+	resp, r, err := apiClient.AppAPI.AppReconnect(context.Background()).XDeviceId(xDeviceId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AppAPI.AppReconnect``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -287,16 +303,86 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiAppReconnectRequest struct via the builder pattern
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
+
 ### Return type
 
 [**GenericResponse**](GenericResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## AppStatus
+
+> AppStatus200Response AppStatus(ctx).XDeviceId(xDeviceId).Execute()
+
+Get connection status
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+)
+
+func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AppAPI.AppStatus(context.Background()).XDeviceId(xDeviceId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AppAPI.AppStatus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AppStatus`: AppStatus200Response
+	fmt.Fprintf(os.Stdout, "Response from `AppAPI.AppStatus`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAppStatusRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
+
+### Return type
+
+[**AppStatus200Response**](AppStatus200Response.md)
 
 ### Authorization
 

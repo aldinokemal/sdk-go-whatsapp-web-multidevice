@@ -29,7 +29,7 @@ Method | HTTP request | Description
 
 ## AddParticipantToGroup
 
-> ManageParticipantResponse AddParticipantToGroup(ctx).ManageParticipantRequest(manageParticipantRequest).Execute()
+> ManageParticipantResponse AddParticipantToGroup(ctx).XDeviceId(xDeviceId).ManageParticipantRequest(manageParticipantRequest).Execute()
 
 Adding more participants to group
 
@@ -46,11 +46,12 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	manageParticipantRequest := *openapiclient.NewManageParticipantRequest() // ManageParticipantRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.AddParticipantToGroup(context.Background()).ManageParticipantRequest(manageParticipantRequest).Execute()
+	resp, r, err := apiClient.GroupAPI.AddParticipantToGroup(context.Background()).XDeviceId(xDeviceId).ManageParticipantRequest(manageParticipantRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.AddParticipantToGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -71,6 +72,7 @@ Other parameters are passed through a pointer to a apiAddParticipantToGroupReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **manageParticipantRequest** | [**ManageParticipantRequest**](ManageParticipantRequest.md) |  | 
 
 ### Return type
@@ -93,7 +95,7 @@ Name | Type | Description  | Notes
 
 ## ApproveGroupParticipantRequest
 
-> GenericResponse ApproveGroupParticipantRequest(ctx).ApproveGroupParticipantRequestRequest(approveGroupParticipantRequestRequest).Execute()
+> GenericResponse ApproveGroupParticipantRequest(ctx).XDeviceId(xDeviceId).ApproveGroupParticipantRequestRequest(approveGroupParticipantRequestRequest).Execute()
 
 Approve participant request to join group
 
@@ -110,11 +112,12 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	approveGroupParticipantRequestRequest := *openapiclient.NewApproveGroupParticipantRequestRequest("120363024512399999@g.us", []string{"Participants_example"}) // ApproveGroupParticipantRequestRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.ApproveGroupParticipantRequest(context.Background()).ApproveGroupParticipantRequestRequest(approveGroupParticipantRequestRequest).Execute()
+	resp, r, err := apiClient.GroupAPI.ApproveGroupParticipantRequest(context.Background()).XDeviceId(xDeviceId).ApproveGroupParticipantRequestRequest(approveGroupParticipantRequestRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.ApproveGroupParticipantRequest``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -135,6 +138,7 @@ Other parameters are passed through a pointer to a apiApproveGroupParticipantReq
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **approveGroupParticipantRequestRequest** | [**ApproveGroupParticipantRequestRequest**](ApproveGroupParticipantRequestRequest.md) |  | 
 
 ### Return type
@@ -157,7 +161,7 @@ Name | Type | Description  | Notes
 
 ## CreateGroup
 
-> CreateGroupResponse CreateGroup(ctx).CreateGroupRequest(createGroupRequest).Execute()
+> CreateGroupResponse CreateGroup(ctx).XDeviceId(xDeviceId).CreateGroupRequest(createGroupRequest).Execute()
 
 Create group and add participant
 
@@ -174,11 +178,12 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	createGroupRequest := *openapiclient.NewCreateGroupRequest() // CreateGroupRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.CreateGroup(context.Background()).CreateGroupRequest(createGroupRequest).Execute()
+	resp, r, err := apiClient.GroupAPI.CreateGroup(context.Background()).XDeviceId(xDeviceId).CreateGroupRequest(createGroupRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.CreateGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -199,6 +204,7 @@ Other parameters are passed through a pointer to a apiCreateGroupRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **createGroupRequest** | [**CreateGroupRequest**](CreateGroupRequest.md) |  | 
 
 ### Return type
@@ -221,7 +227,7 @@ Name | Type | Description  | Notes
 
 ## DemoteParticipantToMember
 
-> ManageParticipantResponse DemoteParticipantToMember(ctx).ManageParticipantRequest(manageParticipantRequest).Execute()
+> ManageParticipantResponse DemoteParticipantToMember(ctx).XDeviceId(xDeviceId).ManageParticipantRequest(manageParticipantRequest).Execute()
 
 Demote participants to member
 
@@ -238,11 +244,12 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	manageParticipantRequest := *openapiclient.NewManageParticipantRequest() // ManageParticipantRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.DemoteParticipantToMember(context.Background()).ManageParticipantRequest(manageParticipantRequest).Execute()
+	resp, r, err := apiClient.GroupAPI.DemoteParticipantToMember(context.Background()).XDeviceId(xDeviceId).ManageParticipantRequest(manageParticipantRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.DemoteParticipantToMember``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -263,6 +270,7 @@ Other parameters are passed through a pointer to a apiDemoteParticipantToMemberR
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **manageParticipantRequest** | [**ManageParticipantRequest**](ManageParticipantRequest.md) |  | 
 
 ### Return type
@@ -285,7 +293,7 @@ Name | Type | Description  | Notes
 
 ## ExportGroupParticipants
 
-> *os.File ExportGroupParticipants(ctx).GroupId(groupId).Execute()
+> *os.File ExportGroupParticipants(ctx).GroupId(groupId).XDeviceId(xDeviceId).Execute()
 
 Export group participants as CSV
 
@@ -303,10 +311,11 @@ import (
 
 func main() {
 	groupId := "120363024512399999@g.us" // string | The group ID to export participants for
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.ExportGroupParticipants(context.Background()).GroupId(groupId).Execute()
+	resp, r, err := apiClient.GroupAPI.ExportGroupParticipants(context.Background()).GroupId(groupId).XDeviceId(xDeviceId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.ExportGroupParticipants``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -328,6 +337,7 @@ Other parameters are passed through a pointer to a apiExportGroupParticipantsReq
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **groupId** | **string** | The group ID to export participants for | 
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
 
 ### Return type
 
@@ -349,7 +359,7 @@ Name | Type | Description  | Notes
 
 ## GetGroupInfoFromLink
 
-> GroupInfoFromLinkResponse GetGroupInfoFromLink(ctx).Link(link).Execute()
+> GroupInfoFromLinkResponse GetGroupInfoFromLink(ctx).Link(link).XDeviceId(xDeviceId).Execute()
 
 Get group information from invitation link
 
@@ -369,10 +379,11 @@ import (
 
 func main() {
 	link := "https://chat.whatsapp.com/whatsappKeyJoinGroup" // string | WhatsApp group invitation link
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.GetGroupInfoFromLink(context.Background()).Link(link).Execute()
+	resp, r, err := apiClient.GroupAPI.GetGroupInfoFromLink(context.Background()).Link(link).XDeviceId(xDeviceId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.GetGroupInfoFromLink``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -394,6 +405,7 @@ Other parameters are passed through a pointer to a apiGetGroupInfoFromLinkReques
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **link** | **string** | WhatsApp group invitation link | 
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
 
 ### Return type
 
@@ -415,7 +427,7 @@ Name | Type | Description  | Notes
 
 ## GetGroupParticipantRequests
 
-> GroupParticipantRequestListResponse GetGroupParticipantRequests(ctx).GroupId(groupId).Execute()
+> GroupParticipantRequestListResponse GetGroupParticipantRequests(ctx).GroupId(groupId).XDeviceId(xDeviceId).Execute()
 
 Get list of participant requests to join group
 
@@ -433,10 +445,11 @@ import (
 
 func main() {
 	groupId := "120363024512399999@g.us" // string | The group ID to get participant requests for
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.GetGroupParticipantRequests(context.Background()).GroupId(groupId).Execute()
+	resp, r, err := apiClient.GroupAPI.GetGroupParticipantRequests(context.Background()).GroupId(groupId).XDeviceId(xDeviceId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.GetGroupParticipantRequests``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -458,6 +471,7 @@ Other parameters are passed through a pointer to a apiGetGroupParticipantRequest
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **groupId** | **string** | The group ID to get participant requests for | 
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
 
 ### Return type
 
@@ -479,7 +493,7 @@ Name | Type | Description  | Notes
 
 ## GetGroupParticipants
 
-> GroupParticipantsResponse GetGroupParticipants(ctx).GroupId(groupId).Execute()
+> GroupParticipantsResponse GetGroupParticipants(ctx).GroupId(groupId).XDeviceId(xDeviceId).Execute()
 
 Get list of participants in a group
 
@@ -497,10 +511,11 @@ import (
 
 func main() {
 	groupId := "120363024512399999@g.us" // string | The group ID to fetch participants for
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.GetGroupParticipants(context.Background()).GroupId(groupId).Execute()
+	resp, r, err := apiClient.GroupAPI.GetGroupParticipants(context.Background()).GroupId(groupId).XDeviceId(xDeviceId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.GetGroupParticipants``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -522,6 +537,7 @@ Other parameters are passed through a pointer to a apiGetGroupParticipantsReques
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **groupId** | **string** | The group ID to fetch participants for | 
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
 
 ### Return type
 
@@ -543,7 +559,7 @@ Name | Type | Description  | Notes
 
 ## GroupInfo
 
-> GroupInfoResponse GroupInfo(ctx).GroupId(groupId).Execute()
+> GroupInfoResponse GroupInfo(ctx).XDeviceId(xDeviceId).GroupId(groupId).Execute()
 
 Group Info
 
@@ -560,11 +576,12 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	groupId := "120363025982934543@g.us" // string | WhatsApp Group ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.GroupInfo(context.Background()).GroupId(groupId).Execute()
+	resp, r, err := apiClient.GroupAPI.GroupInfo(context.Background()).XDeviceId(xDeviceId).GroupId(groupId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.GroupInfo``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -585,6 +602,7 @@ Other parameters are passed through a pointer to a apiGroupInfoRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **groupId** | **string** | WhatsApp Group ID | 
 
 ### Return type
@@ -607,7 +625,7 @@ Name | Type | Description  | Notes
 
 ## GroupInviteLink
 
-> GetGroupInviteLinkResponse GroupInviteLink(ctx).GroupId(groupId).Reset(reset).Execute()
+> GetGroupInviteLinkResponse GroupInviteLink(ctx).GroupId(groupId).XDeviceId(xDeviceId).Reset(reset).Execute()
 
 Group Invite Link
 
@@ -625,11 +643,12 @@ import (
 
 func main() {
 	groupId := "groupId_example" // string | WhatsApp Group ID
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	reset := false // bool | Reset existing invite link (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.GroupInviteLink(context.Background()).GroupId(groupId).Reset(reset).Execute()
+	resp, r, err := apiClient.GroupAPI.GroupInviteLink(context.Background()).GroupId(groupId).XDeviceId(xDeviceId).Reset(reset).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.GroupInviteLink``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -651,6 +670,7 @@ Other parameters are passed through a pointer to a apiGroupInviteLinkRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **groupId** | **string** | WhatsApp Group ID | 
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **reset** | **bool** | Reset existing invite link | [default to false]
 
 ### Return type
@@ -673,7 +693,7 @@ Name | Type | Description  | Notes
 
 ## JoinGroupWithLink
 
-> GenericResponse JoinGroupWithLink(ctx).JoinGroupWithLinkRequest(joinGroupWithLinkRequest).Execute()
+> GenericResponse JoinGroupWithLink(ctx).XDeviceId(xDeviceId).JoinGroupWithLinkRequest(joinGroupWithLinkRequest).Execute()
 
 Join group with link
 
@@ -690,11 +710,12 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	joinGroupWithLinkRequest := *openapiclient.NewJoinGroupWithLinkRequest() // JoinGroupWithLinkRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.JoinGroupWithLink(context.Background()).JoinGroupWithLinkRequest(joinGroupWithLinkRequest).Execute()
+	resp, r, err := apiClient.GroupAPI.JoinGroupWithLink(context.Background()).XDeviceId(xDeviceId).JoinGroupWithLinkRequest(joinGroupWithLinkRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.JoinGroupWithLink``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -715,6 +736,7 @@ Other parameters are passed through a pointer to a apiJoinGroupWithLinkRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **joinGroupWithLinkRequest** | [**JoinGroupWithLinkRequest**](JoinGroupWithLinkRequest.md) |  | 
 
 ### Return type
@@ -737,7 +759,7 @@ Name | Type | Description  | Notes
 
 ## LeaveGroup
 
-> GenericResponse LeaveGroup(ctx).LeaveGroupRequest(leaveGroupRequest).Execute()
+> GenericResponse LeaveGroup(ctx).XDeviceId(xDeviceId).LeaveGroupRequest(leaveGroupRequest).Execute()
 
 Leave group
 
@@ -754,11 +776,12 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	leaveGroupRequest := *openapiclient.NewLeaveGroupRequest() // LeaveGroupRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.LeaveGroup(context.Background()).LeaveGroupRequest(leaveGroupRequest).Execute()
+	resp, r, err := apiClient.GroupAPI.LeaveGroup(context.Background()).XDeviceId(xDeviceId).LeaveGroupRequest(leaveGroupRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.LeaveGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -779,6 +802,7 @@ Other parameters are passed through a pointer to a apiLeaveGroupRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **leaveGroupRequest** | [**LeaveGroupRequest**](LeaveGroupRequest.md) |  | 
 
 ### Return type
@@ -801,7 +825,7 @@ Name | Type | Description  | Notes
 
 ## PromoteParticipantToAdmin
 
-> ManageParticipantResponse PromoteParticipantToAdmin(ctx).ManageParticipantRequest(manageParticipantRequest).Execute()
+> ManageParticipantResponse PromoteParticipantToAdmin(ctx).XDeviceId(xDeviceId).ManageParticipantRequest(manageParticipantRequest).Execute()
 
 Promote participants to admin
 
@@ -818,11 +842,12 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	manageParticipantRequest := *openapiclient.NewManageParticipantRequest() // ManageParticipantRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.PromoteParticipantToAdmin(context.Background()).ManageParticipantRequest(manageParticipantRequest).Execute()
+	resp, r, err := apiClient.GroupAPI.PromoteParticipantToAdmin(context.Background()).XDeviceId(xDeviceId).ManageParticipantRequest(manageParticipantRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.PromoteParticipantToAdmin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -843,6 +868,7 @@ Other parameters are passed through a pointer to a apiPromoteParticipantToAdminR
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **manageParticipantRequest** | [**ManageParticipantRequest**](ManageParticipantRequest.md) |  | 
 
 ### Return type
@@ -865,7 +891,7 @@ Name | Type | Description  | Notes
 
 ## RejectGroupParticipantRequest
 
-> GenericResponse RejectGroupParticipantRequest(ctx).RejectGroupParticipantRequestRequest(rejectGroupParticipantRequestRequest).Execute()
+> GenericResponse RejectGroupParticipantRequest(ctx).XDeviceId(xDeviceId).RejectGroupParticipantRequestRequest(rejectGroupParticipantRequestRequest).Execute()
 
 Reject participant request to join group
 
@@ -882,11 +908,12 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	rejectGroupParticipantRequestRequest := *openapiclient.NewRejectGroupParticipantRequestRequest("120363024512399999@g.us", []string{"Participants_example"}) // RejectGroupParticipantRequestRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.RejectGroupParticipantRequest(context.Background()).RejectGroupParticipantRequestRequest(rejectGroupParticipantRequestRequest).Execute()
+	resp, r, err := apiClient.GroupAPI.RejectGroupParticipantRequest(context.Background()).XDeviceId(xDeviceId).RejectGroupParticipantRequestRequest(rejectGroupParticipantRequestRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.RejectGroupParticipantRequest``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -907,6 +934,7 @@ Other parameters are passed through a pointer to a apiRejectGroupParticipantRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **rejectGroupParticipantRequestRequest** | [**RejectGroupParticipantRequestRequest**](RejectGroupParticipantRequestRequest.md) |  | 
 
 ### Return type
@@ -929,7 +957,7 @@ Name | Type | Description  | Notes
 
 ## RemoveParticipantFromGroup
 
-> ManageParticipantResponse RemoveParticipantFromGroup(ctx).ManageParticipantRequest(manageParticipantRequest).Execute()
+> ManageParticipantResponse RemoveParticipantFromGroup(ctx).XDeviceId(xDeviceId).ManageParticipantRequest(manageParticipantRequest).Execute()
 
 Remove participants from group
 
@@ -946,11 +974,12 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	manageParticipantRequest := *openapiclient.NewManageParticipantRequest() // ManageParticipantRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.RemoveParticipantFromGroup(context.Background()).ManageParticipantRequest(manageParticipantRequest).Execute()
+	resp, r, err := apiClient.GroupAPI.RemoveParticipantFromGroup(context.Background()).XDeviceId(xDeviceId).ManageParticipantRequest(manageParticipantRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.RemoveParticipantFromGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -971,6 +1000,7 @@ Other parameters are passed through a pointer to a apiRemoveParticipantFromGroup
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **manageParticipantRequest** | [**ManageParticipantRequest**](ManageParticipantRequest.md) |  | 
 
 ### Return type
@@ -993,7 +1023,7 @@ Name | Type | Description  | Notes
 
 ## SetGroupAnnounce
 
-> GenericResponse SetGroupAnnounce(ctx).SetGroupAnnounceRequest(setGroupAnnounceRequest).Execute()
+> GenericResponse SetGroupAnnounce(ctx).XDeviceId(xDeviceId).SetGroupAnnounceRequest(setGroupAnnounceRequest).Execute()
 
 Set group announce mode
 
@@ -1012,11 +1042,12 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	setGroupAnnounceRequest := *openapiclient.NewSetGroupAnnounceRequest("120363024512399999@g.us", true) // SetGroupAnnounceRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.SetGroupAnnounce(context.Background()).SetGroupAnnounceRequest(setGroupAnnounceRequest).Execute()
+	resp, r, err := apiClient.GroupAPI.SetGroupAnnounce(context.Background()).XDeviceId(xDeviceId).SetGroupAnnounceRequest(setGroupAnnounceRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.SetGroupAnnounce``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1037,6 +1068,7 @@ Other parameters are passed through a pointer to a apiSetGroupAnnounceRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **setGroupAnnounceRequest** | [**SetGroupAnnounceRequest**](SetGroupAnnounceRequest.md) |  | 
 
 ### Return type
@@ -1059,7 +1091,7 @@ Name | Type | Description  | Notes
 
 ## SetGroupLocked
 
-> GenericResponse SetGroupLocked(ctx).SetGroupLockedRequest(setGroupLockedRequest).Execute()
+> GenericResponse SetGroupLocked(ctx).XDeviceId(xDeviceId).SetGroupLockedRequest(setGroupLockedRequest).Execute()
 
 Set group locked status
 
@@ -1078,11 +1110,12 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	setGroupLockedRequest := *openapiclient.NewSetGroupLockedRequest("120363024512399999@g.us", true) // SetGroupLockedRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.SetGroupLocked(context.Background()).SetGroupLockedRequest(setGroupLockedRequest).Execute()
+	resp, r, err := apiClient.GroupAPI.SetGroupLocked(context.Background()).XDeviceId(xDeviceId).SetGroupLockedRequest(setGroupLockedRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.SetGroupLocked``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1103,6 +1136,7 @@ Other parameters are passed through a pointer to a apiSetGroupLockedRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **setGroupLockedRequest** | [**SetGroupLockedRequest**](SetGroupLockedRequest.md) |  | 
 
 ### Return type
@@ -1125,7 +1159,7 @@ Name | Type | Description  | Notes
 
 ## SetGroupName
 
-> GenericResponse SetGroupName(ctx).SetGroupNameRequest(setGroupNameRequest).Execute()
+> GenericResponse SetGroupName(ctx).XDeviceId(xDeviceId).SetGroupNameRequest(setGroupNameRequest).Execute()
 
 Set group name
 
@@ -1142,11 +1176,12 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	setGroupNameRequest := *openapiclient.NewSetGroupNameRequest("120363024512399999@g.us", "New Group Name") // SetGroupNameRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.SetGroupName(context.Background()).SetGroupNameRequest(setGroupNameRequest).Execute()
+	resp, r, err := apiClient.GroupAPI.SetGroupName(context.Background()).XDeviceId(xDeviceId).SetGroupNameRequest(setGroupNameRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.SetGroupName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1167,6 +1202,7 @@ Other parameters are passed through a pointer to a apiSetGroupNameRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **setGroupNameRequest** | [**SetGroupNameRequest**](SetGroupNameRequest.md) |  | 
 
 ### Return type
@@ -1189,7 +1225,7 @@ Name | Type | Description  | Notes
 
 ## SetGroupPhoto
 
-> SetGroupPhotoResponse SetGroupPhoto(ctx).GroupId(groupId).Photo(photo).Execute()
+> SetGroupPhotoResponse SetGroupPhoto(ctx).GroupId(groupId).XDeviceId(xDeviceId).Photo(photo).Execute()
 
 Set group photo
 
@@ -1207,11 +1243,12 @@ import (
 
 func main() {
 	groupId := "groupId_example" // string | The group ID
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	photo := os.NewFile(1234, "some_file") // *os.File | Group photo to upload (JPEG format recommended). Leave empty to remove photo. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.SetGroupPhoto(context.Background()).GroupId(groupId).Photo(photo).Execute()
+	resp, r, err := apiClient.GroupAPI.SetGroupPhoto(context.Background()).GroupId(groupId).XDeviceId(xDeviceId).Photo(photo).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.SetGroupPhoto``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1233,6 +1270,7 @@ Other parameters are passed through a pointer to a apiSetGroupPhotoRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **groupId** | **string** | The group ID | 
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **photo** | ***os.File** | Group photo to upload (JPEG format recommended). Leave empty to remove photo. | 
 
 ### Return type
@@ -1255,7 +1293,7 @@ Name | Type | Description  | Notes
 
 ## SetGroupTopic
 
-> GenericResponse SetGroupTopic(ctx).SetGroupTopicRequest(setGroupTopicRequest).Execute()
+> GenericResponse SetGroupTopic(ctx).XDeviceId(xDeviceId).SetGroupTopicRequest(setGroupTopicRequest).Execute()
 
 Set group topic
 
@@ -1274,11 +1312,12 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	setGroupTopicRequest := *openapiclient.NewSetGroupTopicRequest("120363024512399999@g.us") // SetGroupTopicRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.SetGroupTopic(context.Background()).SetGroupTopicRequest(setGroupTopicRequest).Execute()
+	resp, r, err := apiClient.GroupAPI.SetGroupTopic(context.Background()).XDeviceId(xDeviceId).SetGroupTopicRequest(setGroupTopicRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.SetGroupTopic``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1299,6 +1338,7 @@ Other parameters are passed through a pointer to a apiSetGroupTopicRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **setGroupTopicRequest** | [**SetGroupTopicRequest**](SetGroupTopicRequest.md) |  | 
 
 ### Return type

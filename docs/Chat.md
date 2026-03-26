@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **EphemeralExpiration** | Pointer to **int32** | Ephemeral message expiration time in seconds (0 &#x3D; disabled) | [optional] 
 **CreatedAt** | Pointer to **time.Time** | Chat creation timestamp | [optional] 
 **UpdatedAt** | Pointer to **time.Time** | Chat last update timestamp | [optional] 
+**Archived** | Pointer to **bool** | Whether the chat is archived | [optional] 
 
 ## Methods
 
@@ -179,6 +180,31 @@ SetUpdatedAt sets UpdatedAt field to given value.
 `func (o *Chat) HasUpdatedAt() bool`
 
 HasUpdatedAt returns a boolean if a field has been set.
+
+### GetArchived
+
+`func (o *Chat) GetArchived() bool`
+
+GetArchived returns the Archived field if non-nil, zero value otherwise.
+
+### GetArchivedOk
+
+`func (o *Chat) GetArchivedOk() (*bool, bool)`
+
+GetArchivedOk returns a tuple with the Archived field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetArchived
+
+`func (o *Chat) SetArchived(v bool)`
+
+SetArchived sets Archived field to given value.
+
+### HasArchived
+
+`func (o *Chat) HasArchived() bool`
+
+HasArchived returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

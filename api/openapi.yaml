@@ -1,8 +1,13 @@
 openapi: 3.0.0
 info:
-  description: This API is used for sending whatsapp via API
+  description: |
+    This API is used for sending whatsapp via API.
+
+    Device scoping:
+    - Send `X-Device-Id` on all device-scoped REST calls.
+    - WebSocket: connect to `/ws?device_id=<id>`.
   title: WhatsApp API MultiDevice
-  version: 6.12.0
+  version: 8.3.0
 servers:
 - url: http://localhost:3000
 security:
@@ -10,6 +15,8 @@ security:
 tags:
 - description: Initial Connection to Whatsapp server
   name: app
+- description: Device management for multi-device support
+  name: device
 - description: Getting information
   name: user
 - description: Send Message (Text/Image/File/Video).
@@ -22,10 +29,25 @@ tags:
   name: group
 - description: newsletter setting
   name: newsletter
+- description: Chatwoot integration for customer support
+  name: chatwoot
 paths:
   /app/login:
     get:
       operationId: appLogin
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       responses:
         "200":
           content:
@@ -46,6 +68,18 @@ paths:
     get:
       operationId: appLoginWithCode
       parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       - description: Your phone number
         example: "628912344551"
         explode: true
@@ -74,6 +108,19 @@ paths:
   /app/logout:
     get:
       operationId: appLogout
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       responses:
         "200":
           content:
@@ -93,6 +140,19 @@ paths:
   /app/reconnect:
     get:
       operationId: appReconnect
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       responses:
         "200":
           content:
@@ -111,6 +171,8 @@ paths:
       - app
   /app/devices:
     get:
+      description: |
+        Returns all device IDs known to the server, including placeholders created via the device API. Devices are now persisted in the storage registry so IDs remain stable after application restarts.
       operationId: appDevices
       responses:
         "200":
@@ -128,10 +190,364 @@ paths:
       summary: Get list connected devices
       tags:
       - app
+  /app/status:
+    get:
+      description: Check whether the WhatsApp client is connected and logged in
+      operationId: appStatus
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/appStatus_200_response"
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBadRequest"
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorInternalServer"
+          description: Internal Server Error
+      summary: Get connection status
+      tags:
+      - app
+  /devices:
+    get:
+      description: Returns all registered devices with their connection status
+      operationId: listDevices
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeviceListResponse"
+          description: OK
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorInternalServer"
+          description: Internal Server Error
+      summary: List all devices
+      tags:
+      - device
+    post:
+      description: Create a new device slot for multi-device management
+      operationId: addDevice
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/addDevice_request"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeviceAddResponse"
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBadRequest"
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorInternalServer"
+          description: Internal Server Error
+      summary: Add a new device
+      tags:
+      - device
+  /devices/{device_id}:
+    delete:
+      description: Remove a device from the server (does not logout from WhatsApp)
+      operationId: removeDevice
+      parameters:
+      - description: Device ID
+        explode: false
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericResponse"
+          description: OK
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorNotFound"
+          description: Device not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorInternalServer"
+          description: Internal Server Error
+      summary: Remove a device
+      tags:
+      - device
+    get:
+      description: Get detailed information about a specific device
+      operationId: getDevice
+      parameters:
+      - description: Device ID
+        explode: false
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeviceInfoResponse"
+          description: OK
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorNotFound"
+          description: Device not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorInternalServer"
+          description: Internal Server Error
+      summary: Get device info
+      tags:
+      - device
+  /devices/{device_id}/login:
+    get:
+      description: Initiate QR code login for a specific device
+      operationId: loginDevice
+      parameters:
+      - description: Device ID
+        explode: false
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+          description: OK
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorNotFound"
+          description: Device not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorInternalServer"
+          description: Internal Server Error
+      summary: Login device with QR code
+      tags:
+      - device
+  /devices/{device_id}/login/code:
+    post:
+      description: Initiate pairing code login for a specific device
+      operationId: loginDeviceWithCode
+      parameters:
+      - description: Device ID
+        explode: false
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Phone number to pair with
+        example: "628912344551"
+        explode: true
+        in: query
+        name: phone
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginWithCodeResponse"
+          description: OK
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorNotFound"
+          description: Device not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorInternalServer"
+          description: Internal Server Error
+      summary: Login device with pairing code
+      tags:
+      - device
+  /devices/{device_id}/logout:
+    post:
+      description: Logout a specific device from WhatsApp and remove its session
+      operationId: logoutDevice
+      parameters:
+      - description: Device ID
+        explode: false
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericResponse"
+          description: OK
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorNotFound"
+          description: Device not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorInternalServer"
+          description: Internal Server Error
+      summary: Logout device
+      tags:
+      - device
+  /devices/{device_id}/reconnect:
+    post:
+      description: Reconnect a specific device to WhatsApp
+      operationId: reconnectDevice
+      parameters:
+      - description: Device ID
+        explode: false
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericResponse"
+          description: OK
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorNotFound"
+          description: Device not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorInternalServer"
+          description: Internal Server Error
+      summary: Reconnect device
+      tags:
+      - device
+  /devices/{device_id}/status:
+    get:
+      description: Get the current connection status of a specific device
+      operationId: getDeviceStatus
+      parameters:
+      - description: Device ID
+        explode: false
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeviceStatusResponse"
+          description: OK
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorNotFound"
+          description: Device not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorInternalServer"
+          description: Internal Server Error
+      summary: Get device connection status
+      tags:
+      - device
   /user/info:
     get:
       operationId: userInfo
       parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       - description: Phone number with country code
         example: 6289685028129@s.whatsapp.net
         explode: true
@@ -167,6 +583,18 @@ paths:
     get:
       operationId: userAvatar
       parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       - description: Phone number with country code
         example: 6289685028129@s.whatsapp.net
         explode: true
@@ -218,6 +646,19 @@ paths:
       - user
     post:
       operationId: userChangeAvatar
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           multipart/form-data:
@@ -249,6 +690,19 @@ paths:
     post:
       description: Update the display name (push name) shown to others in WhatsApp
       operationId: userChangePushName
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -279,6 +733,19 @@ paths:
   /user/my/privacy:
     get:
       operationId: userMyPrivacy
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       responses:
         "200":
           content:
@@ -297,7 +764,32 @@ paths:
       - user
   /user/my/groups:
     get:
+      description: |
+        Get all groups that the authenticated user has joined.
+
+        ⚠️ **Known Limitation**: This endpoint returns a maximum of 500 groups due to a WhatsApp protocol limitation.
+        The underlying whatsmeow library's `GetJoinedGroups()` function sends a single query to WhatsApp servers,
+        which enforces this limit. This is not a bug in this API - it's a constraint imposed by WhatsApp's
+        multi-device protocol. Users with more than 500 groups will only receive the first 500 groups.
+
+        For more details, see: https://github.com/tulir/whatsmeow/blob/main/group.go
+      externalDocs:
+        description: WhatsApp protocol limitation reference (whatsmeow source)
+        url: https://github.com/tulir/whatsmeow/blob/main/group.go
       operationId: userMyGroups
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       responses:
         "200":
           content:
@@ -317,6 +809,19 @@ paths:
   /user/my/newsletters:
     get:
       operationId: userMyNewsletter
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       responses:
         "200":
           content:
@@ -336,6 +841,19 @@ paths:
   /user/my/contacts:
     get:
       operationId: userMyContacts
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       responses:
         "200":
           content:
@@ -356,6 +874,18 @@ paths:
     get:
       operationId: userCheck
       parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       - description: Phone number with country code
         example: "628912344551"
         explode: true
@@ -393,6 +923,18 @@ paths:
         account
       operationId: userBusinessProfile
       parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       - description: Phone number with country code of the business account
         example: 6289685028129@s.whatsapp.net
         explode: true
@@ -427,6 +969,19 @@ paths:
   /send/message:
     post:
       operationId: sendMessage
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -457,6 +1012,19 @@ paths:
   /send/image:
     post:
       operationId: sendImage
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           multipart/form-data:
@@ -487,6 +1055,19 @@ paths:
   /send/audio:
     post:
       operationId: sendAudio
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           multipart/form-data:
@@ -517,6 +1098,19 @@ paths:
   /send/file:
     post:
       operationId: sendFile
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           multipart/form-data:
@@ -548,6 +1142,19 @@ paths:
     post:
       description: Send sticker with automatic conversion to WebP format
       operationId: sendSticker
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           multipart/form-data:
@@ -578,6 +1185,19 @@ paths:
   /send/video:
     post:
       operationId: sendVideo
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           multipart/form-data:
@@ -608,6 +1228,19 @@ paths:
   /send/contact:
     post:
       operationId: sendContact
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -638,6 +1271,19 @@ paths:
   /send/link:
     post:
       operationId: sendLink
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -668,6 +1314,19 @@ paths:
   /send/location:
     post:
       operationId: sendLocation
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -698,6 +1357,19 @@ paths:
   /send/poll:
     post:
       operationId: sendPoll
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -729,6 +1401,19 @@ paths:
   /send/presence:
     post:
       operationId: sendPresence
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -762,6 +1447,19 @@ paths:
       description: Send typing indicator to start or stop showing that you are composing
         a message
       operationId: sendChatPresence
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -794,6 +1492,18 @@ paths:
     post:
       operationId: revokeMessage
       parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       - description: Message ID
         explode: false
         in: path
@@ -833,6 +1543,18 @@ paths:
     post:
       operationId: deleteMessage
       parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       - description: Message ID
         explode: false
         in: path
@@ -872,6 +1594,18 @@ paths:
     post:
       operationId: reactMessage
       parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       - description: Message ID
         explode: false
         in: path
@@ -911,6 +1645,18 @@ paths:
     post:
       operationId: updateMessage
       parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       - description: Message ID
         explode: false
         in: path
@@ -950,6 +1696,18 @@ paths:
     post:
       operationId: readMessage
       parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       - description: Message ID
         explode: false
         in: path
@@ -989,6 +1747,18 @@ paths:
     post:
       operationId: starMessage
       parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       - description: Message ID
         explode: false
         in: path
@@ -1028,6 +1798,18 @@ paths:
     post:
       operationId: unstarMessage
       parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       - description: Message ID
         explode: false
         in: path
@@ -1063,11 +1845,87 @@ paths:
       summary: Unstar message
       tags:
       - message
+  /message/{message_id}/download:
+    get:
+      description: "Download media content (image, video, audio, document) from a\
+        \ message"
+      operationId: downloadMessageMedia
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
+      - description: Message ID
+        example: 3EB0123456789ABCDEF
+        explode: false
+        in: path
+        name: message_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Phone number with country code
+        example: 6289685028129@s.whatsapp.net
+        explode: true
+        in: query
+        name: phone
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/downloadMessageMedia_200_response"
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBadRequest"
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorNotFound"
+          description: Message or media not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorInternalServer"
+          description: Internal Server Error
+      summary: Download media from message
+      tags:
+      - message
   /chats:
     get:
       description: Retrieve a list of chat conversations with their basic information
       operationId: listChats
       parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       - description: Maximum number of chats to return
         explode: true
         in: query
@@ -1104,6 +1962,15 @@ paths:
           default: false
           type: boolean
         style: form
+      - description: "Filter by archived status. true = archived only, false = non-archived\
+          \ only. Omit to return all chats."
+        explode: true
+        in: query
+        name: archived
+        required: false
+        schema:
+          type: boolean
+        style: form
       responses:
         "200":
           content:
@@ -1138,6 +2005,18 @@ paths:
         options
       operationId: getChatMessages
       parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       - description: "Chat JID (e.g., phone@s.whatsapp.net for individual or groupid@g.us\
           \ for group)"
         example: 6289685028129@s.whatsapp.net
@@ -1252,6 +2131,18 @@ paths:
       description: Apply or remove a label from a chat conversation
       operationId: labelChat
       parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       - description: "Chat JID (e.g., phone@s.whatsapp.net for individual or groupid@g.us\
           \ for group)"
         example: 6289685028129@s.whatsapp.net
@@ -1306,6 +2197,18 @@ paths:
       description: Pin or unpin a chat conversation to the top of the chat list
       operationId: pinChat
       parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       - description: "Chat JID (e.g., phone@s.whatsapp.net for individual or groupid@g.us\
           \ for group)"
         example: 6289685028129@s.whatsapp.net
@@ -1355,10 +2258,144 @@ paths:
       summary: Pin or unpin a chat
       tags:
       - chat
+  /chat/{chat_jid}/disappearing:
+    post:
+      description: "Set or disable disappearing messages for a chat. Valid timer values\
+        \ are 0 (off), 86400 (24h), 604800 (7d), 7776000 (90d)."
+      operationId: setDisappearingTimer
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
+      - description: "Chat JID (e.g., phone@s.whatsapp.net for individual or groupid@g.us\
+          \ for group)"
+        example: 6289685028129@s.whatsapp.net
+        explode: false
+        in: path
+        name: chat_jid
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/setDisappearingTimer_request"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SetDisappearingTimerResponse"
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBadRequest"
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorInternalServer"
+          description: Internal Server Error
+      summary: Set disappearing messages timer
+      tags:
+      - chat
+  /chat/{chat_jid}/archive:
+    post:
+      description: Archive or unarchive a chat conversation. Archived chats are hidden
+        from the main chat list.
+      operationId: archiveChat
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
+      - description: "Chat JID (e.g., phone@s.whatsapp.net for individual or groupid@g.us\
+          \ for group)"
+        example: 6289685028129@s.whatsapp.net
+        explode: false
+        in: path
+        name: chat_jid
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/archiveChat_request"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArchiveChatResponse"
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBadRequest"
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorUnauthorized"
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorNotFound"
+          description: Chat Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorInternalServer"
+          description: Internal Server Error
+      summary: Archive or unarchive a chat
+      tags:
+      - chat
   /group/info:
     get:
       operationId: groupInfo
       parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       - description: WhatsApp Group ID
         example: 120363025982934543@g.us
         explode: true
@@ -1393,6 +2430,19 @@ paths:
   /group:
     post:
       operationId: createGroup
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -1424,6 +2474,18 @@ paths:
     get:
       operationId: getGroupParticipants
       parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       - description: The group ID to fetch participants for
         example: 120363024512399999@g.us
         explode: true
@@ -1457,6 +2519,19 @@ paths:
       - group
     post:
       operationId: addParticipantToGroup
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -1488,6 +2563,18 @@ paths:
     get:
       operationId: exportGroupParticipants
       parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       - description: The group ID to export participants for
         example: 120363024512399999@g.us
         explode: true
@@ -1523,6 +2610,19 @@ paths:
   /group/participants/remove:
     post:
       operationId: removeParticipantFromGroup
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -1553,6 +2653,19 @@ paths:
   /group/participants/promote:
     post:
       operationId: promoteParticipantToAdmin
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -1583,6 +2696,19 @@ paths:
   /group/participants/demote:
     post:
       operationId: demoteParticipantToMember
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -1613,6 +2739,19 @@ paths:
   /group/join-with-link:
     post:
       operationId: joinGroupWithLink
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -1646,6 +2785,18 @@ paths:
         invitation link
       operationId: getGroupInfoFromLink
       parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       - description: WhatsApp group invitation link
         example: https://chat.whatsapp.com/whatsappKeyJoinGroup
         explode: true
@@ -1681,6 +2832,18 @@ paths:
     get:
       operationId: getGroupParticipantRequests
       parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       - description: The group ID to get participant requests for
         example: 120363024512399999@g.us
         explode: true
@@ -1715,6 +2878,19 @@ paths:
   /group/participant-requests/approve:
     post:
       operationId: approveGroupParticipantRequest
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -1745,6 +2921,19 @@ paths:
   /group/participant-requests/reject:
     post:
       operationId: rejectGroupParticipantRequest
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -1775,6 +2964,19 @@ paths:
   /group/leave:
     post:
       operationId: leaveGroup
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -1805,6 +3007,19 @@ paths:
   /group/photo:
     post:
       operationId: setGroupPhoto
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           multipart/form-data:
@@ -1835,6 +3050,19 @@ paths:
   /group/name:
     post:
       operationId: setGroupName
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -1866,6 +3094,19 @@ paths:
     post:
       description: Lock/unlock group so only admins can modify group info
       operationId: setGroupLocked
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -1897,6 +3138,19 @@ paths:
     post:
       description: Enable/disable announce mode so only admins can send messages
       operationId: setGroupAnnounce
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -1928,6 +3182,19 @@ paths:
     post:
       description: Set or remove group topic/description
       operationId: setGroupTopic
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -1959,6 +3226,18 @@ paths:
     get:
       operationId: groupInviteLink
       parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       - description: WhatsApp Group ID
         explode: true
         in: query
@@ -2002,6 +3281,19 @@ paths:
   /newsletter/unfollow:
     post:
       operationId: unfollowNewsletter
+      parameters:
+      - description: |
+          Device identifier for multi-device support. Required when multiple devices are registered.
+          If only one device is registered, it will be used as the default.
+          Can also be provided as `device_id` query parameter.
+        explode: false
+        in: header
+        name: X-Device-Id
+        required: false
+        schema:
+          example: my-device-id
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -2029,7 +3321,108 @@ paths:
       summary: Unfollow newsletter
       tags:
       - newsletter
+  /chatwoot/sync:
+    post:
+      description: |
+        Initiates a background sync of WhatsApp message history to Chatwoot.
+        Messages from the configured number of days will be imported.
+        This endpoint requires CHATWOOT_ENABLED=true in configuration.
+      operationId: chatwootSyncHistory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/chatwootSyncHistory_request"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChatwootSyncResponse"
+          description: Sync initiated successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBadRequest"
+          description: Bad Request (device not found or Chatwoot not configured)
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/chatwootSyncHistory_409_response"
+          description: Sync already in progress
+      summary: Sync message history to Chatwoot
+      tags:
+      - chatwoot
+  /chatwoot/sync/status:
+    get:
+      description: Returns the current sync progress for a device
+      operationId: chatwootSyncStatus
+      parameters:
+      - description: Device ID to check sync status for
+        explode: true
+        in: query
+        name: device_id
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChatwootSyncStatusResponse"
+          description: Sync status retrieved
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBadRequest"
+          description: Bad Request
+      summary: Get Chatwoot sync progress
+      tags:
+      - chatwoot
+  /chatwoot/webhook:
+    post:
+      description: |
+        Receives webhook events from Chatwoot and sends messages to WhatsApp.
+        Configure this URL in your Chatwoot inbox webhook settings.
+      operationId: chatwootWebhook
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: Chatwoot webhook payload (see Chatwoot documentation)
+              type: object
+      responses:
+        "200":
+          description: Webhook processed
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBadRequest"
+          description: Device not available
+      summary: Chatwoot webhook endpoint
+      tags:
+      - chatwoot
 components:
+  parameters:
+    DeviceIdHeader:
+      description: |
+        Device identifier for multi-device support. Required when multiple devices are registered.
+        If only one device is registered, it will be used as the default.
+        Can also be provided as `device_id` query parameter.
+      explode: false
+      in: header
+      name: X-Device-Id
+      required: false
+      schema:
+        example: my-device-id
+        type: string
+      style: simple
   schemas:
     CreateGroupResponse:
       example:
@@ -2381,6 +3774,144 @@ components:
             $ref: "#/components/schemas/DeviceResponse_results_inner"
           type: array
       type: object
+    DeviceListResponse:
+      example:
+        code: SUCCESS
+        message: List devices
+        results:
+        - jid: 628123456789@s.whatsapp.net
+          created_at: 2024-01-01T00:00:00Z
+          phone_number: "628123456789"
+          id: my-device-id
+          state: logged_in
+          display_name: John Doe
+        - jid: 628123456789@s.whatsapp.net
+          created_at: 2024-01-01T00:00:00Z
+          phone_number: "628123456789"
+          id: my-device-id
+          state: logged_in
+          display_name: John Doe
+        status: 200
+      properties:
+        code:
+          example: SUCCESS
+          type: string
+        message:
+          example: List devices
+          type: string
+        status:
+          example: 200
+          type: integer
+        results:
+          items:
+            $ref: "#/components/schemas/DeviceInfo"
+          type: array
+      type: object
+    DeviceAddResponse:
+      example:
+        code: SUCCESS
+        message: Device added
+        results:
+          jid: 628123456789@s.whatsapp.net
+          created_at: 2024-01-01T00:00:00Z
+          phone_number: "628123456789"
+          id: my-device-id
+          state: logged_in
+          display_name: John Doe
+        status: 200
+      properties:
+        code:
+          example: SUCCESS
+          type: string
+        message:
+          example: Device added
+          type: string
+        status:
+          example: 200
+          type: integer
+        results:
+          $ref: "#/components/schemas/DeviceInfo"
+      type: object
+    DeviceInfoResponse:
+      example:
+        code: SUCCESS
+        message: Device info
+        results:
+          jid: 628123456789@s.whatsapp.net
+          created_at: 2024-01-01T00:00:00Z
+          phone_number: "628123456789"
+          id: my-device-id
+          state: logged_in
+          display_name: John Doe
+        status: 200
+      properties:
+        code:
+          example: SUCCESS
+          type: string
+        message:
+          example: Device info
+          type: string
+        status:
+          example: 200
+          type: integer
+        results:
+          $ref: "#/components/schemas/DeviceInfo"
+      type: object
+    DeviceStatusResponse:
+      example:
+        code: SUCCESS
+        message: Device status
+        results:
+          is_connected: true
+          is_logged_in: true
+          device_id: my-device-id
+        status: 200
+      properties:
+        code:
+          example: SUCCESS
+          type: string
+        message:
+          example: Device status
+          type: string
+        status:
+          example: 200
+          type: integer
+        results:
+          $ref: "#/components/schemas/DeviceStatusResponse_results"
+      type: object
+    DeviceInfo:
+      example:
+        jid: 628123456789@s.whatsapp.net
+        created_at: 2024-01-01T00:00:00Z
+        phone_number: "628123456789"
+        id: my-device-id
+        state: logged_in
+        display_name: John Doe
+      properties:
+        id:
+          example: my-device-id
+          type: string
+        phone_number:
+          example: "628123456789"
+          type: string
+        display_name:
+          example: John Doe
+          type: string
+        state:
+          enum:
+          - disconnected
+          - connected
+          - logged_in
+          example: logged_in
+          type: string
+        jid:
+          example: 628123456789@s.whatsapp.net
+          type: string
+        created_at:
+          example: 2024-01-01T00:00:00Z
+          format: date-time
+          type: string
+      type: object
     LoginWithCodeResponse:
       example:
         code: SUCCESS
@@ -2666,123 +4197,6 @@ components:
           example: Aldino Kemal
           type: string
       type: object
-    GroupResponse:
-      properties:
-        code:
-          example: SUCCESS
-          type: string
-        message:
-          example: Success get list groups
-          type: string
-        results:
-          $ref: "#/components/schemas/GroupResponse_results"
-      type: object
-    Group:
-      properties:
-        JID:
-          example: 120363347168689807@g.us
-          type: string
-        OwnerJID:
-          example: 6288228744537@s.whatsapp.net
-          type: string
-        Name:
-          example: Example Group
-          type: string
-        NameSetAt:
-          example: 2024-10-11T21:27:29+07:00
-          format: date-time
-          type: string
-        NameSetBy:
-          example: 6288228744537@s.whatsapp.net
-          type: string
-        Topic:
-          example: ""
-          type: string
-        TopicID:
-          example: ""
-          type: string
-        TopicSetAt:
-          example: 0001-01-01T00:00:00Z
-          format: date-time
-          type: string
-        TopicSetBy:
-          example: ""
-          type: string
-        TopicDeleted:
-          example: false
-          type: boolean
-        IsLocked:
-          example: false
-          type: boolean
-        IsAnnounce:
-          example: false
-          type: boolean
-        AnnounceVersionID:
-          example: "1728656849439709"
-          type: string
-        IsEphemeral:
-          example: false
-          type: boolean
-        DisappearingTimer:
-          example: 0
-          type: integer
-        IsIncognito:
-          example: false
-          type: boolean
-        IsParent:
-          example: false
-          type: boolean
-        DefaultMembershipApprovalMode:
-          example: ""
-          type: string
-        LinkedParentJID:
-          example: ""
-          type: string
-        IsDefaultSubGroup:
-          example: false
-          type: boolean
-        IsJoinApprovalRequired:
-          example: false
-          type: boolean
-        GroupCreated:
-          example: 2024-10-11T21:27:29+07:00
-          format: date-time
-          type: string
-        ParticipantVersionID:
-          example: "1728656849439790"
-          type: string
-        Participants:
-          items:
-            $ref: "#/components/schemas/Participant"
-          type: array
-        MemberAddMode:
-          example: admin_add
-          type: string
-      type: object
-    Participant:
-      properties:
-        JID:
-          example: 6288228744537@s.whatsapp.net
-          type: string
-        LID:
-          example: 20036609675500@lid
-          type: string
-        IsAdmin:
-          example: true
-          type: boolean
-        IsSuperAdmin:
-          example: true
-          type: boolean
-        DisplayName:
-          example: ""
-          type: string
-        Error:
-          example: 0
-          type: integer
-        AddRequest:
-          type: string
-          example: null
-      type: object
     GroupParticipantRequestListResponse:
       example:
         code: SUCCESS
@@ -2790,8 +4204,12 @@ components:
         results:
           data:
           - jid: 6289685024091@s.whatsapp.net
+            phone_number: "6289685024091"
+            display_name: John Doe
             requested_at: 2024-10-11T21:27:29+07:00
           - jid: 6289685024091@s.whatsapp.net
+            phone_number: "6289685024091"
+            display_name: John Doe
             requested_at: 2024-10-11T21:27:29+07:00
       properties:
         code:
@@ -2865,13 +4283,15 @@ components:
             offset: 0
             limit: 25
           data:
-          - jid: 6289685028129@s.whatsapp.net
+          - archived: false
+            jid: 6289685028129@s.whatsapp.net
             updated_at: 2024-01-15T10:30:00Z
             ephemeral_expiration: 0
             name: John Doe
             last_message_time: 2024-01-15T10:30:00Z
             created_at: 2024-01-10T08:00:00Z
-          - jid: 6289685028129@s.whatsapp.net
+          - archived: false
+            jid: 6289685028129@s.whatsapp.net
             updated_at: 2024-01-15T10:30:00Z
             ephemeral_expiration: 0
             name: John Doe
@@ -2889,6 +4309,7 @@ components:
       type: object
     Chat:
       example:
+        archived: false
         jid: 6289685028129@s.whatsapp.net
         updated_at: 2024-01-15T10:30:00Z
         ephemeral_expiration: 0
@@ -2923,6 +4344,10 @@ components:
           example: 2024-01-15T10:30:00Z
           format: date-time
           type: string
+        archived:
+          description: Whether the chat is archived
+          example: false
+          type: boolean
       type: object
     ChatMessagesResponse:
       example:
@@ -2959,6 +4384,7 @@ components:
             chat_jid: 6289685028129@s.whatsapp.net
             timestamp: 2024-01-15T10:30:00Z
           chat_info:
+            archived: false
             jid: 6289685028129@s.whatsapp.net
             updated_at: 2024-01-15T10:30:00Z
             ephemeral_expiration: 0
@@ -3085,12 +4511,15 @@ components:
         results:
           $ref: "#/components/schemas/PinChatResponse_results"
       type: object
-    GroupInfoResponse:
+    SetDisappearingTimerResponse:
       example:
         code: SUCCESS
-        message: Success get group info
+        message: Disappearing messages set to 86400 seconds
         results:
-          key: ""
+          message: Disappearing messages set to 86400 seconds
+          timer_seconds: 86400
+          status: success
+          chat_jid: 6289685028129@s.whatsapp.net
         status: 200
       properties:
         status:
@@ -3100,14 +4529,41 @@ components:
           example: SUCCESS
           type: string
         message:
-          example: Success get group info
+          example: Disappearing messages set to 86400 seconds
           type: string
         results:
-          additionalProperties: true
-          description: Group information object (structure may vary)
-          type: object
+          $ref: "#/components/schemas/SetDisappearingTimerResponse_results"
       type: object
-    UserGroupInfoResponse:
+    ArchiveChatResponse:
+      example:
+        code: SUCCESS
+        message: Chat archived successfully
+        results:
+          archived: true
+          message: Chat archived successfully
+          status: success
+          chat_jid: 6289685028129@s.whatsapp.net
+        status: 200
+      properties:
+        status:
+          example: 200
+          type: integer
+        code:
+          example: SUCCESS
+          type: string
+        message:
+          example: Chat archived successfully
+          type: string
+        results:
+          $ref: "#/components/schemas/ArchiveChatResponse_results"
+      type: object
+    GroupInfoResponse:
+      example:
+        code: SUCCESS
+        message: Success get group info
+        results:
+          key: ""
+        status: 200
       properties:
         status:
           example: 200
@@ -3139,6 +4595,105 @@ components:
           type: string
         results:
           $ref: "#/components/schemas/GetGroupInviteLinkResponse_results"
+      type: object
+    ChatwootSyncResponse:
+      example:
+        code: SYNC_STARTED
+        message: History sync initiated in background
+        results:
+          include_media: true
+          device_id: my-device-id
+          include_groups: true
+          days_limit: 3
+        status: 200
+      properties:
+        status:
+          example: 200
+          type: integer
+        code:
+          example: SYNC_STARTED
+          type: string
+        message:
+          example: History sync initiated in background
+          type: string
+        results:
+          $ref: "#/components/schemas/ChatwootSyncResponse_results"
+      type: object
+    ChatwootSyncStatusResponse:
+      example:
+        code: SUCCESS
+        message: Sync status retrieved
+        results:
+          completed_at: 2000-01-23T04:56:07.000+00:00
+          device_id: my-device-id
+          failed_messages: 2
+          synced_chats: 5
+          synced_messages: 50
+          current_chat: 628123456789@s.whatsapp.net
+          started_at: 2000-01-23T04:56:07.000+00:00
+          total_messages: 100
+          error: error
+          total_chats: 10
+          status: running
+        status: 200
+      properties:
+        status:
+          example: 200
+          type: integer
+        code:
+          example: SUCCESS
+          type: string
+        message:
+          example: Sync status retrieved
+          type: string
+        results:
+          $ref: "#/components/schemas/ChatwootSyncStatusResponse_results"
+      type: object
+    appStatus_200_response_results:
+      example:
+        is_connected: true
+        is_logged_in: true
+        device_id: 6289685028129@s.whatsapp.net
+      properties:
+        is_connected:
+          description: Whether the device is connected to WhatsApp servers
+          type: boolean
+        is_logged_in:
+          description: Whether the device is logged in to WhatsApp
+          type: boolean
+        device_id:
+          description: The device ID
+          example: 6289685028129@s.whatsapp.net
+          type: string
+      type: object
+    appStatus_200_response:
+      example:
+        code: SUCCESS
+        message: Connection status retrieved
+        results:
+          is_connected: true
+          is_logged_in: true
+          device_id: 6289685028129@s.whatsapp.net
+        status: 200
+      properties:
+        status:
+          example: 200
+          type: integer
+        code:
+          example: SUCCESS
+          type: string
+        message:
+          example: Connection status retrieved
+          type: string
+        results:
+          $ref: "#/components/schemas/appStatus_200_response_results"
+      type: object
+    addDevice_request:
+      properties:
+        device_id:
+          description: "Optional custom device ID. If not provided, one will be generated."
+          example: my-custom-device-id
+          type: string
       type: object
     userChangeAvatar_request:
       properties:
@@ -3178,6 +4733,16 @@ components:
           description: Disappearing message duration in seconds (optional)
           example: 3600
           type: integer
+        mentions:
+          description: |
+            List of phone numbers to mention (ghost mentions - no @ required in message text).
+            Use special keyword "@everyone" to mention all group participants.
+          example:
+          - "628123456789"
+          - '@everyone'
+          items:
+            type: string
+          type: array
       type: object
     sendImage_request:
       properties:
@@ -3496,6 +5061,55 @@ components:
       required:
       - phone
       type: object
+    downloadMessageMedia_200_response_results:
+      example:
+        data: data
+        mime_type: image/jpeg
+        file_name: image.jpg
+        file_size: 524288
+        status: Media downloaded successfully
+      properties:
+        status:
+          example: Media downloaded successfully
+          type: string
+        mime_type:
+          example: image/jpeg
+          type: string
+        file_size:
+          example: 524288
+          type: integer
+        file_name:
+          example: image.jpg
+          type: string
+        data:
+          description: Base64 encoded media data
+          format: byte
+          type: string
+      type: object
+    downloadMessageMedia_200_response:
+      example:
+        code: SUCCESS
+        message: Media downloaded successfully
+        results:
+          data: data
+          mime_type: image/jpeg
+          file_name: image.jpg
+          file_size: 524288
+          status: Media downloaded successfully
+        status: 200
+      properties:
+        status:
+          example: 200
+          type: integer
+        code:
+          example: SUCCESS
+          type: string
+        message:
+          example: Media downloaded successfully
+          type: string
+        results:
+          $ref: "#/components/schemas/downloadMessageMedia_200_response_results"
+      type: object
     labelChat_request:
       properties:
         label_id:
@@ -3523,6 +5137,25 @@ components:
           type: boolean
       required:
       - pinned
+      type: object
+    setDisappearingTimer_request:
+      properties:
+        timer_seconds:
+          description: "Timer in seconds: 0 (off), 86400 (24h), 604800 (7d), 7776000\
+            \ (90d)"
+          example: 86400
+          type: integer
+      required:
+      - timer_seconds
+      type: object
+    archiveChat_request:
+      properties:
+        archived:
+          description: Whether to archive (true) or unarchive (false) the chat
+          example: true
+          type: boolean
+      required:
+      - archived
       type: object
     createGroup_request:
       properties:
@@ -3661,6 +5294,51 @@ components:
         newsletter_id:
           example: 120363024512399999@newsletter
           type: string
+      type: object
+    chatwootSyncHistory_request:
+      properties:
+        device_id:
+          description: Device ID to sync (uses CHATWOOT_DEVICE_ID if not specified)
+          type: string
+        days_limit:
+          default: 3
+          description: Number of days of history to sync
+          type: integer
+        include_media:
+          default: true
+          description: Include media attachments in sync
+          type: boolean
+        include_groups:
+          default: true
+          description: Include group chats in sync
+          type: boolean
+      type: object
+    chatwootSyncHistory_409_response_results:
+      example:
+        progress: "{}"
+      properties:
+        progress:
+          $ref: "#/components/schemas/ChatwootSyncStatusResponse/properties/results"
+      type: object
+    chatwootSyncHistory_409_response:
+      example:
+        code: SYNC_ALREADY_RUNNING
+        message: A sync is already in progress for this device
+        results:
+          progress: "{}"
+        status: 409
+      properties:
+        status:
+          example: 409
+          type: integer
+        code:
+          example: SYNC_ALREADY_RUNNING
+          type: string
+        message:
+          example: A sync is already in progress for this device
+          type: string
+        results:
+          $ref: "#/components/schemas/chatwootSyncHistory_409_response_results"
       type: object
     CreateGroupResponse_results:
       example:
@@ -3964,6 +5642,22 @@ components:
           example: 628960561XXX.0:64@s.whatsapp.net
           type: string
       type: object
+    DeviceStatusResponse_results:
+      example:
+        is_connected: true
+        is_logged_in: true
+        device_id: my-device-id
+      properties:
+        device_id:
+          example: my-device-id
+          type: string
+        is_connected:
+          example: true
+          type: boolean
+        is_logged_in:
+          example: true
+          type: boolean
+      type: object
     LoginWithCodeResponse_results:
       example:
         pair_code: ABCD-1234
@@ -4234,20 +5928,21 @@ components:
             $ref: "#/components/schemas/MyListContacts"
           type: array
       type: object
-    GroupResponse_results:
-      properties:
-        data:
-          items:
-            $ref: "#/components/schemas/Group"
-          type: array
-      type: object
     GroupParticipantRequestListResponse_results_data_inner:
       example:
         jid: 6289685024091@s.whatsapp.net
+        phone_number: "6289685024091"
+        display_name: John Doe
         requested_at: 2024-10-11T21:27:29+07:00
       properties:
         jid:
           example: 6289685024091@s.whatsapp.net
+          type: string
+        phone_number:
+          example: "6289685024091"
+          type: string
+        display_name:
+          example: John Doe
           type: string
         requested_at:
           example: 2024-10-11T21:27:29+07:00
@@ -4258,8 +5953,12 @@ components:
       example:
         data:
         - jid: 6289685024091@s.whatsapp.net
+          phone_number: "6289685024091"
+          display_name: John Doe
           requested_at: 2024-10-11T21:27:29+07:00
         - jid: 6289685024091@s.whatsapp.net
+          phone_number: "6289685024091"
+          display_name: John Doe
           requested_at: 2024-10-11T21:27:29+07:00
       properties:
         data:
@@ -4387,13 +6086,15 @@ components:
           offset: 0
           limit: 25
         data:
-        - jid: 6289685028129@s.whatsapp.net
+        - archived: false
+          jid: 6289685028129@s.whatsapp.net
           updated_at: 2024-01-15T10:30:00Z
           ephemeral_expiration: 0
           name: John Doe
           last_message_time: 2024-01-15T10:30:00Z
           created_at: 2024-01-10T08:00:00Z
-        - jid: 6289685028129@s.whatsapp.net
+        - archived: false
+          jid: 6289685028129@s.whatsapp.net
           updated_at: 2024-01-15T10:30:00Z
           ephemeral_expiration: 0
           name: John Doe
@@ -4455,6 +6156,7 @@ components:
           chat_jid: 6289685028129@s.whatsapp.net
           timestamp: 2024-01-15T10:30:00Z
         chat_info:
+          archived: false
           jid: 6289685028129@s.whatsapp.net
           updated_at: 2024-01-15T10:30:00Z
           ephemeral_expiration: 0
@@ -4515,6 +6217,46 @@ components:
           example: true
           type: boolean
       type: object
+    SetDisappearingTimerResponse_results:
+      example:
+        message: Disappearing messages set to 86400 seconds
+        timer_seconds: 86400
+        status: success
+        chat_jid: 6289685028129@s.whatsapp.net
+      properties:
+        status:
+          example: success
+          type: string
+        message:
+          example: Disappearing messages set to 86400 seconds
+          type: string
+        chat_jid:
+          example: 6289685028129@s.whatsapp.net
+          type: string
+        timer_seconds:
+          example: 86400
+          type: integer
+      type: object
+    ArchiveChatResponse_results:
+      example:
+        archived: true
+        message: Chat archived successfully
+        status: success
+        chat_jid: 6289685028129@s.whatsapp.net
+      properties:
+        status:
+          example: success
+          type: string
+        message:
+          example: Chat archived successfully
+          type: string
+        chat_jid:
+          example: 6289685028129@s.whatsapp.net
+          type: string
+        archived:
+          example: true
+          type: boolean
+      type: object
     GetGroupInviteLinkResponse_results:
       example:
         group_id: 120363025982934543@g.us
@@ -4527,6 +6269,78 @@ components:
         group_id:
           description: The group ID
           example: 120363025982934543@g.us
+          type: string
+      type: object
+    ChatwootSyncResponse_results:
+      example:
+        include_media: true
+        device_id: my-device-id
+        include_groups: true
+        days_limit: 3
+      properties:
+        device_id:
+          example: my-device-id
+          type: string
+        days_limit:
+          example: 3
+          type: integer
+        include_media:
+          example: true
+          type: boolean
+        include_groups:
+          example: true
+          type: boolean
+      type: object
+    ChatwootSyncStatusResponse_results:
+      example:
+        completed_at: 2000-01-23T04:56:07.000+00:00
+        device_id: my-device-id
+        failed_messages: 2
+        synced_chats: 5
+        synced_messages: 50
+        current_chat: 628123456789@s.whatsapp.net
+        started_at: 2000-01-23T04:56:07.000+00:00
+        total_messages: 100
+        error: error
+        total_chats: 10
+        status: running
+      properties:
+        device_id:
+          example: my-device-id
+          type: string
+        status:
+          enum:
+          - idle
+          - running
+          - completed
+          - failed
+          example: running
+          type: string
+        total_chats:
+          example: 10
+          type: integer
+        synced_chats:
+          example: 5
+          type: integer
+        total_messages:
+          example: 100
+          type: integer
+        synced_messages:
+          example: 50
+          type: integer
+        failed_messages:
+          example: 2
+          type: integer
+        current_chat:
+          example: 628123456789@s.whatsapp.net
+          type: string
+        started_at:
+          format: date-time
+          type: string
+        completed_at:
+          format: date-time
+          type: string
+        error:
           type: string
       type: object
   securitySchemes:

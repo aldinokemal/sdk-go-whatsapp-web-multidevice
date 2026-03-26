@@ -4,16 +4,92 @@ All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**ArchiveChat**](ChatAPI.md#ArchiveChat) | **Post** /chat/{chat_jid}/archive | Archive or unarchive a chat
 [**GetChatMessages**](ChatAPI.md#GetChatMessages) | **Get** /chat/{chat_jid}/messages | Get messages from a specific chat
 [**LabelChat**](ChatAPI.md#LabelChat) | **Post** /chat/{chat_jid}/label | Label or unlabel a chat
 [**ListChats**](ChatAPI.md#ListChats) | **Get** /chats | Get list of chats
 [**PinChat**](ChatAPI.md#PinChat) | **Post** /chat/{chat_jid}/pin | Pin or unpin a chat
+[**SetDisappearingTimer**](ChatAPI.md#SetDisappearingTimer) | **Post** /chat/{chat_jid}/disappearing | Set disappearing messages timer
 
+
+
+## ArchiveChat
+
+> ArchiveChatResponse ArchiveChat(ctx, chatJid).XDeviceId(xDeviceId).ArchiveChatRequest(archiveChatRequest).Execute()
+
+Archive or unarchive a chat
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+)
+
+func main() {
+	chatJid := "6289685028129@s.whatsapp.net" // string | Chat JID (e.g., phone@s.whatsapp.net for individual or groupid@g.us for group)
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
+	archiveChatRequest := *openapiclient.NewArchiveChatRequest(true) // ArchiveChatRequest |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ChatAPI.ArchiveChat(context.Background(), chatJid).XDeviceId(xDeviceId).ArchiveChatRequest(archiveChatRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChatAPI.ArchiveChat``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ArchiveChat`: ArchiveChatResponse
+	fmt.Fprintf(os.Stdout, "Response from `ChatAPI.ArchiveChat`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**chatJid** | **string** | Chat JID (e.g., phone@s.whatsapp.net for individual or groupid@g.us for group) | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiArchiveChatRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
+ **archiveChatRequest** | [**ArchiveChatRequest**](ArchiveChatRequest.md) |  | 
+
+### Return type
+
+[**ArchiveChatResponse**](ArchiveChatResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## GetChatMessages
 
-> ChatMessagesResponse GetChatMessages(ctx, chatJid).Limit(limit).Offset(offset).StartTime(startTime).EndTime(endTime).MediaOnly(mediaOnly).IsFromMe(isFromMe).Search(search).Execute()
+> ChatMessagesResponse GetChatMessages(ctx, chatJid).XDeviceId(xDeviceId).Limit(limit).Offset(offset).StartTime(startTime).EndTime(endTime).MediaOnly(mediaOnly).IsFromMe(isFromMe).Search(search).Execute()
 
 Get messages from a specific chat
 
@@ -34,6 +110,7 @@ import (
 
 func main() {
 	chatJid := "6289685028129@s.whatsapp.net" // string | Chat JID (e.g., phone@s.whatsapp.net for individual or groupid@g.us for group)
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	limit := int32(56) // int32 | Maximum number of messages to return (optional) (default to 50)
 	offset := int32(56) // int32 | Number of messages to skip (for pagination) (optional) (default to 0)
 	startTime := time.Now() // time.Time | Filter messages from this timestamp (ISO 8601 format) (optional)
@@ -44,7 +121,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ChatAPI.GetChatMessages(context.Background(), chatJid).Limit(limit).Offset(offset).StartTime(startTime).EndTime(endTime).MediaOnly(mediaOnly).IsFromMe(isFromMe).Search(search).Execute()
+	resp, r, err := apiClient.ChatAPI.GetChatMessages(context.Background(), chatJid).XDeviceId(xDeviceId).Limit(limit).Offset(offset).StartTime(startTime).EndTime(endTime).MediaOnly(mediaOnly).IsFromMe(isFromMe).Search(search).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ChatAPI.GetChatMessages``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -70,6 +147,7 @@ Other parameters are passed through a pointer to a apiGetChatMessagesRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **limit** | **int32** | Maximum number of messages to return | [default to 50]
  **offset** | **int32** | Number of messages to skip (for pagination) | [default to 0]
  **startTime** | **time.Time** | Filter messages from this timestamp (ISO 8601 format) | 
@@ -98,7 +176,7 @@ Name | Type | Description  | Notes
 
 ## LabelChat
 
-> LabelChatResponse LabelChat(ctx, chatJid).LabelChatRequest(labelChatRequest).Execute()
+> LabelChatResponse LabelChat(ctx, chatJid).XDeviceId(xDeviceId).LabelChatRequest(labelChatRequest).Execute()
 
 Label or unlabel a chat
 
@@ -118,11 +196,12 @@ import (
 
 func main() {
 	chatJid := "6289685028129@s.whatsapp.net" // string | Chat JID (e.g., phone@s.whatsapp.net for individual or groupid@g.us for group)
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	labelChatRequest := *openapiclient.NewLabelChatRequest("label_123", "Important", true) // LabelChatRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ChatAPI.LabelChat(context.Background(), chatJid).LabelChatRequest(labelChatRequest).Execute()
+	resp, r, err := apiClient.ChatAPI.LabelChat(context.Background(), chatJid).XDeviceId(xDeviceId).LabelChatRequest(labelChatRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ChatAPI.LabelChat``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -148,6 +227,7 @@ Other parameters are passed through a pointer to a apiLabelChatRequest struct vi
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **labelChatRequest** | [**LabelChatRequest**](LabelChatRequest.md) |  | 
 
 ### Return type
@@ -170,7 +250,7 @@ Name | Type | Description  | Notes
 
 ## ListChats
 
-> ChatListResponse ListChats(ctx).Limit(limit).Offset(offset).Search(search).HasMedia(hasMedia).Execute()
+> ChatListResponse ListChats(ctx).XDeviceId(xDeviceId).Limit(limit).Offset(offset).Search(search).HasMedia(hasMedia).Archived(archived).Execute()
 
 Get list of chats
 
@@ -189,14 +269,16 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	limit := int32(56) // int32 | Maximum number of chats to return (optional) (default to 25)
 	offset := int32(56) // int32 | Number of chats to skip (for pagination) (optional) (default to 0)
 	search := "search_example" // string | Search chats by name (optional)
 	hasMedia := true // bool | Filter chats that contain media messages (optional) (default to false)
+	archived := true // bool | Filter by archived status. true = archived only, false = non-archived only. Omit to return all chats. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ChatAPI.ListChats(context.Background()).Limit(limit).Offset(offset).Search(search).HasMedia(hasMedia).Execute()
+	resp, r, err := apiClient.ChatAPI.ListChats(context.Background()).XDeviceId(xDeviceId).Limit(limit).Offset(offset).Search(search).HasMedia(hasMedia).Archived(archived).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ChatAPI.ListChats``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -217,10 +299,12 @@ Other parameters are passed through a pointer to a apiListChatsRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **limit** | **int32** | Maximum number of chats to return | [default to 25]
  **offset** | **int32** | Number of chats to skip (for pagination) | [default to 0]
  **search** | **string** | Search chats by name | 
  **hasMedia** | **bool** | Filter chats that contain media messages | [default to false]
+ **archived** | **bool** | Filter by archived status. true &#x3D; archived only, false &#x3D; non-archived only. Omit to return all chats. | 
 
 ### Return type
 
@@ -242,7 +326,7 @@ Name | Type | Description  | Notes
 
 ## PinChat
 
-> PinChatResponse PinChat(ctx, chatJid).PinChatRequest(pinChatRequest).Execute()
+> PinChatResponse PinChat(ctx, chatJid).XDeviceId(xDeviceId).PinChatRequest(pinChatRequest).Execute()
 
 Pin or unpin a chat
 
@@ -262,11 +346,12 @@ import (
 
 func main() {
 	chatJid := "6289685028129@s.whatsapp.net" // string | Chat JID (e.g., phone@s.whatsapp.net for individual or groupid@g.us for group)
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	pinChatRequest := *openapiclient.NewPinChatRequest(true) // PinChatRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ChatAPI.PinChat(context.Background(), chatJid).PinChatRequest(pinChatRequest).Execute()
+	resp, r, err := apiClient.ChatAPI.PinChat(context.Background(), chatJid).XDeviceId(xDeviceId).PinChatRequest(pinChatRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ChatAPI.PinChat``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -292,11 +377,86 @@ Other parameters are passed through a pointer to a apiPinChatRequest struct via 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **pinChatRequest** | [**PinChatRequest**](PinChatRequest.md) |  | 
 
 ### Return type
 
 [**PinChatResponse**](PinChatResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SetDisappearingTimer
+
+> SetDisappearingTimerResponse SetDisappearingTimer(ctx, chatJid).XDeviceId(xDeviceId).SetDisappearingTimerRequest(setDisappearingTimerRequest).Execute()
+
+Set disappearing messages timer
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/aldinokemal/sdk-go-whatsapp-web-multidevice"
+)
+
+func main() {
+	chatJid := "6289685028129@s.whatsapp.net" // string | Chat JID (e.g., phone@s.whatsapp.net for individual or groupid@g.us for group)
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
+	setDisappearingTimerRequest := *openapiclient.NewSetDisappearingTimerRequest(int32(86400)) // SetDisappearingTimerRequest |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ChatAPI.SetDisappearingTimer(context.Background(), chatJid).XDeviceId(xDeviceId).SetDisappearingTimerRequest(setDisappearingTimerRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChatAPI.SetDisappearingTimer``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SetDisappearingTimer`: SetDisappearingTimerResponse
+	fmt.Fprintf(os.Stdout, "Response from `ChatAPI.SetDisappearingTimer`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**chatJid** | **string** | Chat JID (e.g., phone@s.whatsapp.net for individual or groupid@g.us for group) | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSetDisappearingTimerRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
+ **setDisappearingTimerRequest** | [**SetDisappearingTimerRequest**](SetDisappearingTimerRequest.md) |  | 
+
+### Return type
+
+[**SetDisappearingTimerResponse**](SetDisappearingTimerResponse.md)
 
 ### Authorization
 

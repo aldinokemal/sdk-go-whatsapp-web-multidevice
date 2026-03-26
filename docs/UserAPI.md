@@ -19,7 +19,7 @@ Method | HTTP request | Description
 
 ## UserAvatar
 
-> UserAvatarResponse UserAvatar(ctx).Phone(phone).IsPreview(isPreview).IsCommunity(isCommunity).Execute()
+> UserAvatarResponse UserAvatar(ctx).XDeviceId(xDeviceId).Phone(phone).IsPreview(isPreview).IsCommunity(isCommunity).Execute()
 
 User Avatar
 
@@ -36,13 +36,14 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	phone := "6289685028129@s.whatsapp.net" // string | Phone number with country code (optional)
 	isPreview := true // bool | Whether to fetch a preview of the avatar (optional)
 	isCommunity := false // bool | Whether to fetch a community avatar (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.UserAvatar(context.Background()).Phone(phone).IsPreview(isPreview).IsCommunity(isCommunity).Execute()
+	resp, r, err := apiClient.UserAPI.UserAvatar(context.Background()).XDeviceId(xDeviceId).Phone(phone).IsPreview(isPreview).IsCommunity(isCommunity).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UserAvatar``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -63,6 +64,7 @@ Other parameters are passed through a pointer to a apiUserAvatarRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **phone** | **string** | Phone number with country code | 
  **isPreview** | **bool** | Whether to fetch a preview of the avatar | 
  **isCommunity** | **bool** | Whether to fetch a community avatar | 
@@ -87,7 +89,7 @@ Name | Type | Description  | Notes
 
 ## UserBusinessProfile
 
-> BusinessProfileResponse UserBusinessProfile(ctx).Phone(phone).Execute()
+> BusinessProfileResponse UserBusinessProfile(ctx).Phone(phone).XDeviceId(xDeviceId).Execute()
 
 Get Business Profile Information
 
@@ -107,10 +109,11 @@ import (
 
 func main() {
 	phone := "6289685028129@s.whatsapp.net" // string | Phone number with country code of the business account
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.UserBusinessProfile(context.Background()).Phone(phone).Execute()
+	resp, r, err := apiClient.UserAPI.UserBusinessProfile(context.Background()).Phone(phone).XDeviceId(xDeviceId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UserBusinessProfile``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -132,6 +135,7 @@ Other parameters are passed through a pointer to a apiUserBusinessProfileRequest
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **phone** | **string** | Phone number with country code of the business account | 
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
 
 ### Return type
 
@@ -153,7 +157,7 @@ Name | Type | Description  | Notes
 
 ## UserChangeAvatar
 
-> GenericResponse UserChangeAvatar(ctx).Avatar(avatar).Execute()
+> GenericResponse UserChangeAvatar(ctx).XDeviceId(xDeviceId).Avatar(avatar).Execute()
 
 User Change Avatar
 
@@ -170,11 +174,12 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	avatar := os.NewFile(1234, "some_file") // *os.File | Avatar to send (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.UserChangeAvatar(context.Background()).Avatar(avatar).Execute()
+	resp, r, err := apiClient.UserAPI.UserChangeAvatar(context.Background()).XDeviceId(xDeviceId).Avatar(avatar).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UserChangeAvatar``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -195,6 +200,7 @@ Other parameters are passed through a pointer to a apiUserChangeAvatarRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **avatar** | ***os.File** | Avatar to send | 
 
 ### Return type
@@ -217,7 +223,7 @@ Name | Type | Description  | Notes
 
 ## UserChangePushName
 
-> GenericResponse UserChangePushName(ctx).UserChangePushNameRequest(userChangePushNameRequest).Execute()
+> GenericResponse UserChangePushName(ctx).XDeviceId(xDeviceId).UserChangePushNameRequest(userChangePushNameRequest).Execute()
 
 User Change Push Name
 
@@ -236,11 +242,12 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	userChangePushNameRequest := *openapiclient.NewUserChangePushNameRequest("John Doe") // UserChangePushNameRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.UserChangePushName(context.Background()).UserChangePushNameRequest(userChangePushNameRequest).Execute()
+	resp, r, err := apiClient.UserAPI.UserChangePushName(context.Background()).XDeviceId(xDeviceId).UserChangePushNameRequest(userChangePushNameRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UserChangePushName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -261,6 +268,7 @@ Other parameters are passed through a pointer to a apiUserChangePushNameRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **userChangePushNameRequest** | [**UserChangePushNameRequest**](UserChangePushNameRequest.md) |  | 
 
 ### Return type
@@ -283,7 +291,7 @@ Name | Type | Description  | Notes
 
 ## UserCheck
 
-> UserCheckResponse UserCheck(ctx).Phone(phone).Execute()
+> UserCheckResponse UserCheck(ctx).XDeviceId(xDeviceId).Phone(phone).Execute()
 
 Check if user is on WhatsApp
 
@@ -300,11 +308,12 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	phone := "628912344551" // string | Phone number with country code (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.UserCheck(context.Background()).Phone(phone).Execute()
+	resp, r, err := apiClient.UserAPI.UserCheck(context.Background()).XDeviceId(xDeviceId).Phone(phone).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UserCheck``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -325,6 +334,7 @@ Other parameters are passed through a pointer to a apiUserCheckRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **phone** | **string** | Phone number with country code | 
 
 ### Return type
@@ -347,7 +357,7 @@ Name | Type | Description  | Notes
 
 ## UserInfo
 
-> UserInfoResponse UserInfo(ctx).Phone(phone).Execute()
+> UserInfoResponse UserInfo(ctx).XDeviceId(xDeviceId).Phone(phone).Execute()
 
 User Info
 
@@ -364,11 +374,12 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	phone := "6289685028129@s.whatsapp.net" // string | Phone number with country code (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.UserInfo(context.Background()).Phone(phone).Execute()
+	resp, r, err := apiClient.UserAPI.UserInfo(context.Background()).XDeviceId(xDeviceId).Phone(phone).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UserInfo``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -389,6 +400,7 @@ Other parameters are passed through a pointer to a apiUserInfoRequest struct via
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **phone** | **string** | Phone number with country code | 
 
 ### Return type
@@ -411,7 +423,7 @@ Name | Type | Description  | Notes
 
 ## UserMyContacts
 
-> MyListContactsResponse UserMyContacts(ctx).Execute()
+> MyListContactsResponse UserMyContacts(ctx).XDeviceId(xDeviceId).Execute()
 
 Get list of user contacts
 
@@ -428,10 +440,11 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.UserMyContacts(context.Background()).Execute()
+	resp, r, err := apiClient.UserAPI.UserMyContacts(context.Background()).XDeviceId(xDeviceId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UserMyContacts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -443,12 +456,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiUserMyContactsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
 
 ### Return type
 
@@ -470,9 +487,11 @@ Other parameters are passed through a pointer to a apiUserMyContactsRequest stru
 
 ## UserMyGroups
 
-> UserGroupResponse UserMyGroups(ctx).Execute()
+> UserGroupResponse UserMyGroups(ctx).XDeviceId(xDeviceId).Execute()
 
 User My List Groups
+
+
 
 ### Example
 
@@ -487,10 +506,11 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.UserMyGroups(context.Background()).Execute()
+	resp, r, err := apiClient.UserAPI.UserMyGroups(context.Background()).XDeviceId(xDeviceId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UserMyGroups``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -502,12 +522,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiUserMyGroupsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
 
 ### Return type
 
@@ -529,7 +553,7 @@ Other parameters are passed through a pointer to a apiUserMyGroupsRequest struct
 
 ## UserMyNewsletter
 
-> NewsletterResponse UserMyNewsletter(ctx).Execute()
+> NewsletterResponse UserMyNewsletter(ctx).XDeviceId(xDeviceId).Execute()
 
 User My List Groups
 
@@ -546,10 +570,11 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.UserMyNewsletter(context.Background()).Execute()
+	resp, r, err := apiClient.UserAPI.UserMyNewsletter(context.Background()).XDeviceId(xDeviceId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UserMyNewsletter``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -561,12 +586,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiUserMyNewsletterRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
 
 ### Return type
 
@@ -588,7 +617,7 @@ Other parameters are passed through a pointer to a apiUserMyNewsletterRequest st
 
 ## UserMyPrivacy
 
-> UserPrivacyResponse UserMyPrivacy(ctx).Execute()
+> UserPrivacyResponse UserMyPrivacy(ctx).XDeviceId(xDeviceId).Execute()
 
 User My Privacy Setting
 
@@ -605,10 +634,11 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.UserMyPrivacy(context.Background()).Execute()
+	resp, r, err := apiClient.UserAPI.UserMyPrivacy(context.Background()).XDeviceId(xDeviceId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UserMyPrivacy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -620,12 +650,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiUserMyPrivacyRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
 
 ### Return type
 

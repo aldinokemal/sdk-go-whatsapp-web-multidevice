@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **ReplyMessageId** | Pointer to **string** | Message ID that you want reply | [optional] 
 **IsForwarded** | Pointer to **bool** | Whether this is a forwarded message | [optional] 
 **Duration** | Pointer to **int32** | Disappearing message duration in seconds (optional) | [optional] 
+**Mentions** | Pointer to **[]string** | List of phone numbers to mention (ghost mentions - no @ required in message text). Use special keyword \&quot;@everyone\&quot; to mention all group participants.  | [optional] 
 
 ## Methods
 
@@ -153,6 +154,31 @@ SetDuration sets Duration field to given value.
 `func (o *SendMessageRequest) HasDuration() bool`
 
 HasDuration returns a boolean if a field has been set.
+
+### GetMentions
+
+`func (o *SendMessageRequest) GetMentions() []string`
+
+GetMentions returns the Mentions field if non-nil, zero value otherwise.
+
+### GetMentionsOk
+
+`func (o *SendMessageRequest) GetMentionsOk() (*[]string, bool)`
+
+GetMentionsOk returns a tuple with the Mentions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMentions
+
+`func (o *SendMessageRequest) SetMentions(v []string)`
+
+SetMentions sets Mentions field to given value.
+
+### HasMentions
+
+`func (o *SendMessageRequest) HasMentions() bool`
+
+HasMentions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

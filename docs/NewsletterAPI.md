@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## UnfollowNewsletter
 
-> GenericResponse UnfollowNewsletter(ctx).UnfollowNewsletterRequest(unfollowNewsletterRequest).Execute()
+> GenericResponse UnfollowNewsletter(ctx).XDeviceId(xDeviceId).UnfollowNewsletterRequest(unfollowNewsletterRequest).Execute()
 
 Unfollow newsletter
 
@@ -27,11 +27,12 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	unfollowNewsletterRequest := *openapiclient.NewUnfollowNewsletterRequest() // UnfollowNewsletterRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NewsletterAPI.UnfollowNewsletter(context.Background()).UnfollowNewsletterRequest(unfollowNewsletterRequest).Execute()
+	resp, r, err := apiClient.NewsletterAPI.UnfollowNewsletter(context.Background()).XDeviceId(xDeviceId).UnfollowNewsletterRequest(unfollowNewsletterRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NewsletterAPI.UnfollowNewsletter``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -52,6 +53,7 @@ Other parameters are passed through a pointer to a apiUnfollowNewsletterRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **unfollowNewsletterRequest** | [**UnfollowNewsletterRequest**](UnfollowNewsletterRequest.md) |  | 
 
 ### Return type

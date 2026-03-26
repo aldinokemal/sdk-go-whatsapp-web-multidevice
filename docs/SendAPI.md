@@ -21,7 +21,7 @@ Method | HTTP request | Description
 
 ## SendAudio
 
-> SendResponse SendAudio(ctx).Phone(phone).Audio(audio).AudioUrl(audioUrl).IsForwarded(isForwarded).Duration(duration).Execute()
+> SendResponse SendAudio(ctx).XDeviceId(xDeviceId).Phone(phone).Audio(audio).AudioUrl(audioUrl).IsForwarded(isForwarded).Duration(duration).Execute()
 
 Send Audio
 
@@ -38,6 +38,7 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	phone := "phone_example" // string | Phone number with country code (optional)
 	audio := os.NewFile(1234, "some_file") // *os.File | Audio to send (optional)
 	audioUrl := "audioUrl_example" // string | Audio URL to send (optional)
@@ -46,7 +47,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SendAPI.SendAudio(context.Background()).Phone(phone).Audio(audio).AudioUrl(audioUrl).IsForwarded(isForwarded).Duration(duration).Execute()
+	resp, r, err := apiClient.SendAPI.SendAudio(context.Background()).XDeviceId(xDeviceId).Phone(phone).Audio(audio).AudioUrl(audioUrl).IsForwarded(isForwarded).Duration(duration).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendAudio``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -67,6 +68,7 @@ Other parameters are passed through a pointer to a apiSendAudioRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **phone** | **string** | Phone number with country code | 
  **audio** | ***os.File** | Audio to send | 
  **audioUrl** | **string** | Audio URL to send | 
@@ -93,7 +95,7 @@ Name | Type | Description  | Notes
 
 ## SendChatPresence
 
-> SendResponse SendChatPresence(ctx).SendChatPresenceRequest(sendChatPresenceRequest).Execute()
+> SendResponse SendChatPresence(ctx).SendChatPresenceRequest(sendChatPresenceRequest).XDeviceId(xDeviceId).Execute()
 
 Send chat presence (typing indicator)
 
@@ -113,10 +115,11 @@ import (
 
 func main() {
 	sendChatPresenceRequest := *openapiclient.NewSendChatPresenceRequest("6289685024051@s.whatsapp.net", "start") // SendChatPresenceRequest | 
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SendAPI.SendChatPresence(context.Background()).SendChatPresenceRequest(sendChatPresenceRequest).Execute()
+	resp, r, err := apiClient.SendAPI.SendChatPresence(context.Background()).SendChatPresenceRequest(sendChatPresenceRequest).XDeviceId(xDeviceId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendChatPresence``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -138,6 +141,7 @@ Other parameters are passed through a pointer to a apiSendChatPresenceRequest st
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sendChatPresenceRequest** | [**SendChatPresenceRequest**](SendChatPresenceRequest.md) |  | 
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
 
 ### Return type
 
@@ -159,7 +163,7 @@ Name | Type | Description  | Notes
 
 ## SendContact
 
-> SendResponse SendContact(ctx).SendContactRequest(sendContactRequest).Execute()
+> SendResponse SendContact(ctx).XDeviceId(xDeviceId).SendContactRequest(sendContactRequest).Execute()
 
 Send Contact
 
@@ -176,11 +180,12 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	sendContactRequest := *openapiclient.NewSendContactRequest() // SendContactRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SendAPI.SendContact(context.Background()).SendContactRequest(sendContactRequest).Execute()
+	resp, r, err := apiClient.SendAPI.SendContact(context.Background()).XDeviceId(xDeviceId).SendContactRequest(sendContactRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendContact``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -201,6 +206,7 @@ Other parameters are passed through a pointer to a apiSendContactRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **sendContactRequest** | [**SendContactRequest**](SendContactRequest.md) |  | 
 
 ### Return type
@@ -223,7 +229,7 @@ Name | Type | Description  | Notes
 
 ## SendFile
 
-> SendResponse SendFile(ctx).Phone(phone).Caption(caption).File(file).IsForwarded(isForwarded).Duration(duration).Execute()
+> SendResponse SendFile(ctx).XDeviceId(xDeviceId).Phone(phone).Caption(caption).File(file).IsForwarded(isForwarded).Duration(duration).Execute()
 
 Send File
 
@@ -240,6 +246,7 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	phone := "phone_example" // string | Phone number with country code (optional)
 	caption := "caption_example" // string | Caption to send (optional)
 	file := os.NewFile(1234, "some_file") // *os.File | File to send (optional)
@@ -248,7 +255,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SendAPI.SendFile(context.Background()).Phone(phone).Caption(caption).File(file).IsForwarded(isForwarded).Duration(duration).Execute()
+	resp, r, err := apiClient.SendAPI.SendFile(context.Background()).XDeviceId(xDeviceId).Phone(phone).Caption(caption).File(file).IsForwarded(isForwarded).Duration(duration).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendFile``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -269,6 +276,7 @@ Other parameters are passed through a pointer to a apiSendFileRequest struct via
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **phone** | **string** | Phone number with country code | 
  **caption** | **string** | Caption to send | 
  **file** | ***os.File** | File to send | 
@@ -295,7 +303,7 @@ Name | Type | Description  | Notes
 
 ## SendImage
 
-> SendResponse SendImage(ctx).Phone(phone).Caption(caption).ViewOnce(viewOnce).Image(image).ImageUrl(imageUrl).Compress(compress).Duration(duration).IsForwarded(isForwarded).Execute()
+> SendResponse SendImage(ctx).XDeviceId(xDeviceId).Phone(phone).Caption(caption).ViewOnce(viewOnce).Image(image).ImageUrl(imageUrl).Compress(compress).Duration(duration).IsForwarded(isForwarded).Execute()
 
 Send Image
 
@@ -312,6 +320,7 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	phone := "phone_example" // string | Phone number with country code (optional)
 	caption := "caption_example" // string | Caption to send (optional)
 	viewOnce := true // bool | View once (optional)
@@ -323,7 +332,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SendAPI.SendImage(context.Background()).Phone(phone).Caption(caption).ViewOnce(viewOnce).Image(image).ImageUrl(imageUrl).Compress(compress).Duration(duration).IsForwarded(isForwarded).Execute()
+	resp, r, err := apiClient.SendAPI.SendImage(context.Background()).XDeviceId(xDeviceId).Phone(phone).Caption(caption).ViewOnce(viewOnce).Image(image).ImageUrl(imageUrl).Compress(compress).Duration(duration).IsForwarded(isForwarded).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendImage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -344,6 +353,7 @@ Other parameters are passed through a pointer to a apiSendImageRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **phone** | **string** | Phone number with country code | 
  **caption** | **string** | Caption to send | 
  **viewOnce** | **bool** | View once | 
@@ -373,7 +383,7 @@ Name | Type | Description  | Notes
 
 ## SendLink
 
-> SendResponse SendLink(ctx).SendLinkRequest(sendLinkRequest).Execute()
+> SendResponse SendLink(ctx).XDeviceId(xDeviceId).SendLinkRequest(sendLinkRequest).Execute()
 
 Send Link
 
@@ -390,11 +400,12 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	sendLinkRequest := *openapiclient.NewSendLinkRequest() // SendLinkRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SendAPI.SendLink(context.Background()).SendLinkRequest(sendLinkRequest).Execute()
+	resp, r, err := apiClient.SendAPI.SendLink(context.Background()).XDeviceId(xDeviceId).SendLinkRequest(sendLinkRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendLink``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -415,6 +426,7 @@ Other parameters are passed through a pointer to a apiSendLinkRequest struct via
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **sendLinkRequest** | [**SendLinkRequest**](SendLinkRequest.md) |  | 
 
 ### Return type
@@ -437,7 +449,7 @@ Name | Type | Description  | Notes
 
 ## SendLocation
 
-> SendResponse SendLocation(ctx).SendLocationRequest(sendLocationRequest).Execute()
+> SendResponse SendLocation(ctx).XDeviceId(xDeviceId).SendLocationRequest(sendLocationRequest).Execute()
 
 Send Location
 
@@ -454,11 +466,12 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	sendLocationRequest := *openapiclient.NewSendLocationRequest() // SendLocationRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SendAPI.SendLocation(context.Background()).SendLocationRequest(sendLocationRequest).Execute()
+	resp, r, err := apiClient.SendAPI.SendLocation(context.Background()).XDeviceId(xDeviceId).SendLocationRequest(sendLocationRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendLocation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -479,6 +492,7 @@ Other parameters are passed through a pointer to a apiSendLocationRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **sendLocationRequest** | [**SendLocationRequest**](SendLocationRequest.md) |  | 
 
 ### Return type
@@ -501,7 +515,7 @@ Name | Type | Description  | Notes
 
 ## SendMessage
 
-> SendResponse SendMessage(ctx).SendMessageRequest(sendMessageRequest).Execute()
+> SendResponse SendMessage(ctx).XDeviceId(xDeviceId).SendMessageRequest(sendMessageRequest).Execute()
 
 Send Message
 
@@ -518,11 +532,12 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	sendMessageRequest := *openapiclient.NewSendMessageRequest() // SendMessageRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SendAPI.SendMessage(context.Background()).SendMessageRequest(sendMessageRequest).Execute()
+	resp, r, err := apiClient.SendAPI.SendMessage(context.Background()).XDeviceId(xDeviceId).SendMessageRequest(sendMessageRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendMessage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -543,6 +558,7 @@ Other parameters are passed through a pointer to a apiSendMessageRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **sendMessageRequest** | [**SendMessageRequest**](SendMessageRequest.md) |  | 
 
 ### Return type
@@ -565,7 +581,7 @@ Name | Type | Description  | Notes
 
 ## SendPoll
 
-> SendResponse SendPoll(ctx).SendPollRequest(sendPollRequest).Execute()
+> SendResponse SendPoll(ctx).SendPollRequest(sendPollRequest).XDeviceId(xDeviceId).Execute()
 
 Send Poll / Vote
 
@@ -583,10 +599,11 @@ import (
 
 func main() {
 	sendPollRequest := *openapiclient.NewSendPollRequest("6289685024421@s.whatsapp.net", "Siapa Nama Avatar The Last Air Bender?", []string{"Options_example"}, int32(2)) // SendPollRequest | 
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SendAPI.SendPoll(context.Background()).SendPollRequest(sendPollRequest).Execute()
+	resp, r, err := apiClient.SendAPI.SendPoll(context.Background()).SendPollRequest(sendPollRequest).XDeviceId(xDeviceId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendPoll``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -608,6 +625,7 @@ Other parameters are passed through a pointer to a apiSendPollRequest struct via
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sendPollRequest** | [**SendPollRequest**](SendPollRequest.md) |  | 
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
 
 ### Return type
 
@@ -629,7 +647,7 @@ Name | Type | Description  | Notes
 
 ## SendPresence
 
-> SendResponse SendPresence(ctx).SendPresenceRequest(sendPresenceRequest).Execute()
+> SendResponse SendPresence(ctx).SendPresenceRequest(sendPresenceRequest).XDeviceId(xDeviceId).Execute()
 
 Send presence status
 
@@ -647,10 +665,11 @@ import (
 
 func main() {
 	sendPresenceRequest := *openapiclient.NewSendPresenceRequest("available") // SendPresenceRequest | 
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SendAPI.SendPresence(context.Background()).SendPresenceRequest(sendPresenceRequest).Execute()
+	resp, r, err := apiClient.SendAPI.SendPresence(context.Background()).SendPresenceRequest(sendPresenceRequest).XDeviceId(xDeviceId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendPresence``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -672,6 +691,7 @@ Other parameters are passed through a pointer to a apiSendPresenceRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sendPresenceRequest** | [**SendPresenceRequest**](SendPresenceRequest.md) |  | 
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
 
 ### Return type
 
@@ -693,7 +713,7 @@ Name | Type | Description  | Notes
 
 ## SendSticker
 
-> SendResponse SendSticker(ctx).Phone(phone).Sticker(sticker).StickerUrl(stickerUrl).Duration(duration).IsForwarded(isForwarded).Execute()
+> SendResponse SendSticker(ctx).XDeviceId(xDeviceId).Phone(phone).Sticker(sticker).StickerUrl(stickerUrl).Duration(duration).IsForwarded(isForwarded).Execute()
 
 Send Sticker
 
@@ -712,6 +732,7 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	phone := "phone_example" // string | Phone number with country code (optional)
 	sticker := os.NewFile(1234, "some_file") // *os.File | Sticker image file (jpg/jpeg/png/webp/gif) (optional)
 	stickerUrl := "stickerUrl_example" // string | URL of sticker image to send (optional)
@@ -720,7 +741,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SendAPI.SendSticker(context.Background()).Phone(phone).Sticker(sticker).StickerUrl(stickerUrl).Duration(duration).IsForwarded(isForwarded).Execute()
+	resp, r, err := apiClient.SendAPI.SendSticker(context.Background()).XDeviceId(xDeviceId).Phone(phone).Sticker(sticker).StickerUrl(stickerUrl).Duration(duration).IsForwarded(isForwarded).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendSticker``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -741,6 +762,7 @@ Other parameters are passed through a pointer to a apiSendStickerRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **phone** | **string** | Phone number with country code | 
  **sticker** | ***os.File** | Sticker image file (jpg/jpeg/png/webp/gif) | 
  **stickerUrl** | **string** | URL of sticker image to send | 
@@ -767,7 +789,7 @@ Name | Type | Description  | Notes
 
 ## SendVideo
 
-> SendResponse SendVideo(ctx).Phone(phone).Caption(caption).ViewOnce(viewOnce).Video(video).VideoUrl(videoUrl).Compress(compress).Duration(duration).IsForwarded(isForwarded).Execute()
+> SendResponse SendVideo(ctx).XDeviceId(xDeviceId).Phone(phone).Caption(caption).ViewOnce(viewOnce).Video(video).VideoUrl(videoUrl).Compress(compress).Duration(duration).IsForwarded(isForwarded).Execute()
 
 Send Video
 
@@ -784,6 +806,7 @@ import (
 )
 
 func main() {
+	xDeviceId := "my-device-id" // string | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as `device_id` query parameter.  (optional)
 	phone := "phone_example" // string | Phone number with country code (optional)
 	caption := "caption_example" // string | Caption to send (optional)
 	viewOnce := true // bool | View once (optional)
@@ -795,7 +818,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SendAPI.SendVideo(context.Background()).Phone(phone).Caption(caption).ViewOnce(viewOnce).Video(video).VideoUrl(videoUrl).Compress(compress).Duration(duration).IsForwarded(isForwarded).Execute()
+	resp, r, err := apiClient.SendAPI.SendVideo(context.Background()).XDeviceId(xDeviceId).Phone(phone).Caption(caption).ViewOnce(viewOnce).Video(video).VideoUrl(videoUrl).Compress(compress).Duration(duration).IsForwarded(isForwarded).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SendAPI.SendVideo``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -816,6 +839,7 @@ Other parameters are passed through a pointer to a apiSendVideoRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xDeviceId** | **string** | Device identifier for multi-device support. Required when multiple devices are registered. If only one device is registered, it will be used as the default. Can also be provided as &#x60;device_id&#x60; query parameter.  | 
  **phone** | **string** | Phone number with country code | 
  **caption** | **string** | Caption to send | 
  **viewOnce** | **bool** | View once | 
